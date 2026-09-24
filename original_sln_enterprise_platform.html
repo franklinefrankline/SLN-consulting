@@ -1,0 +1,1872 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SLN Consulting | Solutions for Seamless Growth</title>
+  <meta name="description" content="SLN Consulting delivers integrated solutions across Cyber Defense, Workforce & Campus Development, Language & Learning, Professional Cybersecurity, Cybersecurity Certifications, and Technology Services.">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Google Fonts: Outfit, Plus Jakarta Sans, JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['"Outfit"', 'sans-serif'],
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            petrol: {
+              950: '#040B0E',
+              900: '#071419',
+              850: '#0B1F26',
+              800: '#102B35',
+              750: '#163845',
+              700: '#1E4A5B',
+              600: '#2A6378',
+            },
+            ochre: {
+              300: '#FDE68A',
+              400: '#F5C869',
+              500: '#E5B144',
+              600: '#CA9429',
+              700: '#A37218',
+            },
+            glacier: {
+              50: '#F8FAFB',
+              100: '#F1F7F9',
+              200: '#E1EDF2',
+              300: '#C8DDE5',
+            }
+          },
+          boxShadow: {
+            'ochre-glow': '0 0 35px -5px rgba(229, 177, 68, 0.25)',
+            'petrol-card': '0 16px 36px -8px rgba(3, 8, 10, 0.75)',
+            'drawer-depth': '-15px 0 50px rgba(2, 6, 8, 0.85)',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #071419;
+      color: #F1F7F9;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .petrol-grid {
+      background-size: 56px 56px;
+      background-image: 
+        linear-gradient(to right, rgba(245, 200, 105, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(245, 200, 105, 0.03) 1px, transparent 1px);
+    }
+    /* Isolate nested scrolling and prevent scroll chaining / overscroll propagation */
+    .isolate-scroll {
+      overscroll-behavior: contain;
+      overscroll-behavior-y: contain;
+      -webkit-overflow-scrolling: touch;
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 5px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #0B1F26;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #1E4A5B;
+      border-radius: 4px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: #E5B144;
+    }
+    .page-view {
+      display: none;
+      animation: pageFadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .page-view.active {
+      display: block;
+    }
+    @keyframes pageFadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body class="selection:bg-ochre-500 selection:text-petrol-950 min-h-screen flex flex-col antialiased">
+
+  <!-- ==================== DESKTOP & MOBILE HEADER ==================== -->
+  <header class="sticky top-0 z-40 bg-petrol-900/90 backdrop-blur-lg border-b border-petrol-750 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-6">
+      
+      <!-- Brand Logo -->
+      <a href="index.html" onclick="routePage(event, 'index.html')" class="flex items-center gap-3.5 shrink-0 group focus:outline-none">
+        <img 
+          src="sln-logo.png" 
+          alt="SLN Consulting Logo" 
+          class="h-10 w-auto max-w-[175px] object-contain transition-transform group-hover:scale-[1.02]"
+          onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'flex items-center gap-3\'><div class=\'w-10 h-10 rounded-xl bg-gradient-to-tr from-ochre-600 to-ochre-400 text-petrol-950 font-display font-extrabold flex items-center justify-center text-base shadow-ochre-glow\'>SLN</div><div class=\'flex flex-col\'><span class=\'font-display font-bold text-lg text-white leading-none tracking-tight\'>SLN CONSULTING</span><span class=\'text-[9px] font-mono text-ochre-400 tracking-wider mt-1 uppercase\'>Solutions for Seamless Growth</span></div></div>';"
+        >
+      </a>
+
+      <!-- Desktop Navigation Bar (Directly visible on desktop) -->
+      <nav class="hidden lg:flex items-center gap-1.5 bg-petrol-850/90 px-3.5 py-1.5 rounded-2xl border border-petrol-750 shadow-inner">
+        <a href="index.html" onclick="routePage(event, 'index.html')" class="nav-btn px-3.5 py-1.5 text-xs font-semibold text-ochre-400 bg-petrol-800 rounded-xl transition-all" data-route="index.html">Home</a>
+        <a href="about.html" onclick="routePage(event, 'about.html')" class="nav-btn px-3.5 py-1.5 text-xs font-semibold text-slate-300 hover:text-white hover:bg-petrol-800 rounded-xl transition-all" data-route="about.html">Who We Are</a>
+
+        <!-- Our Services Dropdown Menu -->
+        <div class="relative group" id="servicesMenuRoot">
+          <button onclick="toggleServicesDropdown()" id="servicesMenuBtn" class="flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold text-slate-300 group-hover:text-white hover:bg-petrol-800 rounded-xl transition-all focus:outline-none">
+            <span>Our Services</span>
+            <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-ochre-400 group-hover:rotate-180 transition-transform duration-200"></i>
+          </button>
+
+          <!-- Dropdown Panel (100% Solid Opaque, No Glass, No Blur, Compact 2-Column Grid) -->
+          <div id="servicesDropdownPanel" class="hidden absolute top-full left-0 mt-2.5 w-[500px] bg-[#071419] rounded-2xl border border-petrol-750 p-4 shadow-2xl z-50 isolate-scroll max-h-[calc(100vh-100px)] overflow-y-auto custom-scrollbar" style="background-color: #071419 !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important;">
+            <div class="px-2 pb-2.5 mb-2.5 border-b border-petrol-750 flex items-center justify-between">
+              <span class="text-[10px] font-mono uppercase tracking-widest text-ochre-400 font-bold block">Our Services</span>
+              <span class="text-[9px] font-mono text-slate-400">Core Disciplines</span>
+            </div>
+            
+            <!-- Two-Column Grid: Left (01, 02, 03) & Right (04, 05, 06) -->
+            <div class="grid grid-cols-2 gap-2 text-xs">
+              <!-- Left Column: 01, 02, 03 -->
+              <div class="space-y-1.5">
+                <a href="offerings.html#soc-as-a-service" onclick="routePage(event, 'offerings.html', 'soc-as-a-service'); closeServicesDropdown();" class="flex items-center gap-2.5 px-3 py-2.5 rounded-xl bg-[#0B1F26] hover:bg-[#163845] border border-petrol-800 hover:border-petrol-700 transition group/item">
+                  <span class="text-[10px] font-mono text-ochre-400 font-semibold w-4 shrink-0">01</span>
+                  <i data-lucide="shield-check" class="w-4 h-4 text-ochre-400 shrink-0"></i>
+                  <span class="font-medium text-slate-200 group-hover/item:text-white">SOC-As-A-Service</span>
+                </a>
+
+                <a href="offerings.html#skilling-solutions" onclick="routePage(event, 'offerings.html', 'skilling-solutions'); closeServicesDropdown();" class="flex items-center gap-2.5 px-3 py-2.5 rounded-xl bg-[#0B1F26] hover:bg-[#163845] border border-petrol-800 hover:border-petrol-700 transition group/item">
+                  <span class="text-[10px] font-mono text-emerald-400 font-semibold w-4 shrink-0">02</span>
+                  <i data-lucide="graduation-cap" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+                  <span class="font-medium text-slate-200 group-hover/item:text-white">Skilling Solutions</span>
+                </a>
+
+                <a href="offerings.html#ec-council" onclick="routePage(event, 'offerings.html', 'ec-council'); closeServicesDropdown();" class="flex items-center gap-2.5 px-3 py-2.5 rounded-xl bg-[#0B1F26] hover:bg-[#163845] border border-petrol-800 hover:border-petrol-700 transition group/item">
+                  <span class="text-[10px] font-mono text-rose-400 font-semibold w-4 shrink-0">03</span>
+                  <i data-lucide="crosshair" class="w-4 h-4 text-rose-400 shrink-0"></i>
+                  <span class="font-medium text-slate-200 group-hover/item:text-white">EC-COUNCIL</span>
+                </a>
+              </div>
+
+              <!-- Right Column: 04, 05, 06 -->
+              <div class="space-y-1.5">
+                <a href="offerings.html#cambridge-learning" onclick="routePage(event, 'offerings.html', 'cambridge-learning'); closeServicesDropdown();" class="flex items-center gap-2.5 px-3 py-2.5 rounded-xl bg-[#0B1F26] hover:bg-[#163845] border border-petrol-800 hover:border-petrol-700 transition group/item">
+                  <span class="text-[10px] font-mono text-amber-400 font-semibold w-4 shrink-0">04</span>
+                  <i data-lucide="book-open" class="w-4 h-4 text-amber-400 shrink-0"></i>
+                  <span class="font-medium text-slate-200 group-hover/item:text-white">Cambridge Learning</span>
+                </a>
+
+                <a href="offerings.html#isc2" onclick="routePage(event, 'offerings.html', 'isc2'); closeServicesDropdown();" class="flex items-center gap-2.5 px-3 py-2.5 rounded-xl bg-[#0B1F26] hover:bg-[#163845] border border-petrol-800 hover:border-petrol-700 transition group/item">
+                  <span class="text-[10px] font-mono text-emerald-400 font-semibold w-4 shrink-0">05</span>
+                  <i data-lucide="award" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+                  <span class="font-medium text-slate-200 group-hover/item:text-white">ISC2</span>
+                </a>
+
+                <a href="offerings.html#it-services" onclick="routePage(event, 'offerings.html', 'it-services'); closeServicesDropdown();" class="flex items-center gap-2.5 px-3 py-2.5 rounded-xl bg-[#0B1F26] hover:bg-[#163845] border border-petrol-800 hover:border-petrol-700 transition group/item">
+                  <span class="text-[10px] font-mono text-cyan-400 font-semibold w-4 shrink-0">06</span>
+                  <i data-lucide="server" class="w-4 h-4 text-cyan-400 shrink-0"></i>
+                  <span class="font-medium text-slate-200 group-hover/item:text-white">IT Services</span>
+                </a>
+              </div>
+            </div>
+
+            <!-- Bottom Action: View All Services -->
+            <div class="mt-3 pt-2.5 border-t border-petrol-750 px-1">
+              <a href="offerings.html" onclick="routePage(event, 'offerings.html'); closeServicesDropdown();" class="flex items-center justify-between px-3 py-2 rounded-xl bg-[#0B1F26] hover:bg-[#163845] border border-petrol-800 hover:border-petrol-700 text-xs font-semibold text-ochre-400 hover:text-ochre-300 transition">
+                <span>View All Services</span>
+                <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <a href="training.html" onclick="routePage(event, 'training.html')" class="nav-btn px-3.5 py-1.5 text-xs font-semibold text-slate-300 hover:text-white hover:bg-petrol-800 rounded-xl transition-all" data-route="training.html">Learning Hub</a>
+        <a href="contact.html" onclick="routePage(event, 'contact.html')" class="nav-btn px-3.5 py-1.5 text-xs font-semibold text-slate-300 hover:text-white hover:bg-petrol-800 rounded-xl transition-all" data-route="contact.html">Let's Connect</a>
+      </nav>
+
+      <!-- Right Action CTA -->
+      <div class="flex items-center gap-3">
+        <a href="contact.html" onclick="routePage(event, 'contact.html')" class="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-ochre-500 to-ochre-600 hover:from-ochre-400 hover:to-ochre-500 text-petrol-950 font-display font-bold text-xs tracking-wide shadow-ochre-glow transition-all">
+          <span>Start a Conversation</span>
+          <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+        </a>
+        <button onclick="toggleMobileNav()" class="lg:hidden p-2.5 rounded-xl border border-petrol-750 bg-petrol-850 text-slate-300 hover:text-white focus:outline-none" aria-label="Toggle navigation">
+          <i data-lucide="menu" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Mobile Drawer Navigation -->
+    <div id="mobileDrawer" class="hidden lg:hidden border-t border-petrol-750 bg-petrol-900 px-6 py-5 space-y-3 isolate-scroll max-h-[calc(100vh-80px)] overflow-y-auto custom-scrollbar">
+      <a href="index.html" onclick="routePage(event, 'index.html'); toggleMobileNav();" class="block w-full text-left text-xs font-bold text-white py-1">Home</a>
+      <a href="about.html" onclick="routePage(event, 'about.html'); toggleMobileNav();" class="block w-full text-left text-xs font-bold text-slate-300 py-1">Who We Are</a>
+      <a href="offerings.html" onclick="routePage(event, 'offerings.html'); toggleMobileNav();" class="block w-full text-left text-xs font-bold text-slate-300 py-1">Our Services</a>
+      <a href="training.html" onclick="routePage(event, 'training.html'); toggleMobileNav();" class="block w-full text-left text-xs font-bold text-slate-300 py-1">Learning Hub</a>
+      <a href="contact.html" onclick="routePage(event, 'contact.html'); toggleMobileNav();" class="block w-full text-left text-xs font-bold text-ochre-400 py-1">Let's Connect</a>
+      <a href="contact.html" onclick="routePage(event, 'contact.html'); toggleMobileNav();" class="w-full mt-2 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-ochre-500 text-petrol-950 text-xs font-bold">Start a Conversation</a>
+    </div>
+  </header>
+
+  <!-- ==================== VIEW 1: HOME (index.html) ==================== -->
+  <main id="view-index" class="page-view active flex-1">
+    
+    <!-- Hero Section -->
+    <section class="relative pt-12 pb-20 lg:pt-20 lg:pb-28 border-b border-petrol-750 petrol-grid overflow-hidden">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          
+          <!-- Left Content -->
+          <div class="lg:col-span-7">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-petrol-850 border border-petrol-750 text-[11px] font-mono text-ochre-400 mb-6">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              <span>TECHNOLOGY &bull; SECURITY &bull; CAPABILITY</span>
+            </div>
+
+            <h1 class="font-display font-extrabold text-4xl sm:text-5xl lg:text-6xl text-white tracking-tight leading-[1.12]">
+              Solutions for <br>
+              <span class="bg-gradient-to-r from-ochre-400 via-ochre-300 to-amber-200 bg-clip-text text-transparent">Seamless Growth.</span>
+            </h1>
+
+            <p class="mt-5 text-base sm:text-lg text-slate-200 font-medium leading-relaxed max-w-xl">
+              Cybersecurity, technology, learning and workforce solutions for enterprises and institutions.
+            </p>
+
+            <div class="mt-8 flex flex-wrap items-center gap-4">
+              <a href="offerings.html" onclick="routePage(event, 'offerings.html')" class="px-6 py-3 rounded-xl bg-gradient-to-r from-ochre-500 to-ochre-600 hover:from-ochre-400 hover:to-ochre-500 text-petrol-950 font-display font-bold text-xs tracking-wide shadow-ochre-glow transition-all flex items-center gap-2 group">
+                <span>Explore Our Services</span>
+                <i data-lucide="arrow-right" class="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform"></i>
+              </a>
+              <a href="contact.html" onclick="routePage(event, 'contact.html')" class="px-6 py-3 rounded-xl bg-petrol-850 hover:bg-petrol-800 text-slate-200 border border-petrol-750 font-semibold text-xs transition-all flex items-center gap-2">
+                <span>Start a Conversation</span>
+                <i data-lucide="arrow-up-right" class="w-3.5 h-3.5 text-ochre-400"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- Right Distinct Hero Visual (Distinct Image 01) -->
+          <div class="lg:col-span-5 relative">
+            <div class="relative rounded-3xl border border-petrol-700 bg-petrol-850 p-3 shadow-petrol-card overflow-hidden group">
+              <div class="relative h-80 sm:h-96 w-full rounded-2xl overflow-hidden">
+                <img 
+                  src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=1200&q=80" 
+                  alt="Enterprise Cybersecurity & Infrastructure Operations" 
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-90"
+                >
+                <div class="absolute inset-0 bg-gradient-to-t from-petrol-950 via-petrol-900/30 to-transparent"></div>
+
+                <div class="absolute bottom-4 left-4 right-4 p-4 rounded-xl bg-petrol-900/95 border border-petrol-750 backdrop-blur-md">
+                  <div class="flex items-center justify-between">
+                    <div>
+                      <span class="text-[10px] font-mono uppercase text-ochre-400 font-bold block">Enterprise Enablement</span>
+                      <span class="text-xs font-display font-bold text-white mt-0.5 block">Cyber Defense, Skilling &amp; IT Ops</span>
+                    </div>
+                    <div class="w-8 h-8 rounded-lg bg-ochre-500/20 text-ochre-400 border border-ochre-500/30 flex items-center justify-center shrink-0">
+                      <i data-lucide="shield-check" class="w-4 h-4"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Services Overview (6 Exact Mandated Categories) -->
+    <section class="py-20 bg-petrol-850/60 border-b border-petrol-750">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="max-w-2xl mb-12">
+          <span class="text-xs font-mono font-bold uppercase tracking-widest text-ochre-400">Services Portfolio</span>
+          <h2 class="font-display font-bold text-3xl sm:text-4xl text-white mt-1">Core Service Disciplines</h2>
+          <p class="text-xs sm:text-sm text-slate-400 mt-2">Connecting technical defense, workforce capabilities, and reliable IT architecture.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          
+          <!-- Category 1: Cyber Defense -->
+          <a href="offerings.html#cyber-defense" onclick="routePage(event, 'offerings.html', 'cyber-defense')" class="group rounded-2xl border border-petrol-750 bg-petrol-850 overflow-hidden shadow-petrol-card hover:border-ochre-500 transition-all flex flex-col cursor-pointer">
+            <div class="h-48 overflow-hidden relative">
+              <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=700&q=80" alt="Cyber Defense Security Operations" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-85">
+              <span class="absolute top-3 left-3 px-2.5 py-0.5 rounded bg-petrol-900/90 text-[10px] font-mono text-ochre-400 border border-petrol-700 font-bold uppercase">SOC Operations</span>
+            </div>
+            <div class="p-6 flex-1 flex flex-col justify-between">
+              <div>
+                <h3 class="font-display font-bold text-lg text-white group-hover:text-ochre-400 transition-colors">Cyber Defense</h3>
+                <p class="text-xs text-slate-400 mt-2 leading-relaxed">Managed cybersecurity operations and SOC-As-A-Service designed to monitor, detect, and respond to threats across 6 core capabilities.</p>
+              </div>
+              <div class="mt-6 pt-4 border-t border-petrol-750 flex items-center justify-between text-xs font-bold text-ochre-400">
+                <span>Explore Capabilities</span>
+                <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+              </div>
+            </div>
+          </a>
+
+          <!-- Category 2: Workforce & Campus Development -->
+          <a href="offerings.html#workforce-campus" onclick="routePage(event, 'offerings.html', 'workforce-campus')" class="group rounded-2xl border border-petrol-750 bg-petrol-850 overflow-hidden shadow-petrol-card hover:border-emerald-400 transition-all flex flex-col cursor-pointer">
+            <div class="h-48 overflow-hidden relative">
+              <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=700&q=80" alt="Workforce & Campus Development" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-85">
+              <span class="absolute top-3 left-3 px-2.5 py-0.5 rounded bg-petrol-900/90 text-[10px] font-mono text-emerald-400 border border-petrol-700 font-bold uppercase">Enterprise &amp; Campus</span>
+            </div>
+            <div class="p-6 flex-1 flex flex-col justify-between">
+              <div>
+                <h3 class="font-display font-bold text-lg text-white group-hover:text-emerald-400 transition-colors">Workforce &amp; Campus Development</h3>
+                <p class="text-xs text-slate-400 mt-2 leading-relaxed">Corporate workforce upskilling, leadership workshops, student hackathons, corporate induction, and faculty TTT initiatives.</p>
+              </div>
+              <div class="mt-6 pt-4 border-t border-petrol-750 flex items-center justify-between text-xs font-bold text-emerald-400">
+                <span>Explore Programs</span>
+                <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+              </div>
+            </div>
+          </a>
+
+          <!-- Category 3: Language & Learning -->
+          <a href="offerings.html#language-learning" onclick="routePage(event, 'offerings.html', 'language-learning')" class="group rounded-2xl border border-petrol-750 bg-petrol-850 overflow-hidden shadow-petrol-card hover:border-ochre-400 transition-all flex flex-col cursor-pointer">
+            <div class="h-48 overflow-hidden relative">
+              <img src="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&w=700&q=80" alt="Language & Learning" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-85">
+              <span class="absolute top-3 left-3 px-2.5 py-0.5 rounded bg-petrol-900/90 text-[10px] font-mono text-ochre-400 border border-petrol-700 font-bold uppercase">Cambridge University Press</span>
+            </div>
+            <div class="p-6 flex-1 flex flex-col justify-between">
+              <div>
+                <h3 class="font-display font-bold text-lg text-white group-hover:text-ochre-400 transition-colors">Language &amp; Learning</h3>
+                <p class="text-xs text-slate-400 mt-2 leading-relaxed">Authorised Distributor delivering Cambridge assessment, CEFR benchmarking, and international communication skills.</p>
+              </div>
+              <div class="mt-6 pt-4 border-t border-petrol-750 flex items-center justify-between text-xs font-bold text-ochre-400">
+                <span>Explore Pathways</span>
+                <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+              </div>
+            </div>
+          </a>
+
+          <!-- Category 4: Professional Cybersecurity -->
+          <a href="offerings.html#professional-cyber" onclick="routePage(event, 'offerings.html', 'professional-cyber')" class="group rounded-2xl border border-petrol-750 bg-petrol-850 overflow-hidden shadow-petrol-card hover:border-emerald-400 transition-all flex flex-col cursor-pointer">
+            <div class="h-48 overflow-hidden relative">
+              <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=700&q=80" alt="Professional Cybersecurity" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-85">
+              <span class="absolute top-3 left-3 px-2.5 py-0.5 rounded bg-petrol-900/90 text-[10px] font-mono text-emerald-400 border border-petrol-700 font-bold uppercase">(ISC)² Partner</span>
+            </div>
+            <div class="p-6 flex-1 flex flex-col justify-between">
+              <div>
+                <h3 class="font-display font-bold text-lg text-white group-hover:text-emerald-400 transition-colors">Professional Cybersecurity</h3>
+                <p class="text-xs text-slate-400 mt-2 leading-relaxed">Official Training Partner preparation tracks for globally recognized CC, CISSP, CCSP, and CSSLP credentials.</p>
+              </div>
+              <div class="mt-6 pt-4 border-t border-petrol-750 flex items-center justify-between text-xs font-bold text-emerald-400">
+                <span>Explore Tracks</span>
+                <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+              </div>
+            </div>
+          </a>
+
+          <!-- Category 5: Cybersecurity Certifications -->
+          <a href="offerings.html#cyber-certifications" onclick="routePage(event, 'offerings.html', 'cyber-certifications')" class="group rounded-2xl border border-petrol-750 bg-petrol-850 overflow-hidden shadow-petrol-card hover:border-rose-400 transition-all flex flex-col cursor-pointer">
+            <div class="h-48 overflow-hidden relative">
+              <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=700&q=80" alt="Cybersecurity Certifications" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-85">
+              <span class="absolute top-3 left-3 px-2.5 py-0.5 rounded bg-petrol-900/90 text-[10px] font-mono text-rose-400 border border-petrol-700 font-bold uppercase">EC-Council ATC</span>
+            </div>
+            <div class="p-6 flex-1 flex flex-col justify-between">
+              <div>
+                <h3 class="font-display font-bold text-lg text-white group-hover:text-rose-400 transition-colors">Cybersecurity Certifications</h3>
+                <p class="text-xs text-slate-400 mt-2 leading-relaxed">Authorised Training Centre delivery of industry-focused programs including CEH, CND, CHFI, CPENT, CASE, CCSE, CTIA, and CSA.</p>
+              </div>
+              <div class="mt-6 pt-4 border-t border-petrol-750 flex items-center justify-between text-xs font-bold text-rose-400">
+                <span>Explore Programs</span>
+                <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+              </div>
+            </div>
+          </a>
+
+          <!-- Category 6: Technology Services -->
+          <a href="offerings.html#technology-services" onclick="routePage(event, 'offerings.html', 'technology-services')" class="group rounded-2xl border border-petrol-750 bg-petrol-850 overflow-hidden shadow-petrol-card hover:border-cyan-400 transition-all flex flex-col cursor-pointer">
+            <div class="h-48 overflow-hidden relative">
+              <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=700&q=80" alt="Technology Services" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-85">
+              <span class="absolute top-3 left-3 px-2.5 py-0.5 rounded bg-petrol-900/90 text-[10px] font-mono text-cyan-400 border border-petrol-700 font-bold uppercase">8 IT Pillars</span>
+            </div>
+            <div class="p-6 flex-1 flex flex-col justify-between">
+              <div>
+                <h3 class="font-display font-bold text-lg text-white group-hover:text-cyan-400 transition-colors">Technology Services</h3>
+                <p class="text-xs text-slate-400 mt-2 leading-relaxed">Eight complete infrastructure pillars across IT facility management, cloud computing, app engineering, and QA verification.</p>
+              </div>
+              <div class="mt-6 pt-4 border-t border-petrol-750 flex items-center justify-between text-xs font-bold text-cyan-400">
+                <span>Explore Solutions</span>
+                <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+              </div>
+            </div>
+          </a>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Why Choose SLN Section -->
+    <section class="py-20 bg-petrol-900 border-b border-petrol-750">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center max-w-xl mx-auto mb-12">
+          <span class="text-xs font-mono font-bold uppercase tracking-widest text-ochre-400">Differentiators</span>
+          <h2 class="font-display font-bold text-3xl text-white mt-1">Why Choose SLN?</h2>
+          <p class="text-xs sm:text-sm text-slate-400 mt-1.5">Strategic advantages built on verified relationships and multi-domain expertise.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          <!-- 01 Experienced Experts -->
+          <div class="p-6 rounded-2xl bg-petrol-850 border border-petrol-750 hover:border-ochre-400/60 transition-all duration-300 group">
+            <div class="flex items-center justify-between mb-4">
+              <span class="text-xs font-mono text-ochre-400 font-bold tracking-wider">01</span>
+              <div class="w-8 h-8 rounded-lg bg-petrol-800 text-ochre-400 flex items-center justify-center group-hover:bg-ochre-500/20 transition-colors">
+                <i data-lucide="user-check" class="w-4 h-4"></i>
+              </div>
+            </div>
+            <h4 class="font-display font-bold text-base text-white group-hover:text-ochre-300 transition-colors">Experienced Experts</h4>
+            <p class="text-xs text-slate-300 mt-2 leading-relaxed">Industry experience across technology, security and learning.</p>
+          </div>
+
+          <!-- 02 Customer-Centric -->
+          <div class="p-6 rounded-2xl bg-petrol-850 border border-petrol-750 hover:border-ochre-400/60 transition-all duration-300 group">
+            <div class="flex items-center justify-between mb-4">
+              <span class="text-xs font-mono text-ochre-400 font-bold tracking-wider">02</span>
+              <div class="w-8 h-8 rounded-lg bg-petrol-800 text-ochre-400 flex items-center justify-center group-hover:bg-ochre-500/20 transition-colors">
+                <i data-lucide="sliders-horizontal" class="w-4 h-4"></i>
+              </div>
+            </div>
+            <h4 class="font-display font-bold text-base text-white group-hover:text-ochre-300 transition-colors">Customer-Centric</h4>
+            <p class="text-xs text-slate-300 mt-2 leading-relaxed">Solutions shaped around organizational needs.</p>
+          </div>
+
+          <!-- 03 Technology-Aware -->
+          <div class="p-6 rounded-2xl bg-petrol-850 border border-petrol-750 hover:border-ochre-400/60 transition-all duration-300 group">
+            <div class="flex items-center justify-between mb-4">
+              <span class="text-xs font-mono text-ochre-400 font-bold tracking-wider">03</span>
+              <div class="w-8 h-8 rounded-lg bg-petrol-800 text-ochre-400 flex items-center justify-center group-hover:bg-ochre-500/20 transition-colors">
+                <i data-lucide="cpu" class="w-4 h-4"></i>
+              </div>
+            </div>
+            <h4 class="font-display font-bold text-base text-white group-hover:text-ochre-300 transition-colors">Technology-Aware</h4>
+            <p class="text-xs text-slate-300 mt-2 leading-relaxed">Aligned with changing technologies and security requirements.</p>
+          </div>
+
+          <!-- 04 Hybrid Learning -->
+          <div class="p-6 rounded-2xl bg-petrol-850 border border-petrol-750 hover:border-ochre-400/60 transition-all duration-300 group">
+            <div class="flex items-center justify-between mb-4">
+              <span class="text-xs font-mono text-ochre-400 font-bold tracking-wider">04</span>
+              <div class="w-8 h-8 rounded-lg bg-petrol-800 text-ochre-400 flex items-center justify-center group-hover:bg-ochre-500/20 transition-colors">
+                <i data-lucide="monitor-smartphone" class="w-4 h-4"></i>
+              </div>
+            </div>
+            <h4 class="font-display font-bold text-base text-white group-hover:text-ochre-300 transition-colors">Hybrid Learning</h4>
+            <p class="text-xs text-slate-300 mt-2 leading-relaxed">Flexible learning across classroom and digital environments.</p>
+          </div>
+
+          <!-- 05 Industry Partnerships -->
+          <div class="p-6 rounded-2xl bg-petrol-850 border border-petrol-750 hover:border-ochre-400/60 transition-all duration-300 group">
+            <div class="flex items-center justify-between mb-4">
+              <span class="text-xs font-mono text-ochre-400 font-bold tracking-wider">05</span>
+              <div class="w-8 h-8 rounded-lg bg-petrol-800 text-ochre-400 flex items-center justify-center group-hover:bg-ochre-500/20 transition-colors">
+                <i data-lucide="network" class="w-4 h-4"></i>
+              </div>
+            </div>
+            <h4 class="font-display font-bold text-base text-white group-hover:text-ochre-300 transition-colors">Industry Partnerships</h4>
+            <p class="text-xs text-slate-300 mt-2 leading-relaxed">Collaboration with recognized cybersecurity and technology organizations.</p>
+          </div>
+
+          <!-- 06 Enterprise + Academia -->
+          <div class="p-6 rounded-2xl bg-petrol-850 border border-petrol-750 hover:border-ochre-400/60 transition-all duration-300 group">
+            <div class="flex items-center justify-between mb-4">
+              <span class="text-xs font-mono text-ochre-400 font-bold tracking-wider">06</span>
+              <div class="w-8 h-8 rounded-lg bg-petrol-800 text-ochre-400 flex items-center justify-center group-hover:bg-ochre-500/20 transition-colors">
+                <i data-lucide="building-2" class="w-4 h-4"></i>
+              </div>
+            </div>
+            <h4 class="font-display font-bold text-base text-white group-hover:text-ochre-300 transition-colors">Enterprise + Academia</h4>
+            <p class="text-xs text-slate-300 mt-2 leading-relaxed">Supporting organizations and academic institutions.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Verified Strategic Partner Area -->
+    <section class="py-12 bg-petrol-950 border-b border-petrol-750">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 text-center">
+          <div class="p-5 rounded-2xl bg-petrol-900 border border-petrol-800">
+            <span class="text-[10px] font-mono uppercase tracking-widest text-ochre-400 font-bold block">Authorised Distributor</span>
+            <span class="text-sm font-display font-bold text-white mt-1 block">Cambridge University Press &amp; Assessment</span>
+          </div>
+          <div class="p-5 rounded-2xl bg-petrol-900 border border-petrol-800">
+            <span class="text-[10px] font-mono uppercase tracking-widest text-emerald-400 font-bold block">Official Training Partner</span>
+            <span class="text-sm font-display font-bold text-white mt-1 block">(ISC)²</span>
+          </div>
+          <div class="p-5 rounded-2xl bg-petrol-900 border border-petrol-800">
+            <span class="text-[10px] font-mono uppercase tracking-widest text-rose-400 font-bold block">Authorised Training Centre</span>
+            <span class="text-sm font-display font-bold text-white mt-1 block">EC-Council</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Training CTA -->
+    <section class="py-14 bg-petrol-850/60 border-b border-petrol-750">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+        <div>
+          <span class="text-[10px] font-mono uppercase tracking-widest text-ochre-400 font-bold">Capability Enablement</span>
+          <h3 class="font-display font-bold text-xl sm:text-2xl text-white mt-1">Explore Learning Hub</h3>
+          <p class="text-xs text-slate-400 mt-1 max-w-lg">Access workforce workshops, academic development tracks, and professional certification preparation.</p>
+        </div>
+        <a href="training.html" onclick="routePage(event, 'training.html')" class="px-5 py-2.5 rounded-xl bg-petrol-800 hover:bg-petrol-750 border border-petrol-700 text-ochre-400 text-xs font-bold transition flex items-center gap-1.5 shrink-0">
+          <span>Enter Learning Hub</span>
+          <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+        </a>
+      </div>
+    </section>
+
+    <!-- Contact CTA Banner -->
+    <section class="py-16 bg-petrol-900">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="font-display font-bold text-2xl sm:text-3xl text-white">Let's Connect for Enterprise Growth</h2>
+        <p class="text-xs sm:text-sm text-slate-300 mt-2 max-w-lg mx-auto">Discuss managed security operations, workforce development programs, or IT infrastructure requirements.</p>
+        <a href="contact.html" onclick="routePage(event, 'contact.html')" class="mt-6 inline-flex items-center gap-2 px-7 py-3 rounded-xl bg-gradient-to-r from-ochre-500 to-ochre-600 hover:from-ochre-400 hover:to-ochre-500 text-petrol-950 font-display font-bold text-xs tracking-wide shadow-ochre-glow transition">
+          <span>Start a Conversation</span>
+          <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==================== VIEW 2: ABOUT (about.html) ==================== -->
+  <main id="view-about" class="page-view flex-1">
+    
+    <!-- Hero / Overview -->
+    <section class="py-16 sm:py-24 border-b border-petrol-750 petrol-grid">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          
+          <div class="lg:col-span-7">
+            <span class="text-xs font-mono font-bold uppercase tracking-widest text-ochre-400">Institutional Charter</span>
+            <h1 class="font-display font-bold text-4xl sm:text-5xl text-white mt-1">Who We Are</h1>
+            
+            <div class="mt-5 space-y-4 text-xs sm:text-sm text-slate-300 leading-relaxed">
+              <p>
+                Established in 2022, <strong>SLN Consulting</strong> specializes in integrating and optimizing diverse systems and technologies to enhance operational efficiency.
+              </p>
+              <p>
+                The company was founded by industry veterans with extensive experience in business development, management consulting, technology integration, capacity building, and training.
+              </p>
+              <p>
+                SLN Consulting works with startups, commercial enterprises, multinational corporations, and academic institutions to build resilient operational capacity.
+              </p>
+            </div>
+
+            <div class="mt-6 flex flex-wrap gap-2 text-[11px] font-mono text-slate-300">
+              <span class="px-3 py-1 rounded-lg bg-petrol-850 border border-petrol-750">Est. 2022</span>
+              <span class="px-3 py-1 rounded-lg bg-petrol-850 border border-petrol-750">Systems Integration</span>
+              <span class="px-3 py-1 rounded-lg bg-petrol-850 border border-petrol-750">Capacity Building</span>
+              <span class="px-3 py-1 rounded-lg bg-petrol-850 border border-petrol-750">Enterprise &amp; Academia</span>
+            </div>
+          </div>
+
+          <!-- Distinct Visual for About (Distinct Image 02) -->
+          <div class="lg:col-span-5">
+            <div class="rounded-3xl border border-petrol-700 bg-petrol-850 p-3 shadow-petrol-card overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1000&q=80" alt="Executive Leadership and Architecture" class="w-full h-84 object-cover rounded-2xl opacity-85">
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Areas of Expertise (Visual Cards) -->
+    <section class="py-20 bg-petrol-850/60 border-b border-petrol-750">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center max-w-xl mx-auto mb-12">
+          <span class="text-xs font-mono font-bold uppercase tracking-widest text-ochre-400">Core Scope</span>
+          <h2 class="font-display font-bold text-3xl text-white mt-1">Areas of Expertise</h2>
+          <p class="text-xs sm:text-sm text-slate-400 mt-1.5">Delivering integrated technical, operational, and skilling capabilities.</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div class="p-6 rounded-2xl bg-petrol-900 border border-petrol-750">
+            <div class="w-9 h-9 rounded-xl bg-petrol-800 text-ochre-400 flex items-center justify-center mb-4"><i data-lucide="shield" class="w-4 h-4"></i></div>
+            <h4 class="font-display font-bold text-base text-white">Cybersecurity</h4>
+            <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">Security operations, offensive VAPT, penetration testing, threat hunting, and security governance consulting.</p>
+          </div>
+
+          <div class="p-6 rounded-2xl bg-petrol-900 border border-petrol-750">
+            <div class="w-9 h-9 rounded-xl bg-petrol-800 text-cyan-400 flex items-center justify-center mb-4"><i data-lucide="code" class="w-4 h-4"></i></div>
+            <h4 class="font-display font-bold text-base text-white">Software Development</h4>
+            <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">Full-lifecycle application engineering, responsive web platforms, API architecture, and digital portals.</p>
+          </div>
+
+          <div class="p-6 rounded-2xl bg-petrol-900 border border-petrol-750">
+            <div class="w-9 h-9 rounded-xl bg-petrol-800 text-emerald-400 flex items-center justify-center mb-4"><i data-lucide="file-text" class="w-4 h-4"></i></div>
+            <h4 class="font-display font-bold text-base text-white">Content Creation</h4>
+            <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">Curriculum architecture, instructional design, assessment content, and specialized technical documentation.</p>
+          </div>
+
+          <div class="p-6 rounded-2xl bg-petrol-900 border border-petrol-750">
+            <div class="w-9 h-9 rounded-xl bg-petrol-800 text-amber-400 flex items-center justify-center mb-4"><i data-lucide="check-circle-2" class="w-4 h-4"></i></div>
+            <h4 class="font-display font-bold text-base text-white">Application Testing</h4>
+            <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">Rigorous functional, security, compatibility, regression, and automated CI/CD software verification.</p>
+          </div>
+
+          <div class="p-6 rounded-2xl bg-petrol-900 border border-petrol-750">
+            <div class="w-9 h-9 rounded-xl bg-petrol-800 text-rose-400 flex items-center justify-center mb-4"><i data-lucide="users" class="w-4 h-4"></i></div>
+            <h4 class="font-display font-bold text-base text-white">Workforce Training</h4>
+            <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">Corporate workforce development, executive awareness, leadership programs, and employee upskilling.</p>
+          </div>
+
+          <div class="p-6 rounded-2xl bg-petrol-900 border border-petrol-750">
+            <div class="w-9 h-9 rounded-xl bg-petrol-800 text-indigo-400 flex items-center justify-center mb-4"><i data-lucide="server" class="w-4 h-4"></i></div>
+            <h4 class="font-display font-bold text-base text-white">Remote Infrastructure</h4>
+            <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">IT-enabled services, remote infrastructure management (RIM), cloud management, and facility support.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Who SLN Works With & Academia + Enterprise Engagement -->
+    <section class="py-20 bg-petrol-900 border-b border-petrol-750">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          
+          <div class="lg:col-span-6">
+            <span class="text-xs font-mono font-bold uppercase tracking-widest text-ochre-400">Audience &amp; Partners</span>
+            <h2 class="font-display font-bold text-3xl text-white mt-1">Who SLN Works With</h2>
+            <p class="text-xs sm:text-sm text-slate-300 mt-3 leading-relaxed">
+              SLN Consulting works across startups, emerging commercial enterprises, multinational corporations, and academic institutions.
+            </p>
+
+            <div class="mt-6 space-y-3 text-xs">
+              <div class="p-3.5 rounded-xl bg-petrol-850 border border-petrol-750">
+                <span class="font-bold text-white block">Startups &amp; Growing Businesses</span>
+                <span class="text-slate-400 text-[11px] block mt-0.5">Technology integration, agile software testing, and core cyber defense setup.</span>
+              </div>
+              <div class="p-3.5 rounded-xl bg-petrol-850 border border-petrol-750">
+                <span class="font-bold text-white block">Enterprises &amp; Multinational Corporations</span>
+                <span class="text-slate-400 text-[11px] block mt-0.5">Managed SOC operations, IT facility management, and workforce skilling.</span>
+              </div>
+              <div class="p-3.5 rounded-xl bg-petrol-850 border border-petrol-750">
+                <span class="font-bold text-white block">Academic Institutions &amp; Universities</span>
+                <span class="text-slate-400 text-[11px] block mt-0.5">Workshops, webinars, technical hackathons, faculty development (TTT), and student career pathing.</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="lg:col-span-6 p-8 rounded-3xl bg-petrol-850 border border-petrol-750">
+            <span class="text-xs font-mono font-bold uppercase tracking-widest text-emerald-400">Collaboration Model</span>
+            <h3 class="font-display font-bold text-2xl text-white mt-1">Academia + Enterprise Synergy</h3>
+            <p class="text-xs text-slate-300 mt-3 leading-relaxed">
+              SLN Consulting bridges the gap between academic education and enterprise operational demands through structured engagement formats:
+            </p>
+
+            <div class="mt-5 grid grid-cols-2 gap-3 text-xs text-slate-300">
+              <div class="p-3 rounded-xl bg-petrol-900 border border-petrol-750 flex items-center gap-2">
+                <i data-lucide="check" class="w-3.5 h-3.5 text-ochre-400 shrink-0"></i>
+                <span>Technical Workshops</span>
+              </div>
+              <div class="p-3 rounded-xl bg-petrol-900 border border-petrol-750 flex items-center gap-2">
+                <i data-lucide="check" class="w-3.5 h-3.5 text-ochre-400 shrink-0"></i>
+                <span>Industry Webinars</span>
+              </div>
+              <div class="p-3 rounded-xl bg-petrol-900 border border-petrol-750 flex items-center gap-2">
+                <i data-lucide="check" class="w-3.5 h-3.5 text-ochre-400 shrink-0"></i>
+                <span>Campus Hackathons</span>
+              </div>
+              <div class="p-3 rounded-xl bg-petrol-900 border border-petrol-750 flex items-center gap-2">
+                <i data-lucide="check" class="w-3.5 h-3.5 text-ochre-400 shrink-0"></i>
+                <span>Faculty TTT Programs</span>
+              </div>
+              <div class="p-3 rounded-xl bg-petrol-900 border border-petrol-750 flex items-center gap-2">
+                <i data-lucide="check" class="w-3.5 h-3.5 text-ochre-400 shrink-0"></i>
+                <span>Corporate Induction</span>
+              </div>
+              <div class="p-3 rounded-xl bg-petrol-900 border border-petrol-750 flex items-center gap-2">
+                <i data-lucide="check" class="w-3.5 h-3.5 text-ochre-400 shrink-0"></i>
+                <span>Workforce Upskilling</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Subsidiary Highlight: CYBERNXTGEN -->
+    <section class="py-20 bg-petrol-850/60 border-b border-petrol-750">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="p-8 sm:p-12 rounded-3xl bg-petrol-900 border border-petrol-700 shadow-petrol-card grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          <div class="lg:col-span-8">
+            <div class="inline-flex items-center gap-2 px-3 py-0.5 rounded bg-ochre-500/20 text-ochre-400 text-[10px] font-mono font-bold mb-3">
+              <span>SLN ECOSYSTEM SUBSIDIARY</span>
+            </div>
+            <h3 class="font-display font-bold text-2xl sm:text-3xl text-white">CYBERNXTGEN</h3>
+            <span class="text-xs font-mono text-ochre-400 block mt-1 font-semibold">Cybersecurity Skilling &bull; Upskilling &bull; Reskilling</span>
+            <p class="text-xs sm:text-sm text-slate-300 mt-3 leading-relaxed">
+              CYBERNXTGEN is a subsidiary of SLN Consulting focused specifically on skilling, upskilling, and reskilling the global workforce in cybersecurity. Designed to bridge the global security talent shortage with hands-on, job-ready capabilities.
+            </p>
+          </div>
+
+          <div class="lg:col-span-4 flex justify-start lg:justify-end">
+            <a href="contact.html" onclick="routePage(event, 'contact.html')" class="px-6 py-3 rounded-xl bg-gradient-to-r from-ochre-500 to-ochre-600 hover:from-ochre-400 hover:to-ochre-500 text-petrol-950 font-display font-bold text-xs tracking-wide shadow-ochre-glow transition">
+              Inquire About Cyber Programs
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==================== VIEW 3: OUR SERVICES (offerings.html) ==================== -->
+  <main id="view-offerings" class="page-view flex-1">
+    
+    <!-- Intro Header -->
+    <section class="py-16 border-b border-petrol-750 petrol-grid">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-3xl">
+        <span class="text-xs font-mono font-bold uppercase tracking-widest text-ochre-400">Structured Portfolio</span>
+        <h1 class="font-display font-bold text-4xl sm:text-5xl text-white mt-1">Our Services</h1>
+        <p class="text-xs sm:text-sm text-slate-300 mt-3 leading-relaxed">
+          Integrated solutions across Cyber Defense, Workforce &amp; Campus Development, Language &amp; Learning, Professional Cybersecurity, Cybersecurity Certifications, and Technology Services.
+        </p>
+      </div>
+    </section>
+
+    <!-- 01 SOC-AS-A-SERVICE (Clearly communicates SOC-As-A-Service + 6 core capabilities) -->
+    <section id="soc-as-a-service" class="py-20 border-b border-petrol-750 bg-petrol-900">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+          
+          <!-- Distinct Visual for Cyber Defense (Distinct Image 03) -->
+          <div class="lg:col-span-6">
+            <div class="rounded-3xl border border-petrol-700 overflow-hidden shadow-petrol-card relative">
+              <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1200&q=80" alt="Cyber Defense Security Operations Center" class="w-full h-84 sm:h-96 object-cover opacity-85">
+              <div class="absolute inset-0 bg-gradient-to-t from-petrol-950 via-transparent to-transparent"></div>
+              <span class="absolute top-4 left-4 px-3 py-1 rounded bg-petrol-900/90 text-[10px] font-mono text-ochre-400 border border-petrol-700 font-bold uppercase">SOC-As-A-Service</span>
+            </div>
+          </div>
+
+          <div class="lg:col-span-6">
+            <span class="text-xs font-mono font-bold uppercase tracking-widest text-ochre-400">01 &bull; DEFENSIVE OPERATIONS</span>
+            <h2 class="font-display font-bold text-3xl text-white mt-1">SOC-As-A-Service</h2>
+            <p class="text-xs sm:text-sm text-slate-300 mt-3 leading-relaxed">
+              Delivering continuous security operations, threat detection, and defensive posture management through six core capabilities:
+            </p>
+
+            <!-- Exactly 6 Core Capabilities -->
+            <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs">
+              <div class="p-3 bg-petrol-850 rounded-xl border border-petrol-750 flex items-center gap-2">
+                <i data-lucide="shield-check" class="w-4 h-4 text-ochre-400 shrink-0"></i>
+                <span class="font-semibold text-white">Managed Detection &amp; Response (MDR)</span>
+              </div>
+              <div class="p-3 bg-petrol-850 rounded-xl border border-petrol-750 flex items-center gap-2">
+                <i data-lucide="database" class="w-4 h-4 text-ochre-400 shrink-0"></i>
+                <span class="font-semibold text-white">SIEM &amp; Log Management</span>
+              </div>
+              <div class="p-3 bg-petrol-850 rounded-xl border border-petrol-750 flex items-center gap-2">
+                <i data-lucide="radar" class="w-4 h-4 text-ochre-400 shrink-0"></i>
+                <span class="font-semibold text-white">Threat Intelligence</span>
+              </div>
+              <div class="p-3 bg-petrol-850 rounded-xl border border-petrol-750 flex items-center gap-2">
+                <i data-lucide="alert-triangle" class="w-4 h-4 text-ochre-400 shrink-0"></i>
+                <span class="font-semibold text-white">Incident Response &amp; Forensics</span>
+              </div>
+              <div class="p-3 bg-petrol-850 rounded-xl border border-petrol-750 flex items-center gap-2">
+                <i data-lucide="crosshair" class="w-4 h-4 text-ochre-400 shrink-0"></i>
+                <span class="font-semibold text-white">VAPT &amp; Security Testing</span>
+              </div>
+              <div class="p-3 bg-petrol-850 rounded-xl border border-petrol-750 flex items-center gap-2">
+                <i data-lucide="target" class="w-4 h-4 text-ochre-400 shrink-0"></i>
+                <span class="font-semibold text-white">Red Teaming &amp; Threat Hunting</span>
+              </div>
+            </div>
+
+            <div class="mt-7">
+              <button onclick="openDrawer('cyber-defense')" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-ochre-500 to-ochre-600 hover:from-ochre-400 hover:to-ochre-500 text-petrol-950 font-display font-bold text-xs tracking-wide shadow-ochre-glow transition flex items-center gap-2">
+                <span>View Core Capabilities</span>
+                <i data-lucide="sliders" class="w-3.5 h-3.5"></i>
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 02 SKILLING SOLUTIONS (Split into Corporate Learning & Academic Programs) -->
+    <section id="skilling-solutions" class="py-20 border-b border-petrol-750 bg-petrol-850/60">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="max-w-2xl mb-12">
+          <span class="text-xs font-mono font-bold uppercase tracking-widest text-emerald-400">02 &bull; TALENT ENABLEMENT</span>
+          <h2 class="font-display font-bold text-3xl text-white mt-1">Skilling Solutions</h2>
+          <p class="text-xs sm:text-sm text-slate-400 mt-2">Comprehensive skilling frameworks bridging enterprise technical excellence and university career readiness.</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          
+          <!-- Corporate Learning (Distinct Image 04) -->
+          <div class="p-6 sm:p-8 rounded-3xl bg-petrol-900 border border-petrol-750 shadow-petrol-card flex flex-col justify-between">
+            <div>
+              <div class="h-48 rounded-2xl overflow-hidden relative mb-6">
+                <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=700&q=80" alt="Corporate Learning" class="w-full h-full object-cover opacity-85">
+                <span class="absolute top-3 left-3 px-2.5 py-0.5 rounded bg-petrol-900/90 text-[10px] font-mono text-emerald-400 border border-petrol-700 font-bold uppercase">Corporate Learning</span>
+              </div>
+              <h3 class="font-display font-bold text-xl text-white">Corporate Learning</h3>
+              <p class="text-xs text-slate-400 mt-2 leading-relaxed">Workforce upskilling and executive capability development across key technology sectors.</p>
+              
+              <div class="mt-4 flex flex-wrap gap-1.5 text-[10px] font-mono text-slate-300">
+                <span class="px-2 py-0.5 rounded bg-petrol-800 border border-petrol-750">Cybersecurity</span>
+                <span class="px-2 py-0.5 rounded bg-petrol-800 border border-petrol-750">Data Sciences</span>
+                <span class="px-2 py-0.5 rounded bg-petrol-800 border border-petrol-750">Cloud Computing</span>
+                <span class="px-2 py-0.5 rounded bg-petrol-800 border border-petrol-750">Network Management</span>
+                <span class="px-2 py-0.5 rounded bg-petrol-800 border border-petrol-750">AI &amp; ML</span>
+                <span class="px-2 py-0.5 rounded bg-petrol-800 border border-petrol-750">Soft Skills</span>
+                <span class="px-2 py-0.5 rounded bg-petrol-800 border border-petrol-750">Leadership</span>
+              </div>
+            </div>
+
+            <div class="mt-8 pt-4 border-t border-petrol-750">
+              <button onclick="openDrawer('corporate-workshops')" class="text-xs font-bold text-ochre-400 hover:text-white flex items-center gap-1.5">
+                <span>Explore Corporate Workshops &rarr;</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Academic Programs (Distinct Image 05) -->
+          <div class="p-6 sm:p-8 rounded-3xl bg-petrol-900 border border-petrol-750 shadow-petrol-card flex flex-col justify-between">
+            <div>
+              <div class="h-48 rounded-2xl overflow-hidden relative mb-6">
+                <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=700&q=80" alt="Academic Programs" class="w-full h-full object-cover opacity-85">
+                <span class="absolute top-3 left-3 px-2.5 py-0.5 rounded bg-petrol-900/90 text-[10px] font-mono text-cyan-400 border border-petrol-700 font-bold uppercase">Academic Programs</span>
+              </div>
+              <h3 class="font-display font-bold text-xl text-white">Academic Programs</h3>
+              <p class="text-xs text-slate-400 mt-2 leading-relaxed">Career pathway definition, SME webinars, student hackathons, induction training, and faculty TTT.</p>
+              
+              <div class="mt-4 flex flex-wrap gap-1.5 text-[10px] font-mono text-slate-300">
+                <span class="px-2 py-0.5 rounded bg-petrol-800 border border-petrol-750">SME Seminars</span>
+                <span class="px-2 py-0.5 rounded bg-petrol-800 border border-petrol-750">Hackathons</span>
+                <span class="px-2 py-0.5 rounded bg-petrol-800 border border-petrol-750">Faculty TTT</span>
+                <span class="px-2 py-0.5 rounded bg-petrol-800 border border-petrol-750">Career Readiness</span>
+                <span class="px-2 py-0.5 rounded bg-petrol-800 border border-petrol-750">Induction Training</span>
+              </div>
+            </div>
+
+            <div class="mt-8 pt-4 border-t border-petrol-750">
+              <button onclick="openDrawer('campus-workshops')" class="text-xs font-bold text-ochre-400 hover:text-white flex items-center gap-1.5">
+                <span>Explore Campus Programs &rarr;</span>
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 03 CAMBRIDGE LEARNING (Cambridge University Press Authorised Distributor) -->
+    <section id="cambridge-learning" class="py-20 border-b border-petrol-750 bg-petrol-900">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+          <div class="lg:col-span-6">
+            <div class="inline-flex items-center gap-2 px-3 py-0.5 rounded bg-ochre-500/20 text-ochre-400 text-[10px] font-mono border border-ochre-500/30 mb-2">
+              <span>Authorised Distributor</span>
+            </div>
+            <span class="text-xs font-mono font-bold uppercase tracking-widest text-ochre-400 block mb-1">03 &bull; GLOBAL COMMUNICATION</span>
+            <h2 class="font-display font-bold text-3xl text-white">Cambridge Learning</h2>
+            <p class="text-xs sm:text-sm text-slate-300 mt-3 leading-relaxed">
+              Assessment and language competency solutions delivered through SLN's relationship with <strong>Cambridge University Press &amp; Assessment</strong>.
+            </p>
+
+            <div class="mt-6 grid grid-cols-2 gap-3 text-xs">
+              <div class="p-3 bg-petrol-850 rounded-xl border border-petrol-750 font-semibold text-white">English for Academic Ability</div>
+              <div class="p-3 bg-petrol-850 rounded-xl border border-petrol-750 font-semibold text-white">English as a Skill</div>
+              <div class="p-3 bg-petrol-850 rounded-xl border border-petrol-750 font-semibold text-white">English for Employability</div>
+              <div class="p-3 bg-petrol-850 rounded-xl border border-petrol-750 font-semibold text-white">English for International Mobility</div>
+            </div>
+
+            <div class="mt-7">
+              <button onclick="openDrawer('cambridge')" class="px-5 py-2.5 rounded-xl bg-petrol-850 hover:bg-petrol-800 text-ochre-400 border border-petrol-750 font-semibold text-xs transition flex items-center gap-2">
+                <span>View CEFR &amp; Objectives</span>
+                <i data-lucide="sliders" class="w-3.5 h-3.5"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Distinct Visual for Language & Learning (Distinct Image 06) -->
+          <div class="lg:col-span-6">
+            <div class="rounded-3xl border border-petrol-700 overflow-hidden shadow-petrol-card">
+              <img src="https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&w=1200&q=80" alt="Cambridge Language & Learning Assessment" class="w-full h-84 sm:h-96 object-cover opacity-85">
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 04 ISC2 ((ISC)² Official Training Partner) -->
+    <section id="isc2" class="py-20 border-b border-petrol-750 bg-petrol-850/60">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          
+          <!-- Distinct Visual for Professional Cybersecurity (Distinct Image 07) -->
+          <div class="lg:col-span-6">
+            <div class="rounded-3xl border border-petrol-700 overflow-hidden shadow-petrol-card relative">
+              <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=1200&q=80" alt="Professional Cybersecurity Certification Lab" class="w-full h-84 sm:h-96 object-cover opacity-85">
+              <div class="absolute inset-0 bg-gradient-to-t from-petrol-950 via-transparent to-transparent"></div>
+              <span class="absolute top-4 left-4 px-3 py-1 rounded bg-petrol-900/90 text-[10px] font-mono text-emerald-400 border border-petrol-700 font-bold uppercase">Official Training Partner</span>
+            </div>
+          </div>
+
+          <!-- Content -->
+          <div class="lg:col-span-6">
+            <span class="text-xs font-mono font-bold uppercase tracking-widest text-emerald-400">04 &bull; (ISC)² CREDENTIAL TRACKS</span>
+            <h2 class="font-display font-bold text-3xl text-white mt-1">ISC2</h2>
+            <p class="text-xs sm:text-sm text-slate-300 mt-3 leading-relaxed">
+              SLN Consulting provides authorized training and candidate preparation as an Official Training Partner of (ISC)². (Certifications are awarded directly by (ISC)² upon examination).
+            </p>
+
+            <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+              <div class="p-4 rounded-xl bg-petrol-900 border border-petrol-750">
+                <span class="text-[10px] font-mono font-bold text-emerald-400 uppercase">ENTRY-LEVEL</span>
+                <h4 class="font-bold text-white text-sm mt-0.5">CC</h4>
+                <p class="text-slate-400 text-[11px] mt-1">Certified in Cybersecurity foundational track.</p>
+              </div>
+
+              <div class="p-4 rounded-xl bg-petrol-900 border border-petrol-750">
+                <span class="text-[10px] font-mono font-bold text-emerald-400 uppercase">CLOUD SECURITY</span>
+                <h4 class="font-bold text-white text-sm mt-0.5">CCSP</h4>
+                <p class="text-slate-400 text-[11px] mt-1">Certified Cloud Security Professional architecture.</p>
+              </div>
+
+              <div class="p-4 rounded-xl bg-petrol-900 border border-petrol-750">
+                <span class="text-[10px] font-mono font-bold text-emerald-400 uppercase">SOFTWARE SECURITY</span>
+                <h4 class="font-bold text-white text-sm mt-0.5">CSSLP</h4>
+                <p class="text-slate-400 text-[11px] mt-1">Certified Secure Software Lifecycle development.</p>
+              </div>
+
+              <div class="p-4 rounded-xl bg-petrol-900 border border-petrol-750">
+                <span class="text-[10px] font-mono font-bold text-emerald-400 uppercase">LEADERSHIP &amp; OPS</span>
+                <h4 class="font-bold text-white text-sm mt-0.5">CISSP</h4>
+                <p class="text-slate-400 text-[11px] mt-1">Certified Information Systems Security Professional.</p>
+              </div>
+            </div>
+
+            <div class="mt-7">
+              <button onclick="openDrawer('certs')" class="px-5 py-2.5 rounded-xl bg-petrol-850 hover:bg-petrol-800 text-emerald-400 border border-petrol-700 font-semibold text-xs transition flex items-center gap-2">
+                <span>View Program Specs</span>
+                <i data-lucide="sliders" class="w-3.5 h-3.5"></i>
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 05 EC-COUNCIL (EC-Council Authorised Training Centre) -->
+    <section id="ec-council" class="py-20 border-b border-petrol-750 bg-petrol-900">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          
+          <!-- Content & Badges -->
+          <div class="lg:col-span-6 order-2 lg:order-1">
+            <span class="text-xs font-mono font-bold uppercase tracking-widest text-rose-400">05 &bull; EC-COUNCIL ACCREDITATION</span>
+            <h2 class="font-display font-bold text-3xl text-white mt-1">EC-COUNCIL</h2>
+            <p class="text-xs sm:text-sm text-slate-300 mt-3 leading-relaxed">
+              Official training and lab preparation delivered through SLN Consulting's Authorised Training Centre relationship with EC-Council. (Certifications awarded by EC-Council).
+            </p>
+
+            <!-- 8 Exact EC-Council Programs -->
+            <div class="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-2.5 text-center text-xs">
+              <div class="p-3 bg-petrol-850 rounded-xl border border-petrol-750 hover:border-rose-400 transition">
+                <span class="font-bold text-white block">CEH</span>
+                <span class="text-[10px] text-slate-400 mt-0.5 block">Ethical Hacker</span>
+              </div>
+              <div class="p-3 bg-petrol-850 rounded-xl border border-petrol-750 hover:border-rose-400 transition">
+                <span class="font-bold text-white block">CND</span>
+                <span class="text-[10px] text-slate-400 mt-0.5 block">Network Defender</span>
+              </div>
+              <div class="p-3 bg-petrol-850 rounded-xl border border-petrol-750 hover:border-rose-400 transition">
+                <span class="font-bold text-white block">CHFI</span>
+                <span class="text-[10px] text-slate-400 mt-0.5 block">Forensics</span>
+              </div>
+              <div class="p-3 bg-petrol-850 rounded-xl border border-petrol-750 hover:border-rose-400 transition">
+                <span class="font-bold text-white block">CPENT</span>
+                <span class="text-[10px] text-slate-400 mt-0.5 block">Pen Testing</span>
+              </div>
+              <div class="p-3 bg-petrol-850 rounded-xl border border-petrol-750 hover:border-rose-400 transition">
+                <span class="font-bold text-white block">CASE</span>
+                <span class="text-[10px] text-slate-400 mt-0.5 block">App Security</span>
+              </div>
+              <div class="p-3 bg-petrol-850 rounded-xl border border-petrol-750 hover:border-rose-400 transition">
+                <span class="font-bold text-white block">CCSE</span>
+                <span class="text-[10px] text-slate-400 mt-0.5 block">Cloud Security</span>
+              </div>
+              <div class="p-3 bg-petrol-850 rounded-xl border border-petrol-750 hover:border-rose-400 transition">
+                <span class="font-bold text-white block">CTIA</span>
+                <span class="text-[10px] text-slate-400 mt-0.5 block">Threat Intel</span>
+              </div>
+              <div class="p-3 bg-petrol-850 rounded-xl border border-petrol-750 hover:border-rose-400 transition">
+                <span class="font-bold text-white block">CSA</span>
+                <span class="text-[10px] text-slate-400 mt-0.5 block">SOC Analyst</span>
+              </div>
+            </div>
+
+            <div class="mt-7">
+              <button onclick="openDrawer('certs')" class="px-5 py-2.5 rounded-xl bg-petrol-850 hover:bg-petrol-800 text-rose-400 border border-petrol-700 font-semibold text-xs transition flex items-center gap-2">
+                <span>View Program Specs</span>
+                <i data-lucide="sliders" class="w-3.5 h-3.5"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Distinct Visual for EC-Council (Distinct Image 08) -->
+          <div class="lg:col-span-6 order-1 lg:order-2">
+            <div class="rounded-3xl border border-petrol-700 overflow-hidden shadow-petrol-card relative">
+              <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=1200&q=80" alt="Ethical Hacking Range & Offensive Security" class="w-full h-84 sm:h-96 object-cover opacity-85">
+              <div class="absolute inset-0 bg-gradient-to-t from-petrol-950 via-transparent to-transparent"></div>
+              <span class="absolute top-4 left-4 px-3 py-1 rounded bg-petrol-900/90 text-[10px] font-mono text-rose-400 border border-petrol-700 font-bold uppercase">Authorised Training Centre</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 06 IT SERVICES (All 8 verified real areas) -->
+    <section id="it-services" class="py-20 border-b border-petrol-750 bg-petrol-850/60">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Large Creative Infrastructure Visual Header (Distinct Image 09) -->
+        <div class="rounded-3xl border border-petrol-700 overflow-hidden shadow-petrol-card relative mb-12">
+          <div class="h-64 sm:h-80 w-full relative">
+            <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1400&q=80" alt="Enterprise Cloud Infrastructure" class="w-full h-full object-cover opacity-80">
+            <div class="absolute inset-0 bg-gradient-to-t from-petrol-950 via-petrol-900/50 to-transparent"></div>
+            
+            <div class="absolute bottom-6 left-6 right-6 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+              <div>
+                <span class="text-xs font-mono font-bold uppercase tracking-widest text-cyan-400">06 &bull; ENTERPRISE IT ENABLEMENT</span>
+                <h2 class="font-display font-bold text-3xl sm:text-4xl text-white mt-1">IT Services</h2>
+                <p class="text-xs sm:text-sm text-slate-300 mt-2 max-w-xl">Technology and IT services supporting organizations with infrastructure, software, testing, and operational requirements.</p>
+              </div>
+              <button onclick="openDrawer('tech-services')" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-ochre-500 to-ochre-600 hover:from-ochre-400 hover:to-ochre-500 text-petrol-950 font-display font-bold text-xs tracking-wide shadow-ochre-glow transition flex items-center gap-2 shrink-0">
+                <span>View Full Specifications</span>
+                <i data-lucide="sliders" class="w-3.5 h-3.5"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 8 Compact Service Tiles with Expandable Triggers -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div class="p-5 rounded-2xl bg-petrol-900 border border-petrol-750 hover:border-cyan-400 transition cursor-pointer" onclick="openDrawer('tech-services')">
+            <div class="w-8 h-8 rounded-lg bg-petrol-800 text-cyan-400 flex items-center justify-center mb-3"><i data-lucide="globe" class="w-4 h-4"></i></div>
+            <h4 class="font-bold text-sm text-white">Website Creation &amp; Maintenance</h4>
+            <p class="text-xs text-slate-400 mt-1">Planning, responsive design, hosting, security, and SSL maintenance.</p>
+          </div>
+
+          <div class="p-5 rounded-2xl bg-petrol-900 border border-petrol-750 hover:border-cyan-400 transition cursor-pointer" onclick="openDrawer('tech-services')">
+            <div class="w-8 h-8 rounded-lg bg-petrol-800 text-cyan-400 flex items-center justify-center mb-3"><i data-lucide="smartphone" class="w-4 h-4"></i></div>
+            <h4 class="font-bold text-sm text-white">App Development Services</h4>
+            <p class="text-xs text-slate-400 mt-1">Mobile and desktop application engineering, UX design, and deployment.</p>
+          </div>
+
+          <div class="p-5 rounded-2xl bg-petrol-900 border border-petrol-750 hover:border-cyan-400 transition cursor-pointer" onclick="openDrawer('tech-services')">
+            <div class="w-8 h-8 rounded-lg bg-petrol-800 text-cyan-400 flex items-center justify-center mb-3"><i data-lucide="server" class="w-4 h-4"></i></div>
+            <h4 class="font-bold text-sm text-white">IT Facility Management</h4>
+            <p class="text-xs text-slate-400 mt-1">I-FMS operations, server management, data centers, and IT support.</p>
+          </div>
+
+          <div class="p-5 rounded-2xl bg-petrol-900 border border-petrol-750 hover:border-cyan-400 transition cursor-pointer" onclick="openDrawer('tech-services')">
+            <div class="w-8 h-8 rounded-lg bg-petrol-800 text-cyan-400 flex items-center justify-center mb-3"><i data-lucide="cloud" class="w-4 h-4"></i></div>
+            <h4 class="font-bold text-sm text-white">Cloud Computing</h4>
+            <p class="text-xs text-slate-400 mt-1">IaaS, PaaS, SaaS, multi-cloud models, storage, and security.</p>
+          </div>
+
+          <div class="p-5 rounded-2xl bg-petrol-900 border border-petrol-750 hover:border-cyan-400 transition cursor-pointer" onclick="openDrawer('tech-services')">
+            <div class="w-8 h-8 rounded-lg bg-petrol-800 text-cyan-400 flex items-center justify-center mb-3"><i data-lucide="network" class="w-4 h-4"></i></div>
+            <h4 class="font-bold text-sm text-white">Network Solutions</h4>
+            <p class="text-xs text-slate-400 mt-1">Real-time device monitoring, firewalls, IDS/IPS, and audits.</p>
+          </div>
+
+          <div class="p-5 rounded-2xl bg-petrol-900 border border-petrol-750 hover:border-cyan-400 transition cursor-pointer" onclick="openDrawer('tech-services')">
+            <div class="w-8 h-8 rounded-lg bg-petrol-800 text-cyan-400 flex items-center justify-center mb-3"><i data-lucide="shield-alert" class="w-4 h-4"></i></div>
+            <h4 class="font-bold text-sm text-white">Cybersecurity Consulting</h4>
+            <p class="text-xs text-slate-400 mt-1">Risk assessments, security policies, compliance, and VAPT.</p>
+          </div>
+
+          <div class="p-5 rounded-2xl bg-petrol-900 border border-petrol-750 hover:border-cyan-400 transition cursor-pointer" onclick="openDrawer('tech-services')">
+            <div class="w-8 h-8 rounded-lg bg-petrol-800 text-cyan-400 flex items-center justify-center mb-3"><i data-lucide="check-square" class="w-4 h-4"></i></div>
+            <h4 class="font-bold text-sm text-white">Application Testing</h4>
+            <p class="text-xs text-slate-400 mt-1">Functional, security, compatibility, regression, and CI/CD testing.</p>
+          </div>
+
+          <div class="p-5 rounded-2xl bg-petrol-900 border border-petrol-750 hover:border-cyan-400 transition cursor-pointer" onclick="openDrawer('tech-services')">
+            <div class="w-8 h-8 rounded-lg bg-petrol-800 text-cyan-400 flex items-center justify-center mb-3"><i data-lucide="pie-chart" class="w-4 h-4"></i></div>
+            <h4 class="font-bold text-sm text-white">IT Resource Planning &amp; Management</h4>
+            <p class="text-xs text-slate-400 mt-1">Hardware/software allocation, expertise alignment, and cost efficiency.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Consultation CTA -->
+    <section class="py-16 bg-petrol-900">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="font-display font-bold text-2xl sm:text-3xl text-white">Discuss Scope &amp; Implementation</h2>
+        <p class="text-xs sm:text-sm text-slate-300 mt-2 max-w-lg mx-auto">Our advisory team is ready to evaluate your technical scope and deliver tailored solutions.</p>
+        <a href="contact.html" onclick="routePage(event, 'contact.html')" class="mt-6 inline-flex items-center gap-2 px-7 py-3 rounded-xl bg-gradient-to-r from-ochre-500 to-ochre-600 hover:from-ochre-400 hover:to-ochre-500 text-petrol-950 font-display font-bold text-xs tracking-wide shadow-ochre-glow transition">
+          <span>Start a Conversation</span>
+          <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==================== VIEW 4: LEARNING HUB (training.html) ==================== -->
+  <main id="view-training" class="page-view flex-1">
+    
+    <!-- Hero (Distinct Image 10) -->
+    <section class="py-16 sm:py-24 border-b border-petrol-750 petrol-grid">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          
+          <div class="lg:col-span-6">
+            <span class="text-xs font-mono font-bold uppercase tracking-widest text-ochre-400">Workforce &amp; Academic Enablement</span>
+            <h1 class="font-display font-bold text-4xl sm:text-5xl text-white mt-1">Learning Hub</h1>
+            <p class="text-xs sm:text-sm text-slate-300 mt-4 leading-relaxed">
+              Industry-focused workforce skilling, academic university programs, and authorized certification pathways designed around practical execution.
+            </p>
+
+            <div class="mt-6 flex flex-wrap gap-2 text-[11px] font-mono text-slate-300">
+              <span class="px-3 py-1 rounded-lg bg-petrol-850 border border-petrol-750">Cybersecurity</span>
+              <span class="px-3 py-1 rounded-lg bg-petrol-850 border border-petrol-750">Cloud Computing</span>
+              <span class="px-3 py-1 rounded-lg bg-petrol-850 border border-petrol-750">AI &amp; ML</span>
+              <span class="px-3 py-1 rounded-lg bg-petrol-850 border border-petrol-750">Network Management</span>
+              <span class="px-3 py-1 rounded-lg bg-petrol-850 border border-petrol-750">Leadership</span>
+            </div>
+          </div>
+
+          <div class="lg:col-span-6">
+            <div class="rounded-3xl border border-petrol-700 bg-petrol-850 p-3 shadow-petrol-card overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=1200&q=80" alt="Technical Seminar and Learning Hub" class="w-full h-80 object-cover rounded-2xl opacity-85">
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Training Domains: Enterprise, Campus, Certifications, Cambridge -->
+    <section class="py-20 bg-petrol-850/60 border-b border-petrol-750">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          
+          <!-- Enterprise -->
+          <div class="p-6 rounded-3xl bg-petrol-900 border border-petrol-750 flex flex-col justify-between">
+            <div>
+              <span class="text-[10px] font-mono text-emerald-400 font-bold uppercase">ENTERPRISE LEARNING</span>
+              <h3 class="font-display font-bold text-lg text-white mt-1">Corporate Upskilling</h3>
+              <p class="text-xs text-slate-400 mt-2">Workforce development across C-Suite awareness, zero trust, cloud security, and leadership excellence.</p>
+            </div>
+            <button onclick="openDrawer('corporate-workshops')" class="mt-6 text-xs font-bold text-ochre-400 hover:text-white inline-flex items-center gap-1">
+              <span>View Workshops &rarr;</span>
+            </button>
+          </div>
+
+          <!-- Campus -->
+          <div class="p-6 rounded-3xl bg-petrol-900 border border-petrol-750 flex flex-col justify-between">
+            <div>
+              <span class="text-[10px] font-mono text-cyan-400 font-bold uppercase">CAMPUS PROGRAMS</span>
+              <h3 class="font-display font-bold text-lg text-white mt-1">Academic Skilling</h3>
+              <p class="text-xs text-slate-400 mt-2">Hands-on student hackathons, corporate induction, and faculty Train-The-Trainer (TTT) workshops.</p>
+            </div>
+            <button onclick="openDrawer('campus-workshops')" class="mt-6 text-xs font-bold text-ochre-400 hover:text-white inline-flex items-center gap-1">
+              <span>View Workshops &rarr;</span>
+            </button>
+          </div>
+
+          <!-- Certifications -->
+          <div class="p-6 rounded-3xl bg-petrol-900 border border-petrol-750 flex flex-col justify-between">
+            <div>
+              <span class="text-[10px] font-mono text-ochre-400 font-bold uppercase">CERTIFICATIONS</span>
+              <h3 class="font-display font-bold text-lg text-white mt-1">Professional Training</h3>
+              <p class="text-xs text-slate-400 mt-2">Authorized examination preparation for (ISC)² (CISSP, CC) and EC-Council (CEH, CPENT).</p>
+            </div>
+            <button onclick="openDrawer('certs')" class="mt-6 text-xs font-bold text-ochre-400 hover:text-white inline-flex items-center gap-1">
+              <span>View Certifications &rarr;</span>
+            </button>
+          </div>
+
+          <!-- Cambridge -->
+          <div class="p-6 rounded-3xl bg-petrol-900 border border-petrol-750 flex flex-col justify-between">
+            <div>
+              <span class="text-[10px] font-mono text-amber-400 font-bold uppercase">CAMBRIDGE LEARNING</span>
+              <h3 class="font-display font-bold text-lg text-white mt-1">Language Assessment</h3>
+              <p class="text-xs text-slate-400 mt-2">Academic ability, employability, and international mobility benchmarks aligned with CEFR.</p>
+            </div>
+            <button onclick="openDrawer('cambridge')" class="mt-6 text-xs font-bold text-ochre-400 hover:text-white inline-flex items-center gap-1">
+              <span>View CEFR Objectives &rarr;</span>
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Training Schedule Placeholder (Strictly clean, NO fake dates) -->
+    <section class="py-20 bg-petrol-900">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        
+        <div class="p-8 sm:p-12 rounded-3xl bg-petrol-850 border border-petrol-750 shadow-petrol-card">
+          <span class="text-xs font-mono font-bold uppercase tracking-widest text-ochre-400">Cohort Notifications</span>
+          <h2 class="font-display font-bold text-2xl sm:text-3xl text-white mt-1">Training Schedule</h2>
+          
+          <p class="text-xs sm:text-sm text-slate-300 mt-3 max-w-lg mx-auto leading-relaxed">
+            Explore upcoming training and learning opportunities from SLN Consulting. Institutional cohorts and corporate batches are scheduled to match calendar requirements.
+          </p>
+
+          <div class="my-6 p-4 rounded-xl bg-petrol-900 border border-petrol-750 inline-block text-xs font-mono text-slate-400">
+            Upcoming training schedules will be published here.
+          </div>
+
+          <div>
+            <a href="contact.html" onclick="routePage(event, 'contact.html')" class="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-gradient-to-r from-ochre-500 to-ochre-600 hover:from-ochre-400 hover:to-ochre-500 text-petrol-950 font-display font-bold text-xs tracking-wide shadow-ochre-glow transition">
+              <span>Inquire for Schedule &amp; Batches</span>
+              <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==================== VIEW 5: CONTACT (contact.html) ==================== -->
+  <main id="view-contact" class="page-view flex-1">
+    
+    <section class="py-16 sm:py-24 border-b border-petrol-750 petrol-grid">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+          
+          <!-- Left: Distinct Collaboration Visual (Distinct Image 11) & Verified Contact Coordinates -->
+          <div class="lg:col-span-5 space-y-6">
+            <div class="rounded-3xl border border-petrol-700 bg-petrol-850 p-3 shadow-petrol-card overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=900&q=80" alt="Consulting Advisory Collaboration" class="w-full h-64 object-cover rounded-2xl opacity-85">
+            </div>
+
+            <div class="p-6 rounded-3xl bg-petrol-850 border border-petrol-750 space-y-3 text-xs">
+              <span class="text-xs font-mono font-bold uppercase tracking-widest text-ochre-400 block mb-2">Verified Channels</span>
+              
+              <div class="flex items-center gap-3">
+                <i data-lucide="phone" class="w-4 h-4 text-ochre-400 shrink-0"></i>
+                <div>
+                  <span class="text-[10px] font-mono text-slate-400 uppercase block">Phone</span>
+                  <a href="tel:+919940196195" class="text-white font-semibold hover:text-ochre-400 transition">+91 9940196195</a>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-3 pt-2 border-t border-petrol-750">
+                <i data-lucide="mail" class="w-4 h-4 text-ochre-400 shrink-0"></i>
+                <div>
+                  <span class="text-[10px] font-mono text-slate-400 uppercase block">Email</span>
+                  <a href="mailto:srinivas.c@slnconsulting.co.in" class="text-white font-semibold hover:text-ochre-400 transition">srinivas.c@slnconsulting.co.in</a>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-3 pt-2 border-t border-petrol-750">
+                <i data-lucide="map-pin" class="w-4 h-4 text-ochre-400 shrink-0"></i>
+                <div>
+                  <span class="text-[10px] font-mono text-slate-400 uppercase block">Location</span>
+                  <span class="text-white font-semibold">Chennai-600042, India</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Simple Enquiry Form -->
+          <div class="lg:col-span-7">
+            <span class="text-xs font-mono font-bold uppercase tracking-widest text-ochre-400">Direct Inquiries</span>
+            <h2 class="font-display font-bold text-3xl sm:text-4xl text-white mt-1">Let's Connect</h2>
+            <p class="text-xs sm:text-sm text-slate-400 mt-2 leading-relaxed">
+              Tell us what your organization or institution needs, and our team will help identify the right solution.
+            </p>
+
+            <form onsubmit="handleContactSubmit(event)" class="mt-8 p-6 sm:p-8 rounded-3xl bg-petrol-850 border border-petrol-750 shadow-petrol-card space-y-4">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="text-xs font-semibold text-slate-300 block mb-1">Full Name</label>
+                  <input type="text" required placeholder="Name" class="w-full px-3.5 py-2.5 text-xs rounded-xl bg-petrol-900 border border-petrol-700 text-white focus:outline-none focus:border-ochre-400 transition">
+                </div>
+                <div>
+                  <label class="text-xs font-semibold text-slate-300 block mb-1">Business / Institution</label>
+                  <input type="text" required placeholder="Organization Name" class="w-full px-3.5 py-2.5 text-xs rounded-xl bg-petrol-900 border border-petrol-700 text-white focus:outline-none focus:border-ochre-400 transition">
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="text-xs font-semibold text-slate-300 block mb-1">Email</label>
+                  <input type="email" required placeholder="name@company.com" class="w-full px-3.5 py-2.5 text-xs rounded-xl bg-petrol-900 border border-petrol-700 text-white focus:outline-none focus:border-ochre-400 transition">
+                </div>
+                <div>
+                  <label class="text-xs font-semibold text-slate-300 block mb-1">Phone</label>
+                  <input type="tel" placeholder="+91 ..." class="w-full px-3.5 py-2.5 text-xs rounded-xl bg-petrol-900 border border-petrol-700 text-white focus:outline-none focus:border-ochre-400 transition">
+                </div>
+              </div>
+
+              <div>
+                <label class="text-xs font-semibold text-slate-300 block mb-1">Interested In</label>
+                <select class="w-full px-3.5 py-2.5 text-xs rounded-xl bg-petrol-900 border border-petrol-700 text-white focus:outline-none focus:border-ochre-400 transition">
+                  <option>Cyber Defense (SOC-As-A-Service)</option>
+                  <option>Workforce & Campus Development</option>
+                  <option>Language & Learning (Cambridge)</option>
+                  <option>Professional Cybersecurity ((ISC)²)</option>
+                  <option>Cybersecurity Certifications (EC-Council)</option>
+                  <option>Technology Services</option>
+                  <option>General Enquiry</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="text-xs font-semibold text-slate-300 block mb-1">Message</label>
+                <textarea rows="3" placeholder="Tell us about your requirements or learning objectives..." class="w-full px-3.5 py-2.5 text-xs rounded-xl bg-petrol-900 border border-petrol-700 text-white focus:outline-none focus:border-ochre-400 transition"></textarea>
+              </div>
+
+              <button type="submit" class="w-full py-3 rounded-xl bg-gradient-to-r from-ochre-500 to-ochre-600 hover:from-ochre-400 hover:to-ochre-500 text-petrol-950 font-display font-bold text-xs tracking-wide shadow-ochre-glow transition">
+                Send Enquiry
+              </button>
+            </form>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==================== COMPACT FOOTER ==================== -->
+  <footer class="bg-petrol-950 text-slate-400 pt-12 pb-8 border-t border-petrol-750">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 pb-10 border-b border-petrol-750 text-xs">
+        
+        <div class="space-y-2.5">
+          <span class="font-display font-bold text-base text-white">SLN CONSULTING</span>
+          <span class="text-[11px] font-mono text-ochre-400 block">Solutions for Seamless Growth.</span>
+          <p class="text-slate-400 text-[11px] leading-relaxed">
+            Cybersecurity, technology, learning and workforce capability solutions for enterprises and academic institutions.
+          </p>
+        </div>
+
+        <div>
+          <h4 class="font-mono text-[10px] uppercase font-bold text-white tracking-widest mb-3">Quick Links</h4>
+          <ul class="space-y-1.5 text-[11px]">
+            <li><a href="index.html" onclick="routePage(event, 'index.html')" class="hover:text-white transition">Home</a></li>
+            <li><a href="about.html" onclick="routePage(event, 'about.html')" class="hover:text-white transition">Who We Are</a></li>
+            <li><a href="offerings.html" onclick="routePage(event, 'offerings.html')" class="hover:text-white transition">Our Services</a></li>
+            <li><a href="training.html" onclick="routePage(event, 'training.html')" class="hover:text-white transition">Learning Hub</a></li>
+            <li><a href="contact.html" onclick="routePage(event, 'contact.html')" class="hover:text-white transition">Let's Connect</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="font-mono text-[10px] uppercase font-bold text-white tracking-widest mb-3">Our Services</h4>
+          <ul class="space-y-1.5 text-[11px]">
+            <li><a href="offerings.html#cyber-defense" onclick="routePage(event, 'offerings.html', 'cyber-defense')" class="hover:text-white transition">Cyber Defense</a></li>
+            <li><a href="offerings.html#workforce-campus" onclick="routePage(event, 'offerings.html', 'workforce-campus')" class="hover:text-white transition">Workforce &amp; Campus</a></li>
+            <li><a href="offerings.html#language-learning" onclick="routePage(event, 'offerings.html', 'language-learning')" class="hover:text-white transition">Language &amp; Learning</a></li>
+            <li><a href="offerings.html#professional-cybersecurity" onclick="routePage(event, 'offerings.html', 'professional-cybersecurity')" class="hover:text-white transition">Professional Cybersecurity</a></li>
+            <li><a href="offerings.html#cybersecurity-certifications" onclick="routePage(event, 'offerings.html', 'cybersecurity-certifications')" class="hover:text-white transition">Cybersecurity Certifications</a></li>
+            <li><a href="offerings.html#technology-services" onclick="routePage(event, 'offerings.html', 'technology-services')" class="hover:text-white transition">Technology Services</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="font-mono text-[10px] uppercase font-bold text-white tracking-widest mb-3">Contact</h4>
+          <ul class="space-y-2 text-[11px]">
+            <li>+91 9940196195</li>
+            <li class="break-all">srinivas.c@slnconsulting.co.in</li>
+            <li>Chennai-600042, India</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px]">
+        <div>
+          &copy; 2026 SLN Consulting. All Rights Reserved.
+        </div>
+
+        <div class="flex flex-wrap items-center gap-3.5 text-slate-500">
+          <button onclick="openPolicyModal('privacy')" class="hover:text-slate-300">Privacy Policy</button>
+          <span>&bull;</span>
+          <button onclick="openPolicyModal('terms')" class="hover:text-slate-300">Terms of Service</button>
+          <span>&bull;</span>
+          <button onclick="openPolicyModal('refund')" class="hover:text-slate-300">Cancellation &amp; Refund</button>
+          <span>&bull;</span>
+          <button onclick="openPolicyModal('shipping')" class="hover:text-slate-300">Shipping &amp; Delivery</button>
+          <span>&bull;</span>
+          <button onclick="openPolicyModal('cookie')" class="hover:text-slate-300">Cookie Policy</button>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- ==================== OFF-CANVAS CAPABILITY DRAWER ==================== -->
+  <div id="capabilityDrawerBackdrop" class="fixed inset-0 bg-black/75 backdrop-blur-sm z-50 hidden transition-opacity" onclick="closeDrawer()"></div>
+  
+  <div id="capabilityDrawer" class="fixed top-0 right-0 h-full w-full sm:w-[500px] bg-petrol-900 border-l border-petrol-700 shadow-drawer-depth z-50 transform translate-x-full transition-transform duration-300 flex flex-col isolate-scroll">
+    <div class="p-6 border-b border-petrol-750 flex items-center justify-between bg-petrol-950">
+      <div>
+        <span class="text-[10px] font-mono uppercase text-ochre-400 tracking-wider font-bold">TECHNICAL SPECIFICATION</span>
+        <h3 id="drawerTitle" class="font-display font-bold text-lg text-white mt-0.5">Capability Details</h3>
+      </div>
+      <button onclick="closeDrawer()" class="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-petrol-800"><i data-lucide="x" class="w-5 h-5"></i></button>
+    </div>
+
+    <div id="drawerBody" class="p-6 overflow-y-auto custom-scrollbar flex-1 space-y-4 text-xs text-slate-300 isolate-scroll"></div>
+
+    <div class="p-4 border-t border-petrol-750 bg-petrol-950 flex justify-between items-center">
+      <span class="text-[11px] font-mono text-slate-400">SLN Consulting Framework</span>
+      <a href="contact.html" onclick="closeDrawer(); routePage(event, 'contact.html')" class="px-4 py-2 bg-gradient-to-r from-ochre-500 to-ochre-600 hover:from-ochre-400 hover:to-ochre-500 text-petrol-950 rounded-xl text-xs font-bold shadow-ochre-glow">Start a Conversation</a>
+    </div>
+  </div>
+
+  <!-- ==================== LEGAL POLICY MODAL ==================== -->
+  <div id="policyModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-petrol-900 rounded-2xl max-w-lg w-full p-6 border border-petrol-700 shadow-2xl max-h-[85vh] flex flex-col isolate-scroll">
+      <div class="flex justify-between items-center pb-3 border-b border-petrol-750">
+        <h3 id="policyModalTitle" class="font-display font-bold text-base text-white">Policy</h3>
+        <button onclick="closePolicyModal()" class="text-slate-400 hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button>
+      </div>
+      <div id="policyModalBody" class="text-xs text-slate-300 mt-4 leading-relaxed overflow-y-auto custom-scrollbar flex-1 isolate-scroll"></div>
+      <div class="mt-6 pt-3 border-t border-petrol-750 flex justify-end">
+        <button onclick="closePolicyModal()" class="px-4 py-2 bg-petrol-850 hover:bg-petrol-800 text-white text-xs font-semibold rounded-lg">Acknowledge</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="fixed bottom-6 right-6 bg-petrol-850 text-white text-xs px-4 py-3 rounded-xl border border-petrol-700 shadow-petrol-card hidden items-center gap-2.5 z-50">
+    <i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i>
+    <span id="toastMsg">Thank you. Your enquiry has been received.</span>
+  </div>
+
+  <!-- ==================== ROUTER & INTERACTIVE LOGIC ==================== -->
+  <script>
+    // Initialize Lucide Icons
+    lucide.createIcons();
+
+    // Map URL / filename to view ID
+    const routeMap = {
+      'index.html': 'view-index',
+      'about.html': 'view-about',
+      'offerings.html': 'view-offerings',
+      'training.html': 'view-training',
+      'contact.html': 'view-contact',
+      '': 'view-index'
+    };
+
+    // Client-side router function
+    function routePage(e, pageName, anchorId = null) {
+      if (e && e.preventDefault) {
+        e.preventDefault();
+      }
+
+      const viewId = routeMap[pageName] || 'view-index';
+
+      // Switch active view
+      document.querySelectorAll('.page-view').forEach(p => p.classList.remove('active'));
+      const targetView = document.getElementById(viewId);
+      if (targetView) {
+        targetView.classList.add('active');
+      }
+
+      // Update Navigation Active State
+      document.querySelectorAll('.nav-btn').forEach(btn => {
+        const routeAttr = btn.getAttribute('data-route');
+        if (routeAttr === pageName || (pageName === 'index.html' && routeAttr === '')) {
+          btn.className = 'nav-btn px-3.5 py-1.5 text-xs font-semibold text-ochre-400 bg-petrol-800 rounded-xl transition-all';
+        } else {
+          btn.className = 'nav-btn px-3.5 py-1.5 text-xs font-semibold text-slate-300 hover:text-white hover:bg-petrol-800 rounded-xl transition-all';
+        }
+      });
+
+      // Update Browser History URL safely (guards against SecurityError in blob:/sandboxed iframe environments)
+      try {
+        const newUrl = anchorId ? `${pageName}#${anchorId}` : pageName;
+        window.history.pushState({ page: pageName, anchor: anchorId }, '', newUrl);
+      } catch (err) {
+        // Fallback for sandboxed preview / blob environments where pushState is restricted
+        try {
+          if (anchorId) {
+            window.location.hash = anchorId;
+          }
+        } catch (_) {}
+      }
+
+      // Handle anchor scrolling or scroll to top
+      if (anchorId) {
+        setTimeout(() => {
+          const el = document.getElementById(anchorId);
+          if (el) el.scrollIntoView({ behavior: 'smooth' });
+        }, 120);
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    // Handle Browser Back / Forward buttons
+    window.addEventListener('popstate', (e) => {
+      try {
+        if (e.state && e.state.page) {
+          routePage(null, e.state.page, e.state.anchor || null);
+          return;
+        }
+        const path = window.location.pathname.split('/').pop() || 'index.html';
+        const hash = window.location.hash.replace('#', '');
+        const validPage = routeMap[path] ? path : 'index.html';
+        routePage(null, validPage, hash || null);
+      } catch (_) {}
+    });
+
+    // Initial page load router
+    window.addEventListener('DOMContentLoaded', () => {
+      try {
+        const path = window.location.pathname.split('/').pop();
+        const hash = window.location.hash.replace('#', '');
+        const validPage = (path && routeMap[path]) ? path : 'index.html';
+        routePage(null, validPage, hash || null);
+      } catch (_) {
+        routePage(null, 'index.html', null);
+      }
+    });
+
+    // Dropdown helpers
+    function toggleServicesDropdown() {
+      const p = document.getElementById('servicesDropdownPanel');
+      p.classList.toggle('hidden');
+    }
+
+    function closeServicesDropdown() {
+      const p = document.getElementById('servicesDropdownPanel');
+      if (p) p.classList.add('hidden');
+    }
+
+    document.addEventListener('click', (e) => {
+      const root = document.getElementById('servicesMenuRoot');
+      const panel = document.getElementById('servicesDropdownPanel');
+      if (root && panel && !root.contains(e.target)) {
+        panel.classList.add('hidden');
+      }
+    });
+
+    // Mobile nav toggle with background scroll lock
+    function toggleMobileNav() {
+      const m = document.getElementById('mobileDrawer');
+      const isHidden = m.classList.toggle('hidden');
+      if (!isHidden) {
+        document.body.style.overflow = 'hidden';
+      } else {
+        document.body.style.overflow = '';
+      }
+    }
+
+    // Isolate wheel scrolling on specific scrollable containers to completely prevent scroll chaining
+    function isolateScrollElement(el) {
+      if (!el) return;
+      el.addEventListener('wheel', function(e) {
+        const delta = e.deltaY;
+        const up = delta < 0;
+        const scrollHeight = el.scrollHeight;
+        const height = el.clientHeight;
+        const scrollTop = el.scrollTop;
+
+        // If the element has no scrollable range, stop propagation to keep the outer page stable
+        if (scrollHeight <= height) {
+          e.preventDefault();
+          return;
+        }
+
+        // Prevent chaining at boundary limits
+        if (!up && delta > scrollHeight - height - scrollTop) {
+          el.scrollTop = scrollHeight;
+          e.preventDefault();
+        } else if (up && -delta > scrollTop) {
+          el.scrollTop = 0;
+          e.preventDefault();
+        }
+      }, { passive: false });
+    }
+
+    // Attach scroll isolator to key scrollable overlay elements on load
+    window.addEventListener('DOMContentLoaded', () => {
+      isolateScrollElement(document.getElementById('servicesDropdownPanel'));
+      isolateScrollElement(document.getElementById('drawerBody'));
+      isolateScrollElement(document.getElementById('policyModalBody'));
+      isolateScrollElement(document.getElementById('mobileDrawer'));
+    });
+
+    // Off-Canvas Drawer Data
+    const drawerCatalog = {
+      'cyber-defense': {
+        title: "Cyber Defense — Core Capabilities",
+        content: `
+          <p class="text-slate-400 mb-4">Core cybersecurity capabilities delivered under SLN Consulting's Cyber Defense &amp; SOC-As-A-Service framework:</p>
+          <div class="space-y-3">
+            <div class="p-3.5 bg-petrol-850 rounded-xl border border-petrol-750">
+              <span class="font-bold text-white block">1. Managed Detection &amp; Response (MDR)</span>
+              <p class="text-slate-400 mt-1 text-xs">Security monitoring, detection and response capabilities for organizational environments.</p>
+            </div>
+            <div class="p-3.5 bg-petrol-850 rounded-xl border border-petrol-750">
+              <span class="font-bold text-white block">2. SIEM &amp; Log Management</span>
+              <p class="text-slate-400 mt-1 text-xs">Centralized security information and event management with log collection and analysis.</p>
+            </div>
+            <div class="p-3.5 bg-petrol-850 rounded-xl border border-petrol-750">
+              <span class="font-bold text-white block">3. Threat Intelligence</span>
+              <p class="text-slate-400 mt-1 text-xs">Security intelligence to help identify and understand relevant cyber threats.</p>
+            </div>
+            <div class="p-3.5 bg-petrol-850 rounded-xl border border-petrol-750">
+              <span class="font-bold text-white block">4. Incident Response &amp; Forensics</span>
+              <p class="text-slate-400 mt-1 text-xs">Investigation and response support for security incidents and digital evidence.</p>
+            </div>
+            <div class="p-3.5 bg-petrol-850 rounded-xl border border-petrol-750">
+              <span class="font-bold text-white block">5. VAPT &amp; Security Testing</span>
+              <p class="text-slate-400 mt-1 text-xs">Vulnerability assessment and penetration testing across relevant security environments.</p>
+            </div>
+            <div class="p-3.5 bg-petrol-850 rounded-xl border border-petrol-750">
+              <span class="font-bold text-white block">6. Red Teaming &amp; Threat Hunting</span>
+              <p class="text-slate-400 mt-1 text-xs">Proactive security assessment and threat-hunting activities to identify potential weaknesses.</p>
+            </div>
+          </div>
+        `
+      },
+      'corporate-workshops': {
+        title: "Corporate Learning & Workshops",
+        content: `
+          <p class="text-slate-400 mb-4">Official SLN Consulting executive training workshops designed for corporate leadership and technical personnel:</p>
+          <div class="grid grid-cols-1 gap-2 text-xs">
+            <div class="p-2.5 bg-petrol-850 rounded-lg border border-petrol-750 text-slate-300">&bull; Cybersecurity for C-Suite Leaders</div>
+            <div class="p-2.5 bg-petrol-850 rounded-lg border border-petrol-750 text-slate-300">&bull; Cybersecurity Risks for Financial Organizations</div>
+            <div class="p-2.5 bg-petrol-850 rounded-lg border border-petrol-750 text-slate-300">&bull; Enterprise Cybersecurity Awareness</div>
+            <div class="p-2.5 bg-petrol-850 rounded-lg border border-petrol-750 text-slate-300">&bull; Critical IT &amp; Cybersecurity Infrastructure Review</div>
+            <div class="p-2.5 bg-petrol-850 rounded-lg border border-petrol-750 text-slate-300">&bull; AI for Information Security Audit</div>
+            <div class="p-2.5 bg-petrol-850 rounded-lg border border-petrol-750 text-slate-300">&bull; Threat &amp; Vulnerability Management</div>
+            <div class="p-2.5 bg-petrol-850 rounded-lg border border-petrol-750 text-slate-300">&bull; Data Security &amp; Cloud Defense</div>
+            <div class="p-2.5 bg-petrol-850 rounded-lg border border-petrol-750 text-slate-300">&bull; Zero Trust Architecture &amp; Deployment</div>
+            <div class="p-2.5 bg-petrol-850 rounded-lg border border-petrol-750 text-slate-300">&bull; Blockchain and Enterprise Adoption</div>
+            <div class="p-2.5 bg-petrol-850 rounded-lg border border-petrol-750 text-slate-300">&bull; Cybersecurity for Oil &amp; Gas Sector</div>
+            <div class="p-2.5 bg-petrol-850 rounded-lg border border-petrol-750 text-slate-300">&bull; Leadership Excellence &amp; Soft Management Skills</div>
+            <div class="p-2.5 bg-petrol-850 rounded-lg border border-petrol-750 text-slate-300">&bull; Building a Trusted Security Workforce</div>
+          </div>
+        `
+      },
+      'campus-workshops': {
+        title: "Academic Programs & Workshops",
+        content: `
+          <p class="text-slate-400 mb-4">Hands-on student and faculty capacity development programs delivered across academic campuses:</p>
+          <div class="grid grid-cols-1 gap-2 text-xs">
+            <div class="p-2.5 bg-petrol-850 rounded-lg border border-petrol-750 text-slate-300">&bull; Defining Career Path &amp; Role Mapping</div>
+            <div class="p-2.5 bg-petrol-850 rounded-lg border border-petrol-750 text-slate-300">&bull; Seminars &amp; Webinars through Industry SMEs</div>
+            <div class="p-2.5 bg-petrol-850 rounded-lg border border-petrol-750 text-slate-300">&bull; Hackathon Events &amp; Live Problem Solving</div>
+            <div class="p-2.5 bg-petrol-850 rounded-lg border border-petrol-750 text-slate-300">&bull; Preparing Students for the Corporate World</div>
+            <div class="p-2.5 bg-petrol-850 rounded-lg border border-petrol-750 text-slate-300">&bull; Corporate Induction Training</div>
+            <div class="p-2.5 bg-petrol-850 rounded-lg border border-petrol-750 text-slate-300">&bull; Soft Skills Training &amp; Workplace Articulation</div>
+            <div class="p-2.5 bg-petrol-850 rounded-lg border border-petrol-750 text-slate-300">&bull; Faculty Training &amp; Updation (Train The Trainer - TTT)</div>
+          </div>
+        `
+      },
+      'cambridge': {
+        title: "Language & Learning — Objectives & Benefits",
+        content: `
+          <div class="space-y-4">
+            <div>
+              <h4 class="font-bold text-white text-xs uppercase text-ochre-400 mb-2">Learning Objectives</h4>
+              <ul class="space-y-1.5 text-slate-300 text-xs">
+                <li>&bull; Understand current CEFR levels &amp; establish baseline competency</li>
+                <li>&bull; Improve language proficiency through structured learning paths</li>
+                <li>&bull; Understand IELTS / OET examination structures</li>
+                <li>&bull; Improve LSRW skills (Listening, Speaking, Reading, Writing)</li>
+                <li>&bull; Develop exam preparation and time management skills</li>
+              </ul>
+            </div>
+            <div class="pt-3 border-t border-petrol-750">
+              <h4 class="font-bold text-white text-xs uppercase text-ochre-400 mb-2">Institutional Benefits</h4>
+              <ul class="space-y-1.5 text-slate-300 text-xs">
+                <li>&bull; International-standard assessment of communication skills</li>
+                <li>&bull; CEFR-based official learning resources and curriculum integration</li>
+                <li>&bull; Concrete "Can-Do" statements for competency tracking</li>
+                <li>&bull; Dedicated faculty development and teaching methodologies</li>
+                <li>&bull; Additional level-specific classroom resources</li>
+              </ul>
+            </div>
+          </div>
+        `
+      },
+      'certs': {
+        title: "Professional Cybersecurity & Certifications",
+        content: `
+          <div class="space-y-4">
+            <div class="p-3.5 bg-petrol-850 rounded-xl border border-petrol-750">
+              <span class="font-bold text-emerald-400 block">Professional Cybersecurity ((ISC)²)</span>
+              <p class="text-slate-300 mt-1 text-xs">Official Training Partner preparation tracks: CC (Certified in Cybersecurity), CCSP (Cloud Security), CSSLP (Secure Software Lifecycle), and CISSP (Information Systems Security Leadership).</p>
+            </div>
+            <div class="p-3.5 bg-petrol-850 rounded-xl border border-petrol-750">
+              <span class="font-bold text-rose-400 block">Cybersecurity Certifications (EC-Council)</span>
+              <p class="text-slate-300 mt-1 text-xs">Authorised Training Centre delivery: CEH (Ethical Hacking), CND (Network Defense), CHFI (Digital Forensics), CPENT (Pen Testing), CASE, CCSE, CTIA, and CSA.</p>
+            </div>
+          </div>
+        `
+      },
+      'tech-services': {
+        title: "Technology Services — 8 Strategic Pillars",
+        content: `
+          <div class="space-y-3 text-xs">
+            <div class="p-3 bg-petrol-850 rounded-xl border border-petrol-750">
+              <span class="font-bold text-white block">01. Website Creation &amp; Maintenance</span>
+              <p class="text-slate-400 mt-1">Planning, research, responsive UI/UX design, development, secure hosting, domain registration, and SSL status monitoring.</p>
+            </div>
+            <div class="p-3 bg-petrol-850 rounded-xl border border-petrol-750">
+              <span class="font-bold text-white block">02. App Development Services</span>
+              <p class="text-slate-400 mt-1">Strategic consultation, requirement analysis, mobile and desktop platform engineering, application testing, and app store deployment.</p>
+            </div>
+            <div class="p-3 bg-petrol-850 rounded-xl border border-petrol-750">
+              <span class="font-bold text-white block">03. IT Facility Management</span>
+              <p class="text-slate-400 mt-1">I-FMS operations, 24/7 network monitoring, data center management, server operations, and hardware asset lifecycle management.</p>
+            </div>
+            <div class="p-3 bg-petrol-850 rounded-xl border border-petrol-750">
+              <span class="font-bold text-white block">04. Cloud Computing</span>
+              <p class="text-slate-400 mt-1">IaaS, PaaS, SaaS delivery across public, private, and hybrid multi-cloud models. Compute, scalable storage, and cloud security monitoring.</p>
+            </div>
+            <div class="p-3 bg-petrol-850 rounded-xl border border-petrol-750">
+              <span class="font-bold text-white block">05. Network Solutions</span>
+              <p class="text-slate-400 mt-1">Real-time device monitoring, firewall health, intrusion detection/prevention (IDS/IPS), network audits, and root cause analysis.</p>
+            </div>
+            <div class="p-3 bg-petrol-850 rounded-xl border border-petrol-750">
+              <span class="font-bold text-white block">06. Cybersecurity Consulting</span>
+              <p class="text-slate-400 mt-1">Risk assessment, security policy development, regulatory compliance alignment, incident response planning, and VAPT audits.</p>
+            </div>
+            <div class="p-3 bg-petrol-850 rounded-xl border border-petrol-750">
+              <span class="font-bold text-white block">07. Application Testing</span>
+              <p class="text-slate-400 mt-1">Functional (Unit, UI, UAT), security testing, accessibility, cross-browser compatibility, and automated regression testing in CI/CD.</p>
+            </div>
+            <div class="p-3 bg-petrol-850 rounded-xl border border-petrol-750">
+              <span class="font-bold text-white block">08. IT Resource Planning &amp; Management</span>
+              <p class="text-slate-400 mt-1">Hardware/software allocation, expertise alignment, capacity utilization, efficiency audits, and strategic cost management.</p>
+            </div>
+          </div>
+        `
+      }
+    };
+
+    function openDrawer(key) {
+      const data = drawerCatalog[key];
+      if (!data) return;
+      document.getElementById('drawerTitle').innerText = data.title;
+      document.getElementById('drawerBody').innerHTML = data.content;
+      
+      document.getElementById('capabilityDrawerBackdrop').classList.remove('hidden');
+      document.getElementById('capabilityDrawer').classList.remove('translate-x-full');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeDrawer() {
+      document.getElementById('capabilityDrawerBackdrop').classList.add('hidden');
+      document.getElementById('capabilityDrawer').classList.add('translate-x-full');
+      document.body.style.overflow = '';
+    }
+
+    // Policy Modals Handlers
+    const policyDocs = {
+      privacy: {
+        title: "Privacy Policy",
+        body: "SLN Consulting maintains strict confidentiality regarding client organizational data, candidate training profiles, and credential examination registrations. Information collected is used solely to execute authorized consulting, skilling programs, and IT services in compliance with legal standards."
+      },
+      terms: {
+        title: "Terms of Service",
+        body: "Engagement with SLN Consulting's managed SOC, certification training, and IT facilities is governed by formal statements of work (SOWs) and organizational agreements. Curriculum materials and partner courseware are protected intellectual property."
+      },
+      refund: {
+        title: "Cancellation & Refund Policy",
+        body: "Cancellation terms for training batches and official vouchers ((ISC)², EC-Council, Cambridge) must follow partner authorization guidelines and be requested prior to digital voucher dispatch or batch commencement."
+      },
+      shipping: {
+        title: "Shipping & Delivery Policy",
+        body: "All digital exam vouchers, courseware, audit reports, and service configurations are fulfilled electronically via secure communication channels within standard schedules."
+      },
+      cookie: {
+        title: "Cookie Policy",
+        body: "This website uses strictly operational cookies to support responsive page navigation and inquiry workflows without cross-site tracking."
+      }
+    };
+
+    function openPolicyModal(type) {
+      const p = policyDocs[type];
+      if (!p) return;
+      document.getElementById('policyModalTitle').innerText = p.title;
+      document.getElementById('policyModalBody').innerHTML = `<p>${p.body}</p>`;
+      document.getElementById('policyModal').classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closePolicyModal() {
+      document.getElementById('policyModal').classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+
+    // Contact Form Submit Handler
+    function handleContactSubmit(e) {
+      e.preventDefault();
+      const toast = document.getElementById('toast');
+      toast.classList.remove('hidden');
+      toast.classList.add('flex');
+      e.target.reset();
+      setTimeout(() => {
+        toast.classList.add('hidden');
+        toast.classList.remove('flex');
+      }, 4000);
+    }
+  </script>
+</body>
+</html>

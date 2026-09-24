@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SLN Consulting | Solutions for Seamless Growth</title>
+  <meta name="description" content="SLN Consulting delivers integrated corporate solutions across Cyber Defense, Workforce & Campus Development, Language & Learning, Professional Cybersecurity, Cybersecurity Certifications, and Technology Services.">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Google Fonts: Plus Jakarta Sans & Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['"Outfit"', 'sans-serif'],
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          },
+          colors: {
+            corporate: {
+              DEFAULT: '#1E3A5F',
+              dark: '#162A45',
+              light: '#2E5B88',
+            },
+            gold: {
+              DEFAULT: '#B08D57',
+              dark: '#D6A84F',
+            }
+          },
+          boxShadow: {
+            'corporate': '0 4px 20px -2px rgba(30, 58, 95, 0.08)',
+            'corporate-dark': '0 4px 20px -2px rgba(0, 0, 0, 0.3)',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Theme Variables for Mature Corporate Design */
+    :root {
+      --bg-main: #F7F7F5;
+      --bg-section: #E8E8E3;
+      --bg-card: #FFFFFF;
+      --text-main: #18202A;
+      --text-muted: #56616D;
+      --border-color: #D5D5D0;
+      --accent-primary: #1E3A5F;
+      --accent-gold: #B08D57;
+    }
+
+    .dark {
+      --bg-main: #111315;
+      --bg-section: #1B1E21;
+      --bg-card: #24282C;
+      --text-main: #F5F5F2;
+      --text-muted: #B7BCC2;
+      --border-color: #34383D;
+      --accent-primary: #3B6EA8;
+      --accent-gold: #D6A84F;
+    }
+
+    body {
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .corporate-section {
+      background-color: var(--bg-section);
+    }
+
+    .corporate-card {
+      background-color: var(--bg-card);
+      border-color: var(--border-color);
+    }
+
+    .isolate-scroll {
+      overscroll-behavior: contain;
+      overscroll-behavior-y: contain;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: rgba(0,0,0,0.05);
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: var(--border-color);
+      border-radius: 3px;
+    }
+
+    .page-view {
+      display: none;
+      animation: fadeIn 0.25s ease-in-out;
+    }
+    .page-view.active {
+      display: block;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+  
+  <script>
+    // Initialize theme prior to DOM render to prevent flash
+    if (localStorage.getItem('sln_theme') === 'dark' || (!localStorage.getItem('sln_theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  </script>
+</head>
+<body class="min-h-screen flex flex-col antialiased">
+
+  <!-- ==================== HEADER ==================== -->
+  <header class="sticky top-0 z-50 bg-[#FFFFFF] dark:bg-[#1B1E21] border-b border-[var(--border-color)] transition-colors duration-300 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-6">
+      
+      <!-- Brand Logo -->
+      <a href="index.html" onclick="routePage(event, 'index.html')" class="flex items-center gap-3.5 shrink-0 group focus:outline-none">
+        <img 
+          src="sln-logo.png" 
+          alt="SLN Consulting Logo" 
+          class="h-10 w-auto max-w-[175px] object-contain transition-transform group-hover:scale-[1.01]"
+          onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'flex items-center gap-3\'><div class=\'w-10 h-10 rounded-lg bg-[var(--accent-primary)] text-white font-display font-extrabold flex items-center justify-center text-base shadow-sm\'>SLN</div><div class=\'flex flex-col\'><span class=\'font-display font-bold text-lg text-[var(--text-main)] leading-none tracking-tight\'>SLN CONSULTING</span><span class=\'text-[9px] font-mono text-[var(--accent-gold)] tracking-wider mt-1 uppercase\'>Solutions for Seamless Growth</span></div></div>';"
+        >
+      </a>
+
+      <!-- Desktop Navigation Bar -->
+      <nav class="hidden lg:flex items-center gap-1 bg-[#F7F7F5] dark:bg-[#111315] px-3.5 py-1.5 rounded-xl border border-[var(--border-color)]">
+        <a href="index.html" onclick="routePage(event, 'index.html')" class="nav-btn px-4 py-2 text-xs font-semibold text-[var(--accent-primary)] dark:text-[var(--accent-gold)] bg-white dark:bg-[#24282C] rounded-lg shadow-sm transition-all" data-route="index.html">Home</a>
+        <a href="about.html" onclick="routePage(event, 'about.html')" class="nav-btn px-4 py-2 text-xs font-semibold text-[var(--text-muted)] hover:text-[var(--text-main)] rounded-lg transition-all" data-route="about.html">About Us</a>
+
+        <!-- Our Offerings Dropdown -->
+        <div class="relative group" id="servicesMenuRoot">
+          <button onclick="toggleServicesDropdown()" id="servicesMenuBtn" class="flex items-center gap-1.5 px-4 py-2 text-xs font-semibold text-[var(--text-muted)] group-hover:text-[var(--text-main)] rounded-lg transition-all focus:outline-none">
+            <span>Our Offerings</span>
+            <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-[var(--accent-gold)] group-hover:rotate-180 transition-transform duration-200"></i>
+          </button>
+
+          <!-- Solid Opaque Two-Column Dropdown Panel -->
+          <div id="servicesDropdownPanel" class="hidden absolute top-full left-0 mt-2.5 w-[500px] bg-white dark:bg-[#24282C] rounded-xl border border-[var(--border-color)] p-4 shadow-xl z-50 isolate-scroll max-h-[calc(100vh-100px)] overflow-y-auto custom-scrollbar">
+            <div class="px-2 pb-2.5 mb-2.5 border-b border-[var(--border-color)] flex items-center justify-between">
+              <span class="text-[10px] font-mono uppercase tracking-widest text-[var(--accent-gold)] font-bold block">Core Service Portfolio</span>
+              <span class="text-[9px] font-mono text-[var(--text-muted)]">SLN Offerings</span>
+            </div>
+            
+            <div class="grid grid-cols-2 gap-2 text-xs">
+              <div class="space-y-1.5">
+                <a href="offerings.html#soc-as-a-service" onclick="routePage(event, 'offerings.html', 'soc-as-a-service'); closeServicesDropdown();" class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg bg-[#F7F7F5] dark:bg-[#1B1E21] hover:bg-slate-100 dark:hover:bg-slate-800 border border-[var(--border-color)] transition group/item">
+                  <span class="text-[10px] font-mono text-[var(--accent-gold)] font-semibold w-4 shrink-0">01</span>
+                  <span class="font-medium text-[var(--text-main)]">SOC-As-A-Service</span>
+                </a>
+                <a href="offerings.html#skilling-solutions" onclick="routePage(event, 'offerings.html', 'skilling-solutions'); closeServicesDropdown();" class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg bg-[#F7F7F5] dark:bg-[#1B1E21] hover:bg-slate-100 dark:hover:bg-slate-800 border border-[var(--border-color)] transition group/item">
+                  <span class="text-[10px] font-mono text-emerald-600 font-semibold w-4 shrink-0">02</span>
+                  <span class="font-medium text-[var(--text-main)]">Skilling Solutions</span>
+                </a>
+                <a href="offerings.html#ec-council" onclick="routePage(event, 'offerings.html', 'ec-council'); closeServicesDropdown();" class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg bg-[#F7F7F5] dark:bg-[#1B1E21] hover:bg-slate-100 dark:hover:bg-slate-800 border border-[var(--border-color)] transition group/item">
+                  <span class="text-[10px] font-mono text-rose-600 font-semibold w-4 shrink-0">03</span>
+                  <span class="font-medium text-[var(--text-main)]">EC-COUNCIL</span>
+                </a>
+              </div>
+
+              <div class="space-y-1.5">
+                <a href="offerings.html#cambridge-learning" onclick="routePage(event, 'offerings.html', 'cambridge-learning'); closeServicesDropdown();" class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg bg-[#F7F7F5] dark:bg-[#1B1E21] hover:bg-slate-100 dark:hover:bg-slate-800 border border-[var(--border-color)] transition group/item">
+                  <span class="text-[10px] font-mono text-amber-600 font-semibold w-4 shrink-0">04</span>
+                  <span class="font-medium text-[var(--text-main)]">Cambridge Learning</span>
+                </a>
+                <a href="offerings.html#isc2" onclick="routePage(event, 'offerings.html', 'isc2'); closeServicesDropdown();" class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg bg-[#F7F7F5] dark:bg-[#1B1E21] hover:bg-slate-100 dark:hover:bg-slate-800 border border-[var(--border-color)] transition group/item">
+                  <span class="text-[10px] font-mono text-emerald-600 font-semibold w-4 shrink-0">05</span>
+                  <span class="font-medium text-[var(--text-main)]">ISC2</span>
+                </a>
+                <a href="offerings.html#it-services" onclick="routePage(event, 'offerings.html', 'it-services'); closeServicesDropdown();" class="flex items-center gap-2.5 px-3 py-2.5 rounded-lg bg-[#F7F7F5] dark:bg-[#1B1E21] hover:bg-slate-100 dark:hover:bg-slate-800 border border-[var(--border-color)] transition group/item">
+                  <span class="text-[10px] font-mono text-cyan-600 font-semibold w-4 shrink-0">06</span>
+                  <span class="font-medium text-[var(--text-main)]">IT Services</span>
+                </a>
+              </div>
+            </div>
+
+            <div class="mt-3 pt-2.5 border-t border-[var(--border-color)] px-1">
+              <a href="offerings.html" onclick="routePage(event, 'offerings.html'); closeServicesDropdown();" class="flex items-center justify-between px-3 py-2 rounded-lg bg-[#F7F7F5] dark:bg-[#1B1E21] hover:bg-slate-100 text-xs font-semibold text-[var(--accent-primary)] dark:text-[var(--accent-gold)] transition">
+                <span>View All Offerings</span>
+                <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <a href="training.html" onclick="routePage(event, 'training.html')" class="nav-btn px-4 py-2 text-xs font-semibold text-[var(--text-muted)] hover:text-[var(--text-main)] rounded-lg transition-all" data-route="training.html">Training</a>
+        <a href="contact.html" onclick="routePage(event, 'contact.html')" class="nav-btn px-4 py-2 text-xs font-semibold text-[var(--text-muted)] hover:text-[var(--text-main)] rounded-lg transition-all" data-route="contact.html">Contact Us</a>
+      </nav>
+
+      <!-- Right Action & Theme Toggle -->
+      <div class="flex items-center gap-3">
+        <!-- Theme Toggle Button -->
+        <button onclick="toggleTheme()" class="p-2.5 rounded-xl border border-[var(--border-color)] bg-[#F7F7F5] dark:bg-[#111315] text-[var(--text-muted)] hover:text-[var(--text-main)] transition shadow-sm" aria-label="Toggle Theme">
+          <i data-lucide="sun" class="w-4 h-4 hidden dark:block text-[var(--accent-gold)]"></i>
+          <i data-lucide="moon" class="w-4 h-4 block dark:hidden text-[var(--accent-primary)]"></i>
+        </button>
+
+        <a href="contact.html" onclick="routePage(event, 'contact.html')" class="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[var(--accent-primary)] hover:bg-[#162A45] text-white font-display font-semibold text-xs tracking-wide shadow-sm transition-all">
+          <span>Enquire Now</span>
+          <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+        </a>
+
+        <button onclick="toggleMobileNav()" class="lg:hidden p-2.5 rounded-xl border border-[var(--border-color)] bg-[#F7F7F5] dark:bg-[#111315] text-[var(--text-muted)]">
+          <i data-lucide="menu" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Mobile Drawer -->
+    <div id="mobileDrawer" class="hidden lg:hidden border-t border-[var(--border-color)] bg-white dark:bg-[#1B1E21] px-6 py-5 space-y-3 isolate-scroll">
+      <a href="index.html" onclick="routePage(event, 'index.html'); toggleMobileNav();" class="block text-xs font-semibold text-[var(--text-main)] py-1">Home</a>
+      <a href="about.html" onclick="routePage(event, 'about.html'); toggleMobileNav();" class="block text-xs font-semibold text-[var(--text-main)] py-1">About Us</a>
+      <a href="offerings.html" onclick="routePage(event, 'offerings.html'); toggleMobileNav();" class="block text-xs font-semibold text-[var(--text-main)] py-1">Our Offerings</a>
+      <a href="training.html" onclick="routePage(event, 'training.html'); toggleMobileNav();" class="block text-xs font-semibold text-[var(--text-main)] py-1">Training</a>
+      <a href="contact.html" onclick="routePage(event, 'contact.html'); toggleMobileNav();" class="block text-xs font-semibold text-[var(--text-main)] py-1">Contact Us</a>
+      <a href="contact.html" onclick="routePage(event, 'contact.html'); toggleMobileNav();" class="w-full mt-2 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-[var(--accent-primary)] text-white text-xs font-semibold">Enquire Now</a>
+    </div>
+  </header>
+
+  <!-- ==================== VIEW 1: HOME (index.html) ==================== -->
+  <main id="view-index" class="page-view active flex-1">
+    
+    <!-- Hero Carousel Banner Section -->
+    <section class="relative corporate-section border-b border-[var(--border-color)] overflow-hidden">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-16">
+        
+        <!-- Carousel Container -->
+        <div class="relative rounded-2xl overflow-hidden corporate-card border border-[var(--border-color)] shadow-corporate dark:shadow-corporate-dark">
+          <div id="heroCarousel" class="relative min-h-[420px] sm:min-h-[480px] flex items-center">
+            
+            <!-- Slide 1 -->
+            <div class="hero-slide absolute inset-0 transition-opacity duration-700 ease-in-out opacity-100 flex items-center p-8 sm:p-12 lg:p-16" data-index="0">
+              <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center w-full">
+                <div class="lg:col-span-7 space-y-4">
+                  <span class="px-3 py-1 rounded-md bg-[var(--accent-primary)]/10 text-[var(--accent-primary)] dark:text-[var(--accent-gold)] text-xs font-bold uppercase tracking-wider">Solutions for Seamless Growth</span>
+                  <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-display text-[var(--text-main)] tracking-tight leading-tight">
+                    Enterprise Technology &amp; Cybersecurity Solutions
+                  </h1>
+                  <p class="text-sm sm:text-base text-[var(--text-muted)] leading-relaxed max-w-xl">
+                    Established in 2022, SLN Consulting seamlessly integrates and optimizes systems to elevate operational efficiency and business resilience.
+                  </p>
+                  <div class="pt-4 flex flex-wrap gap-3">
+                    <a href="offerings.html" onclick="routePage(event, 'offerings.html')" class="px-6 py-3 rounded-xl bg-[var(--accent-primary)] hover:bg-[#162A45] text-white font-semibold text-xs shadow-sm transition">Explore Offerings</a>
+                    <a href="contact.html" onclick="routePage(event, 'contact.html')" class="px-6 py-3 rounded-xl border border-[var(--border-color)] hover:bg-slate-100 dark:hover:bg-slate-800 text-[var(--text-main)] font-semibold text-xs transition">Contact Us</a>
+                  </div>
+                </div>
+                <div class="lg:col-span-5 hidden lg:block">
+                  <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=700&q=80" alt="Cybersecurity & Tech" class="rounded-xl shadow-md object-cover h-72 w-full border border-[var(--border-color)]">
+                </div>
+              </div>
+            </div>
+
+            <!-- Slide 2 -->
+            <div class="hero-slide absolute inset-0 transition-opacity duration-700 ease-in-out opacity-0 pointer-events-none flex items-center p-8 sm:p-12 lg:p-16" data-index="1">
+              <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center w-full">
+                <div class="lg:col-span-7 space-y-4">
+                  <span class="px-3 py-1 rounded-md bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-xs font-bold uppercase tracking-wider">Workforce &amp; Campus Skilling</span>
+                  <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-display text-[var(--text-main)] tracking-tight leading-tight">
+                    Building Capable Teams &amp; Industry-Ready Talent
+                  </h2>
+                  <p class="text-sm sm:text-base text-[var(--text-muted)] leading-relaxed max-w-xl">
+                    Comprehensive training frameworks for corporate upskilling, executive leadership, and university campus development.
+                  </p>
+                  <div class="pt-4 flex flex-wrap gap-3">
+                    <a href="training.html" onclick="routePage(event, 'training.html')" class="px-6 py-3 rounded-xl bg-[var(--accent-primary)] hover:bg-[#162A45] text-white font-semibold text-xs shadow-sm transition">View Training Hub</a>
+                  </div>
+                </div>
+                <div class="lg:col-span-5 hidden lg:block">
+                  <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=700&q=80" alt="Skilling Solutions" class="rounded-xl shadow-md object-cover h-72 w-full border border-[var(--border-color)]">
+                </div>
+              </div>
+            </div>
+
+            <!-- Slide 3 -->
+            <div class="hero-slide absolute inset-0 transition-opacity duration-700 ease-in-out opacity-0 pointer-events-none flex items-center p-8 sm:p-12 lg:p-16" data-index="2">
+              <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center w-full">
+                <div class="lg:col-span-7 space-y-4">
+                  <span class="px-3 py-1 rounded-md bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 text-xs font-bold uppercase tracking-wider">Accredited Partnerships</span>
+                  <h3 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-display text-[var(--text-main)] tracking-tight leading-tight">
+                    Authorized Training &amp; Assessment Partner
+                  </h3>
+                  <p class="text-sm sm:text-base text-[var(--text-muted)] leading-relaxed max-w-xl">
+                    Official Training Partner for (ISC)², Authorised Training Centre for EC-Council, and Authorised Distributor for Cambridge University Press &amp; Assessment.
+                  </p>
+                  <div class="pt-4 flex flex-wrap gap-3">
+                    <a href="offerings.html" onclick="routePage(event, 'offerings.html')" class="px-6 py-3 rounded-xl bg-[var(--accent-primary)] hover:bg-[#162A45] text-white font-semibold text-xs shadow-sm transition">Our Partnerships</a>
+                  </div>
+                </div>
+                <div class="lg:col-span-5 hidden lg:block">
+                  <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=700&q=80" alt="Certifications" class="rounded-xl shadow-md object-cover h-72 w-full border border-[var(--border-color)]">
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Carousel Controls -->
+          <div class="absolute bottom-4 right-6 z-20 flex items-center gap-2">
+            <button onclick="prevSlide()" class="p-2 rounded-lg corporate-card text-[var(--text-main)] hover:bg-slate-100 dark:hover:bg-slate-700 shadow border border-[var(--border-color)] transition" aria-label="Previous Slide">
+              <i data-lucide="chevron-left" class="w-4 h-4"></i>
+            </button>
+            <div id="carouselDots" class="flex items-center gap-1.5 px-2">
+              <button onclick="currentSlide(0)" class="w-2.5 h-2.5 rounded-full bg-[var(--accent-primary)] dark:bg-[var(--accent-gold)] transition-all" aria-label="Slide 1"></button>
+              <button onclick="currentSlide(1)" class="w-2.5 h-2.5 rounded-full bg-slate-300 dark:bg-slate-700 transition-all" aria-label="Slide 2"></button>
+              <button onclick="currentSlide(2)" class="w-2.5 h-2.5 rounded-full bg-slate-300 dark:bg-slate-700 transition-all" aria-label="Slide 3"></button>
+            </div>
+            <button onclick="nextSlide()" class="p-2 rounded-lg corporate-card text-[var(--text-main)] hover:bg-slate-100 dark:hover:bg-slate-700 shadow border border-[var(--border-color)] transition" aria-label="Next Slide">
+              <i data-lucide="chevron-right" class="w-4 h-4"></i>
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Core Offerings Grid -->
+    <section class="py-16 sm:py-24">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center max-w-2xl mx-auto mb-12">
+          <span class="text-xs font-semibold text-[var(--accent-primary)] dark:text-[var(--accent-gold)] uppercase tracking-widest font-mono">Core Disciplines</span>
+          <h2 class="text-3xl sm:text-4xl font-extrabold font-display text-[var(--text-main)] mt-1">Our Offerings</h2>
+          <p class="text-sm text-[var(--text-muted)] mt-2">Integrated solutions across cybersecurity, workforce development, language training, and IT infrastructure.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          
+          <!-- 1. SOC-As-A-Service -->
+          <a href="offerings.html#soc-as-a-service" onclick="routePage(event, 'offerings.html', 'soc-as-a-service')" class="p-6 rounded-2xl corporate-card border border-[var(--border-color)] hover:border-[var(--accent-primary)] shadow-sm transition flex flex-col justify-between group">
+            <div>
+              <div class="w-10 h-10 rounded-xl bg-[var(--accent-primary)]/10 text-[var(--accent-primary)] dark:text-[var(--accent-gold)] flex items-center justify-center mb-4">
+                <i data-lucide="shield-check" class="w-5 h-5"></i>
+              </div>
+              <h3 class="text-lg font-bold font-display text-[var(--text-main)] group-hover:text-[var(--accent-primary)] transition">SOC-As-A-Service</h3>
+              <p class="text-xs text-[var(--text-muted)] mt-2 leading-relaxed">Managed cybersecurity operations, SIEM deployment, threat intelligence, incident response, and VAPT.</p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-[var(--border-color)] flex items-center justify-between text-xs font-semibold text-[var(--accent-primary)] dark:text-[var(--accent-gold)]">
+              <span>View Details</span>
+              <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+            </div>
+          </a>
+
+          <!-- 2. Skilling Solutions -->
+          <a href="offerings.html#skilling-solutions" onclick="routePage(event, 'offerings.html', 'skilling-solutions')" class="p-6 rounded-2xl corporate-card border border-[var(--border-color)] hover:border-[var(--accent-primary)] shadow-sm transition flex flex-col justify-between group">
+            <div>
+              <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mb-4">
+                <i data-lucide="graduation-cap" class="w-5 h-5"></i>
+              </div>
+              <h3 class="text-lg font-bold font-display text-[var(--text-main)] group-hover:text-[var(--accent-primary)] transition">Skilling Solutions</h3>
+              <p class="text-xs text-[var(--text-muted)] mt-2 leading-relaxed">Enterprise training programs and campus development initiatives for career readiness and workforce upskilling.</p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-[var(--border-color)] flex items-center justify-between text-xs font-semibold text-[var(--accent-primary)] dark:text-[var(--accent-gold)]">
+              <span>View Details</span>
+              <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+            </div>
+          </a>
+
+          <!-- 3. Cambridge Learning -->
+          <a href="offerings.html#cambridge-learning" onclick="routePage(event, 'offerings.html', 'cambridge-learning')" class="p-6 rounded-2xl corporate-card border border-[var(--border-color)] hover:border-[var(--accent-primary)] shadow-sm transition flex flex-col justify-between group">
+            <div>
+              <div class="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center mb-4">
+                <i data-lucide="book-open" class="w-5 h-5"></i>
+              </div>
+              <h3 class="text-lg font-bold font-display text-[var(--text-main)] group-hover:text-[var(--accent-primary)] transition">Cambridge Learning</h3>
+              <p class="text-xs text-[var(--text-muted)] mt-2 leading-relaxed">English language assessment and learning pathways through Authorised Distributor Cambridge University Press.</p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-[var(--border-color)] flex items-center justify-between text-xs font-semibold text-[var(--accent-primary)] dark:text-[var(--accent-gold)]">
+              <span>View Details</span>
+              <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+            </div>
+          </a>
+
+          <!-- 4. ISC2 Training -->
+          <a href="offerings.html#isc2" onclick="routePage(event, 'offerings.html', 'isc2')" class="p-6 rounded-2xl corporate-card border border-[var(--border-color)] hover:border-[var(--accent-primary)] shadow-sm transition flex flex-col justify-between group">
+            <div>
+              <div class="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center mb-4">
+                <i data-lucide="award" class="w-5 h-5"></i>
+              </div>
+              <h3 class="text-lg font-bold font-display text-[var(--text-main)] group-hover:text-[var(--accent-primary)] transition">ISC2 Training</h3>
+              <p class="text-xs text-[var(--text-muted)] mt-2 leading-relaxed">Official Training Partner preparation for CC, CCSP, CSSLP, and CISSP professional cybersecurity credentials.</p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-[var(--border-color)] flex items-center justify-between text-xs font-semibold text-[var(--accent-primary)] dark:text-[var(--accent-gold)]">
+              <span>View Details</span>
+              <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+            </div>
+          </a>
+
+          <!-- 5. EC-Council -->
+          <a href="offerings.html#ec-council" onclick="routePage(event, 'offerings.html', 'ec-council')" class="p-6 rounded-2xl corporate-card border border-[var(--border-color)] hover:border-[var(--accent-primary)] shadow-sm transition flex flex-col justify-between group">
+            <div>
+              <div class="w-10 h-10 rounded-xl bg-rose-500/10 text-rose-600 dark:text-rose-400 flex items-center justify-center mb-4">
+                <i data-lucide="crosshair" class="w-5 h-5"></i>
+              </div>
+              <h3 class="text-lg font-bold font-display text-[var(--text-main)] group-hover:text-[var(--accent-primary)] transition">EC-Council</h3>
+              <p class="text-xs text-[var(--text-muted)] mt-2 leading-relaxed">Authorised Training Centre for CEH, CND, CHFI, CPENT, and other advanced technical cybersecurity programs.</p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-[var(--border-color)] flex items-center justify-between text-xs font-semibold text-[var(--accent-primary)] dark:text-[var(--accent-gold)]">
+              <span>View Details</span>
+              <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+            </div>
+          </a>
+
+          <!-- 6. IT Services -->
+          <a href="offerings.html#it-services" onclick="routePage(event, 'offerings.html', 'it-services')" class="p-6 rounded-2xl corporate-card border border-[var(--border-color)] hover:border-[var(--accent-primary)] shadow-sm transition flex flex-col justify-between group">
+            <div>
+              <div class="w-10 h-10 rounded-xl bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 flex items-center justify-center mb-4">
+                <i data-lucide="server" class="w-5 h-5"></i>
+              </div>
+              <h3 class="text-lg font-bold font-display text-[var(--text-main)] group-hover:text-[var(--accent-primary)] transition">IT Services</h3>
+              <p class="text-xs text-[var(--text-muted)] mt-2 leading-relaxed">Eight complete pillars covering web development, app engineering, cloud computing, facility management, and testing.</p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-[var(--border-color)] flex items-center justify-between text-xs font-semibold text-[var(--accent-primary)] dark:text-[var(--accent-gold)]">
+              <span>View Details</span>
+              <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+            </div>
+          </a>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Why Choose SLN Section -->
+    <section class="py-16 corporate-section border-t border-[var(--border-color)]">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center max-w-xl mx-auto mb-12">
+          <span class="text-xs font-semibold text-[var(--accent-primary)] dark:text-[var(--accent-gold)] uppercase tracking-widest font-mono">Differentiators</span>
+          <h2 class="text-3xl font-extrabold font-display text-[var(--text-main)] mt-1">Why Choose SLN Consulting?</h2>
+          <p class="text-sm text-[var(--text-muted)] mt-2">Grounded in three decades of industry experience and trusted corporate partnerships.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div class="p-6 rounded-xl corporate-card border border-[var(--border-color)]">
+            <span class="text-xs font-mono font-bold text-[var(--accent-primary)] dark:text-[var(--accent-gold)]">01</span>
+            <h4 class="text-base font-bold font-display text-[var(--text-main)] mt-2">Experienced Experts</h4>
+            <p class="text-xs text-[var(--text-muted)] mt-1">Industry veterans with extensive background in management consulting and technology integration.</p>
+          </div>
+          <div class="p-6 rounded-xl corporate-card border border-[var(--border-color)]">
+            <span class="text-xs font-mono font-bold text-[var(--accent-primary)] dark:text-[var(--accent-gold)]">02</span>
+            <h4 class="text-base font-bold font-display text-[var(--text-main)] mt-2">Customer-Centric</h4>
+            <p class="text-xs text-[var(--text-muted)] mt-1">Solutions tailored specifically to organizational needs, operational constraints, and growth goals.</p>
+          </div>
+          <div class="p-6 rounded-xl corporate-card border border-[var(--border-color)]">
+            <span class="text-xs font-mono font-bold text-[var(--accent-primary)] dark:text-[var(--accent-gold)]">03</span>
+            <h4 class="text-base font-bold font-display text-[var(--text-main)] mt-2">Industry Partnerships</h4>
+            <p class="text-xs text-[var(--text-muted)] mt-1">Direct authorized relationships with Cambridge, ISC2, and EC-Council.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==================== VIEW 2: ABOUT (about.html) ==================== -->
+  <main id="view-about" class="page-view flex-1">
+    <section class="py-16 sm:py-24 border-b border-[var(--border-color)]">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          <div class="lg:col-span-7 space-y-4">
+            <span class="text-xs font-semibold text-[var(--accent-primary)] dark:text-[var(--accent-gold)] uppercase tracking-widest font-mono">Corporate Profile</span>
+            <h1 class="text-3xl sm:text-4xl font-extrabold font-display text-[var(--text-main)]">About SLN Consulting</h1>
+            <p class="text-sm text-[var(--text-muted)] leading-relaxed">
+              Established in 2022, SLN Consulting specializes in seamlessly integrating and optimizing diverse systems and technologies to enhance operational efficiency.
+            </p>
+            <p class="text-sm text-[var(--text-muted)] leading-relaxed">
+              Founded by industry veterans, each having a minimum of three decades of experience in business development, management consulting, technology integration, capacity building, and corporate training.
+            </p>
+          </div>
+          <div class="lg:col-span-5">
+            <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80" alt="Corporate Office" class="rounded-2xl shadow-sm object-cover h-72 w-full border border-[var(--border-color)]">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Areas of Expertise -->
+    <section class="py-16 corporate-section">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-xl mx-auto mb-12">
+          <h2 class="text-2xl font-bold font-display text-[var(--text-main)]">Areas of Expertise</h2>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div class="p-6 rounded-xl corporate-card border border-[var(--border-color)]">
+            <h4 class="font-bold font-display text-[var(--text-main)] text-base">Cybersecurity</h4>
+            <p class="text-xs text-[var(--text-muted)] mt-1">Managed security operations, VAPT, threat intelligence, and risk consulting.</p>
+          </div>
+          <div class="p-6 rounded-xl corporate-card border border-[var(--border-color)]">
+            <h4 class="font-bold font-display text-[var(--text-main)] text-base">Technology Integration</h4>
+            <p class="text-xs text-[var(--text-muted)] mt-1">Cloud systems, enterprise networks, app development, and infrastructure support.</p>
+          </div>
+          <div class="p-6 rounded-xl corporate-card border border-[var(--border-color)]">
+            <h4 class="font-bold font-display text-[var(--text-main)] text-base">Capacity Building &amp; Training</h4>
+            <p class="text-xs text-[var(--text-muted)] mt-1">Workforce skilling, corporate workshops, and academic institution partnerships.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==================== VIEW 3: OUR OFFERINGS (offerings.html) ==================== -->
+  <main id="view-offerings" class="page-view flex-1">
+    <section class="py-12 border-b border-[var(--border-color)] corporate-section">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-3xl">
+        <h1 class="text-3xl font-extrabold font-display text-[var(--text-main)]">Our Offerings</h1>
+        <p class="text-sm text-[var(--text-muted)] mt-2">Complete service breakdown across our six primary business pillars.</p>
+      </div>
+    </section>
+
+    <!-- Detailed Services -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-16">
+      
+      <!-- SOC -->
+      <div id="soc-as-a-service" class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center p-8 rounded-2xl corporate-card border border-[var(--border-color)] shadow-sm">
+        <div class="lg:col-span-7 space-y-3">
+          <span class="text-xs font-mono font-bold text-[var(--accent-primary)] dark:text-[var(--accent-gold)] uppercase">01</span>
+          <h2 class="text-2xl font-bold font-display text-[var(--text-main)]">SOC-As-A-Service</h2>
+          <p class="text-xs sm:text-sm text-[var(--text-muted)] leading-relaxed">
+            Delivering continuous security operations, threat detection, MDR, SIEM log management, incident response, and VAPT.
+          </p>
+        </div>
+        <div class="lg:col-span-5">
+          <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=600&q=80" alt="SOC" class="rounded-xl object-cover h-48 w-full border border-[var(--border-color)] shadow-sm">
+        </div>
+      </div>
+
+      <!-- Skilling -->
+      <div id="skilling-solutions" class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center p-8 rounded-2xl corporate-card border border-[var(--border-color)] shadow-sm">
+        <div class="lg:col-span-7 space-y-3">
+          <span class="text-xs font-mono font-bold text-[var(--accent-primary)] dark:text-[var(--accent-gold)] uppercase">02</span>
+          <h2 class="text-2xl font-bold font-display text-[var(--text-main)]">Skilling Solutions</h2>
+          <p class="text-xs sm:text-sm text-[var(--text-muted)] leading-relaxed">
+            Workforce upskilling and academic campus development, career pathway definition, and corporate technical training.
+          </p>
+        </div>
+        <div class="lg:col-span-5">
+          <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=600&q=80" alt="Skilling" class="rounded-xl object-cover h-48 w-full border border-[var(--border-color)] shadow-sm">
+        </div>
+      </div>
+
+      <!-- EC-Council -->
+      <div id="ec-council" class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center p-8 rounded-2xl corporate-card border border-[var(--border-color)] shadow-sm">
+        <div class="lg:col-span-7 space-y-3">
+          <span class="text-xs font-mono font-bold text-[var(--accent-primary)] dark:text-[var(--accent-gold)] uppercase">03</span>
+          <h2 class="text-2xl font-bold font-display text-[var(--text-main)]">EC-COUNCIL</h2>
+          <p class="text-xs sm:text-sm text-[var(--text-muted)] leading-relaxed">
+            Authorised Training Centre for CEH, CND, CHFI, CPENT, CASE, CCSE, CTIA, and CSA certification tracks.
+          </p>
+        </div>
+        <div class="lg:col-span-5">
+          <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=600&q=80" alt="EC Council" class="rounded-xl object-cover h-48 w-full border border-[var(--border-color)] shadow-sm">
+        </div>
+      </div>
+
+      <!-- Cambridge Learning -->
+      <div id="cambridge-learning" class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center p-8 rounded-2xl corporate-card border border-[var(--border-color)] shadow-sm">
+        <div class="lg:col-span-7 space-y-3">
+          <span class="text-xs font-mono font-bold text-[var(--accent-primary)] dark:text-[var(--accent-gold)] uppercase">04</span>
+          <h2 class="text-2xl font-bold font-display text-[var(--text-main)]">Cambridge Learning</h2>
+          <p class="text-xs sm:text-sm text-[var(--text-muted)] leading-relaxed">
+            Authorised Distributor for Cambridge University Press &amp; Assessment language and academic skills programs.
+          </p>
+        </div>
+        <div class="lg:col-span-5">
+          <img src="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&w=600&q=80" alt="Cambridge" class="rounded-xl object-cover h-48 w-full border border-[var(--border-color)] shadow-sm">
+        </div>
+      </div>
+
+      <!-- ISC2 -->
+      <div id="isc2" class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center p-8 rounded-2xl corporate-card border border-[var(--border-color)] shadow-sm">
+        <div class="lg:col-span-7 space-y-3">
+          <span class="text-xs font-mono font-bold text-[var(--accent-primary)] dark:text-[var(--accent-gold)] uppercase">05</span>
+          <h2 class="text-2xl font-bold font-display text-[var(--text-main)]">ISC2</h2>
+          <p class="text-xs sm:text-sm text-[var(--text-muted)] leading-relaxed">
+            Official Training Partner for CC, CCSP, CSSLP, and CISSP professional cybersecurity certifications.
+          </p>
+        </div>
+        <div class="lg:col-span-5">
+          <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=600&q=80" alt="ISC2" class="rounded-xl object-cover h-48 w-full border border-[var(--border-color)] shadow-sm">
+        </div>
+      </div>
+
+      <!-- IT Services -->
+      <div id="it-services" class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center p-8 rounded-2xl corporate-card border border-[var(--border-color)] shadow-sm">
+        <div class="lg:col-span-7 space-y-3">
+          <span class="text-xs font-mono font-bold text-[var(--accent-primary)] dark:text-[var(--accent-gold)] uppercase">06</span>
+          <h2 class="text-2xl font-bold font-display text-[var(--text-main)]">IT Services</h2>
+          <p class="text-xs sm:text-sm text-[var(--text-muted)] leading-relaxed">
+            Website creation, app development, IT facility management, cloud computing, network solutions, cybersecurity consulting, and application testing.
+          </p>
+        </div>
+        <div class="lg:col-span-5">
+          <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=600&q=80" alt="IT Services" class="rounded-xl object-cover h-48 w-full border border-[var(--border-color)] shadow-sm">
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ==================== VIEW 4: TRAINING (training.html) ==================== -->
+  <main id="view-training" class="page-view flex-1">
+    <section class="py-16 border-b border-[var(--border-color)] corporate-section text-center">
+      <div class="max-w-3xl mx-auto px-4">
+        <h1 class="text-3xl font-extrabold font-display text-[var(--text-main)]">Training &amp; Learning Hub</h1>
+        <p class="text-sm text-[var(--text-muted)] mt-2">Professional corporate workshops, academic campus training, and exam preparation.</p>
+      </div>
+    </section>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="p-6 rounded-xl corporate-card border border-[var(--border-color)]">
+          <h3 class="font-bold font-display text-[var(--text-main)] text-base">Corporate Learning</h3>
+          <p class="text-xs text-[var(--text-muted)] mt-2">Executive awareness, technical upskilling, and enterprise workforce training programs.</p>
+        </div>
+        <div class="p-6 rounded-xl corporate-card border border-[var(--border-color)]">
+          <h3 class="font-bold font-display text-[var(--text-main)] text-base">Campus Programs</h3>
+          <p class="text-xs text-[var(--text-muted)] mt-2">Student hackathons, SME seminars, induction training, and faculty TTT sessions.</p>
+        </div>
+        <div class="p-6 rounded-xl corporate-card border border-[var(--border-color)]">
+          <h3 class="font-bold font-display text-[var(--text-main)] text-base">Certification Training</h3>
+          <p class="text-xs text-[var(--text-muted)] mt-2">Authorized preparation for ISC2 (CISSP, CCSP) and EC-Council (CEH, CND).</p>
+        </div>
+        <div class="p-6 rounded-xl corporate-card border border-[var(--border-color)]">
+          <h3 class="font-bold font-display text-[var(--text-main)] text-base">Cambridge Learning</h3>
+          <p class="text-xs text-[var(--text-muted)] mt-2">CEFR-based English proficiency and communication skills development.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ==================== VIEW 5: CONTACT (contact.html) ==================== -->
+  <main id="view-contact" class="page-view flex-1">
+    <section class="py-16 sm:py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+        <div class="lg:col-span-5 space-y-6">
+          <div>
+            <h1 class="text-3xl font-extrabold font-display text-[var(--text-main)]">Let's Connect</h1>
+            <p class="text-sm text-[var(--text-muted)] mt-2">Reach out for corporate consulting, training schedules, or technical project scoping.</p>
+          </div>
+          <div class="p-6 rounded-xl corporate-section border border-[var(--border-color)] space-y-4 text-xs">
+            <div>
+              <span class="font-bold text-[var(--text-muted)] block uppercase text-[10px]">Phone</span>
+              <a href="tel:+919940196195" class="text-[var(--text-main)] font-semibold">+91 9940196195</a>
+            </div>
+            <div>
+              <span class="font-bold text-[var(--text-muted)] block uppercase text-[10px]">Email</span>
+              <a href="mailto:srinivas.c@slnconsulting.co.in" class="text-[var(--text-main)] font-semibold">srinivas.c@slnconsulting.co.in</a>
+            </div>
+            <div>
+              <span class="font-bold text-[var(--text-muted)] block uppercase text-[10px]">Location</span>
+              <span class="text-[var(--text-main)] font-semibold">Chennai-600042, India</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="lg:col-span-7">
+          <form onsubmit="handleContactSubmit(event)" class="p-8 rounded-2xl corporate-card border border-[var(--border-color)] shadow-corporate space-y-4">
+            <div>
+              <label class="text-xs font-semibold text-[var(--text-main)] block mb-1">Full Name</label>
+              <input type="text" required class="w-full px-4 py-2.5 text-xs rounded-xl corporate-section border border-[var(--border-color)] text-[var(--text-main)] focus:outline-none focus:border-[var(--accent-primary)]">
+            </div>
+            <div>
+              <label class="text-xs font-semibold text-[var(--text-main)] block mb-1">Business / Institution</label>
+              <input type="text" required class="w-full px-4 py-2.5 text-xs rounded-xl corporate-section border border-[var(--border-color)] text-[var(--text-main)] focus:outline-none focus:border-[var(--accent-primary)]">
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="text-xs font-semibold text-[var(--text-main)] block mb-1">Email</label>
+                <input type="email" required class="w-full px-4 py-2.5 text-xs rounded-xl corporate-section border border-[var(--border-color)] text-[var(--text-main)] focus:outline-none focus:border-[var(--accent-primary)]">
+              </div>
+              <div>
+                <label class="text-xs font-semibold text-[var(--text-main)] block mb-1">Phone</label>
+                <input type="tel" class="w-full px-4 py-2.5 text-xs rounded-xl corporate-section border border-[var(--border-color)] text-[var(--text-main)] focus:outline-none focus:border-[var(--accent-primary)]">
+              </div>
+            </div>
+            <div>
+              <label class="text-xs font-semibold text-[var(--text-main)] block mb-1">Message</label>
+              <textarea rows="4" class="w-full px-4 py-2.5 text-xs rounded-xl corporate-section border border-[var(--border-color)] text-[var(--text-main)] focus:outline-none focus:border-[var(--accent-primary)]"></textarea>
+            </div>
+            <button type="submit" class="w-full py-3 rounded-xl bg-[var(--accent-primary)] hover:bg-[var(--accent-primary)]/90 text-white font-semibold text-xs shadow-sm transition">Send Enquiry</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="bg-[#111315] text-[#B7BCC2] py-12 border-t border-[var(--border-color)]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs">
+      <div>&copy; 2026 SLN Consulting. All Rights Reserved.</div>
+      <div class="flex items-center gap-4 text-[#B7BCC2]">
+        <a href="contact.html" onclick="routePage(event, 'contact.html')" class="hover:text-white">Contact Us</a>
+        <span>&bull;</span>
+        <span>Chennai-600042, India</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast -->
+  <div id="toast" class="fixed bottom-6 right-6 bg-[#18202A] text-white text-xs px-4 py-3 rounded-xl shadow-xl border border-slate-700 hidden items-center gap-2 z-50">
+    <i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i>
+    <span>Your enquiry has been successfully sent.</span>
+  </div>
+
+  <!-- ==================== SCRIPT LOGIC ==================== -->
+  <script>
+    lucide.createIcons();
+
+    // Theme Toggle Functionality
+    function toggleTheme() {
+      if (document.documentElement.classList.contains('dark')) {
+        document.documentElement.classList.remove('dark');
+        localStorage.setItem('sln_theme', 'light');
+      } else {
+        document.documentElement.classList.add('dark');
+        localStorage.setItem('sln_theme', 'dark');
+      }
+    }
+
+    // Router
+    const routeMap = {
+      'index.html': 'view-index',
+      'about.html': 'view-about',
+      'offerings.html': 'view-offerings',
+      'training.html': 'view-training',
+      'contact.html': 'view-contact',
+      '': 'view-index'
+    };
+
+    function routePage(e, pageName, anchorId = null) {
+      if (e && e.preventDefault) e.preventDefault();
+      const viewId = routeMap[pageName] || 'view-index';
+
+      document.querySelectorAll('.page-view').forEach(p => p.classList.remove('active'));
+      const targetView = document.getElementById(viewId);
+      if (targetView) targetView.classList.add('active');
+
+      document.querySelectorAll('.nav-btn').forEach(btn => {
+        const routeAttr = btn.getAttribute('data-route');
+        if (routeAttr === pageName || (pageName === 'index.html' && routeAttr === '')) {
+          btn.className = 'nav-btn px-4 py-2 text-xs font-semibold text-[var(--accent-primary)] dark:text-[var(--accent-gold)] bg-white dark:bg-[#24282C] rounded-lg shadow-sm transition-all';
+        } else {
+          btn.className = 'nav-btn px-4 py-2 text-xs font-semibold text-[var(--text-muted)] hover:text-[var(--text-main)] rounded-lg transition-all';
+        }
+      });
+
+      try {
+        const newUrl = anchorId ? `${pageName}#${anchorId}` : pageName;
+        window.history.pushState({ page: pageName, anchor: anchorId }, '', newUrl);
+      } catch (_) {}
+
+      if (anchorId) {
+        setTimeout(() => {
+          const el = document.getElementById(anchorId);
+          if (el) el.scrollIntoView({ behavior: 'smooth' });
+        }, 120);
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    // Carousel State
+    let currentSlideIndex = 0;
+    const slides = document.querySelectorAll('.hero-slide');
+    const dots = document.querySelectorAll('#carouselDots button');
+    let carouselInterval = setInterval(nextSlide, 5000);
+
+    function showSlide(index) {
+      slides.forEach((slide, idx) => {
+        if (idx === index) {
+          slide.classList.remove('opacity-0', 'pointer-events-none');
+          slide.classList.add('opacity-100');
+        } else {
+          slide.classList.remove('opacity-100');
+          slide.classList.add('opacity-0', 'pointer-events-none');
+        }
+      });
+      dots.forEach((dot, idx) => {
+        if (idx === index) {
+          dot.classList.remove('bg-slate-300', 'dark:bg-slate-700');
+          dot.classList.add('bg-[var(--accent-primary)]', 'dark:bg-[var(--accent-gold)]');
+        } else {
+          dot.classList.remove('bg-[var(--accent-primary)]', 'dark:bg-[var(--accent-gold)]');
+          dot.classList.add('bg-slate-300', 'dark:bg-slate-700');
+        }
+      });
+      currentSlideIndex = index;
+    }
+
+    function nextSlide() {
+      let next = (currentSlideIndex + 1) % slides.length;
+      showSlide(next);
+    }
+
+    function prevSlide() {
+      let prev = (currentSlideIndex - 1 + slides.length) % slides.length;
+      showSlide(prev);
+    }
+
+    function currentSlide(index) {
+      clearInterval(carouselInterval);
+      showSlide(index);
+      carouselInterval = setInterval(nextSlide, 5000);
+    }
+
+    // Dropdown toggle
+    function toggleServicesDropdown() {
+      document.getElementById('servicesDropdownPanel').classList.toggle('hidden');
+    }
+    function closeServicesDropdown() {
+      document.getElementById('servicesDropdownPanel').classList.add('hidden');
+    }
+    document.addEventListener('click', (e) => {
+      const root = document.getElementById('servicesMenuRoot');
+      const panel = document.getElementById('servicesDropdownPanel');
+      if (root && panel && !root.contains(e.target)) {
+        panel.classList.add('hidden');
+      }
+    });
+
+    function toggleMobileNav() {
+      document.getElementById('mobileDrawer').classList.toggle('hidden');
+    }
+
+    function handleContactSubmit(e) {
+      e.preventDefault();
+      const toast = document.getElementById('toast');
+      toast.classList.remove('hidden');
+      toast.classList.add('flex');
+      e.target.reset();
+      setTimeout(() => {
+        toast.classList.add('hidden');
+        toast.classList.remove('flex');
+      }, 4000);
+    }
+  </script>
+</body>
+</html>
