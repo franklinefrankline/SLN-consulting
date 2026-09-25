@@ -1,0 +1,17 @@
+{
+  "name": "sln-consulting",
+  "version": "1.0.0",
+  "description": "SLN Consulting official enterprise website",
+  "scripts": {
+    "start": "python -m http.server 5500",
+    "dev": "python -m http.server 5500",
+    "serve": "python -m http.server 5500"
+  },
+  "keywords": [
+    "sln-consulting",
+    "cybersecurity",
+    "internship"
+  ],
+  "author": "SLN Consulting",
+  "license": "ISC"
+}

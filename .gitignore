@@ -10,3 +10,16 @@ __pycache__/
 *$py.class
 *.log
 scratch_*
+
+# Scratch helper scripts
+apply_*.py
+build_*.py
+check_*.py
+find_*.py
+inspect_*.py
+print_*.py
+remove_*.py
+search_*.py
+sync_*.py
+diagnose_*.py
+fix_*.py
