@@ -462,6 +462,43 @@
       top: 100% !important;
     }
 
+    /* ==================== RESPONSIVE NAVBAR & HAMBURGER STYLES ==================== */
+    #mobileMenuBtn {
+      min-width: 44px;
+      min-height: 44px;
+      touch-action: manipulation;
+    }
+    #mobileMenuBtn.is-active .bar-top {
+      transform: translateY(9px) rotate(45deg);
+    }
+    #mobileMenuBtn.is-active .bar-mid {
+      opacity: 0;
+      transform: scaleX(0);
+    }
+    #mobileMenuBtn.is-active .bar-bot {
+      transform: translateY(-9px) rotate(-45deg);
+    }
+    #mobileDrawer {
+      animation: mobileMenuSlideDown 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    @keyframes mobileMenuSlideDown {
+      from { opacity: 0; transform: translateY(-8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      #mobileDrawer,
+      #mobileMenuBtn .bar-top,
+      #mobileMenuBtn .bar-mid,
+      #mobileMenuBtn .bar-bot {
+        animation: none !important;
+        transition: none !important;
+        transform: none !important;
+      }
+    }
+    body, header {
+      max-width: 100vw;
+      overflow-x: hidden;
+    }
   </style>
 
   <script>
@@ -923,67 +960,79 @@
 
       </nav>
 
-      <!-- Right Action CTA: EXACTLY ONE THEME TOGGLE + ENQUIRE NOW -->
+      <!-- Right Action CTA: EXACTLY ONE THEME TOGGLE + ENQUIRE NOW (Desktop) / HAMBURGER (Mobile) -->
       <div class="flex items-center gap-2.5 sm:gap-3 shrink-0">
         
-        <!-- Exactly ONE Theme Button (LIGHT <-> DARK) immediately before Enquire Now -->
+        <!-- Exactly ONE Theme Button (LIGHT <-> DARK) immediately before Enquire Now (Desktop only) -->
         <button 
           type="button" 
           onclick="toggleTheme()" 
           id="headerThemeToggle" 
           aria-label="Toggle Light and Dark Mode" 
           title="Toggle Light and Dark Mode" 
-          class="px-2.5 py-1.5 sm:px-3 sm:py-2 rounded-xl border border-white/15 bg-white/5 hover:bg-white/10 text-slate-200 hover:text-[#D6A84F] transition-all flex items-center gap-1.5 text-xs font-semibold shrink-0 cursor-pointer"
+          class="hidden xl:flex px-2.5 py-1.5 sm:px-3 sm:py-2 rounded-xl border border-white/15 bg-white/5 hover:bg-white/10 text-slate-200 hover:text-[#D6A84F] transition-all items-center gap-1.5 text-xs font-semibold shrink-0 cursor-pointer"
         >
           <i data-lucide="sun" class="w-3.5 h-3.5 hidden dark:inline-block text-[#D6A84F]"></i>
           <i data-lucide="moon" class="w-3.5 h-3.5 inline-block dark:hidden text-slate-300"></i>
           <span class="text-[11px] font-mono tracking-wider"><span class="dark:hidden">DARK</span><span class="hidden dark:inline">LIGHT</span></span>
         </button>
 
-        <a href="contact.html" onclick="routePage(event, 'contact.html')" class="hidden sm:inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-[#D6A84F] hover:bg-[#C2943F] text-[#18202A] font-bold text-xs tracking-wider shadow-md transition-all shrink-0 cursor-pointer">
+        <a href="contact.html" onclick="routePage(event, 'contact.html')" class="hidden xl:inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-[#D6A84F] hover:bg-[#C2943F] text-[#18202A] font-bold text-xs tracking-wider shadow-md transition-all shrink-0 cursor-pointer">
           <span>ENQUIRE NOW</span>
           <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
         </a>
 
-        <!-- Mobile Menu Trigger -->
-        <button onclick="toggleMobileNav()" class="xl:hidden p-2 text-slate-300 hover:text-white focus:outline-none cursor-pointer" aria-label="Toggle navigation" id="mobileMenuBtn">
-          <i data-lucide="menu" class="w-6 h-6"></i>
+        <!-- Mobile Menu Trigger (44px x 44px min touch target, animated hamburger-to-X) -->
+        <button 
+          type="button" 
+          onclick="toggleMobileNav()" 
+          class="xl:hidden flex items-center justify-center w-11 h-11 min-w-[44px] min-h-[44px] rounded-xl text-slate-200 hover:text-white bg-white/5 hover:bg-white/10 border border-white/10 focus:outline-none focus:ring-2 focus:ring-[#D6A84F] transition-all cursor-pointer select-none" 
+          aria-label="Open navigation" 
+          aria-expanded="false" 
+          aria-controls="mobileDrawer" 
+          id="mobileMenuBtn"
+        >
+          <span class="sr-only">Toggle navigation</span>
+          <div class="w-6 h-5 flex flex-col justify-between items-center pointer-events-none" id="hamburgerBars">
+            <span class="bar-top w-6 h-0.5 bg-current rounded-full transition-all duration-300 transform origin-center"></span>
+            <span class="bar-mid w-6 h-0.5 bg-current rounded-full transition-all duration-300"></span>
+            <span class="bar-bot w-6 h-0.5 bg-current rounded-full transition-all duration-300 transform origin-center"></span>
+          </div>
         </button>
       </div>
 
     </div>
-
-    <!-- Mobile Drawer Navigation -->
-    <div id="mobileDrawer" class="hidden xl:hidden border-t border-[#2C3136] bg-[#181C20] px-6 py-5 space-y-3 isolate-scroll max-h-[calc(100vh-80px)] overflow-y-auto custom-scrollbar shadow-2xl text-white">
+<!-- Mobile Drawer Navigation -->
+    <div id="mobileDrawer" class="hidden xl:hidden border-t border-[#2C3136] bg-[#181C20] px-4 sm:px-6 py-5 space-y-3 isolate-scroll max-h-[calc(100vh-80px)] overflow-y-auto custom-scrollbar shadow-2xl text-white w-full max-w-[100vw]">
       
-      <!-- HOME -->
-      <a href="index.html" onclick="routePage(event, 'index.html'); toggleMobileNav();" class="block w-full text-left text-sm font-semibold text-white hover:text-[#D6A84F] py-1 border-b border-[#2C3136]">HOME</a>
+      <!-- 1. HOME -->
+      <a href="index.html" onclick="routePage(event, 'index.html'); closeMobileNav();" class="block w-full text-left text-sm font-semibold text-white hover:text-[#D6A84F] py-2 border-b border-[#2C3136] transition-colors">HOME</a>
 
-      <!-- ABOUT US + -->
+      <!-- 2. ABOUT US + -->
       <div class="border-b border-[#2C3136] pb-1">
-        <div class="flex items-center justify-between py-1 cursor-pointer" onclick="toggleMobileAccordion('mobileAboutMenu', 'mobileAboutChev')">
+        <div class="flex items-center justify-between py-2 cursor-pointer" onclick="toggleMobileAccordion('mobileAboutMenu', 'mobileAboutChev')">
           <span class="text-sm font-semibold text-white hover:text-[#D6A84F] transition-colors">ABOUT US</span>
-          <button type="button" class="p-1.5 rounded-lg text-slate-400 hover:text-white focus:outline-none" aria-label="Toggle About Us submenu">
+          <button type="button" class="p-1.5 rounded-lg text-slate-400 hover:text-white focus:outline-none" aria-label="Toggle About Us submenu" aria-expanded="false">
             <svg class="w-4 h-4 transition-transform duration-200" id="mobileAboutChev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <polyline points="6 9 12 15 18 9"></polyline>
             </svg>
           </button>
         </div>
         <div id="mobileAboutMenu" class="hidden pl-3 pr-2 py-1.5 space-y-1 bg-[#14171A] rounded-xl border border-[#2C3136] my-1 text-xs">
-          <a href="about.html" onclick="routePage(event, 'about.html'); toggleMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">About SLN</a>
-          <a href="about.html#leadership" onclick="routePage(event, 'about.html', 'leadership'); toggleMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Our Leadership</a>
-          <a href="about.html#why-sln" onclick="routePage(event, 'about.html', 'why-sln'); toggleMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Why SLN?</a>
-          <a href="about.html#partners" onclick="routePage(event, 'about.html', 'partners'); toggleMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Partners &amp; Accreditations</a>
-          <a href="about.html#clients" onclick="routePage(event, 'about.html', 'clients'); toggleMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Our Clients</a>
-          <a href="about.html#success-stories" onclick="routePage(event, 'about.html', 'success-stories'); toggleMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Success Stories</a>
+          <a href="about.html" onclick="routePage(event, 'about.html'); closeMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">About SLN</a>
+          <a href="about.html#leadership" onclick="routePage(event, 'about.html', 'leadership'); closeMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Our Leadership</a>
+          <a href="about.html#why-sln" onclick="routePage(event, 'about.html', 'why-sln'); closeMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Why SLN?</a>
+          <a href="about.html#partners" onclick="routePage(event, 'about.html', 'partners'); closeMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Partners &amp; Accreditations</a>
+          <a href="about.html#clients" onclick="routePage(event, 'about.html', 'clients'); closeMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Our Clients</a>
+          <a href="about.html#success-stories" onclick="routePage(event, 'about.html', 'success-stories'); closeMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Success Stories</a>
         </div>
       </div>
 
-      <!-- CYBERSECURITY + -->
+      <!-- 3. CYBERSECURITY + -->
       <div class="border-b border-[#2C3136] pb-1">
-        <div class="flex items-center justify-between py-1 cursor-pointer" onclick="toggleMobileAccordion('mobileCyberMenu', 'mobileCyberChev')">
+        <div class="flex items-center justify-between py-2 cursor-pointer" onclick="toggleMobileAccordion('mobileCyberMenu', 'mobileCyberChev')">
           <span class="text-sm font-semibold text-white hover:text-[#D6A84F] transition-colors">CYBERSECURITY</span>
-          <button type="button" class="p-1.5 rounded-lg text-slate-400 hover:text-white focus:outline-none" aria-label="Toggle Cybersecurity submenu">
+          <button type="button" class="p-1.5 rounded-lg text-slate-400 hover:text-white focus:outline-none" aria-label="Toggle Cybersecurity submenu" aria-expanded="false">
             <svg class="w-4 h-4 transition-transform duration-200" id="mobileCyberChev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <polyline points="6 9 12 15 18 9"></polyline>
             </svg>
@@ -992,95 +1041,95 @@
         <div id="mobileCyberMenu" class="hidden pl-3 pr-2 py-1.5 space-y-2 bg-[#14171A] rounded-xl border border-[#2C3136] my-1 text-xs">
           <div>
             <span class="font-mono text-[10px] font-bold uppercase text-[#D6A84F] block px-2 pt-1">Offensive Security</span>
-            <a href="soc.html" onclick="routePage(event, 'soc.html'); toggleMobileNav();" class="block py-1 px-2 text-slate-300 hover:text-[#D6A84F]">VAPT &amp; Pen Testing</a>
-            <a href="soc.html" onclick="routePage(event, 'soc.html'); toggleMobileNav();" class="block py-1 px-2 text-slate-300 hover:text-[#D6A84F]">Web, Mobile &amp; API Security</a>
-            <a href="soc.html" onclick="routePage(event, 'soc.html'); toggleMobileNav();" class="block py-1 px-2 text-slate-300 hover:text-[#D6A84F]">Cloud &amp; Network Security</a>
+            <a href="soc.html" onclick="routePage(event, 'soc.html'); closeMobileNav();" class="block py-1 px-2 text-slate-300 hover:text-[#D6A84F]">VAPT &amp; Pen Testing</a>
+            <a href="soc.html" onclick="routePage(event, 'soc.html'); closeMobileNav();" class="block py-1 px-2 text-slate-300 hover:text-[#D6A84F]">Web, Mobile &amp; API Security</a>
+            <a href="soc.html" onclick="routePage(event, 'soc.html'); closeMobileNav();" class="block py-1 px-2 text-slate-300 hover:text-[#D6A84F]">Cloud &amp; Network Security</a>
           </div>
           <div>
             <span class="font-mono text-[10px] font-bold uppercase text-[#D6A84F] block px-2 pt-1">Security Operations</span>
-            <a href="soc.html" onclick="routePage(event, 'soc.html'); toggleMobileNav();" class="block py-1 px-2 text-[#D6A84F] font-semibold">SOC-as-a-Service (24×7)</a>
-            <a href="soc.html" onclick="routePage(event, 'soc.html'); toggleMobileNav();" class="block py-1 px-2 text-slate-300 hover:text-[#D6A84F]">Threat Detection &amp; Response</a>
-            <a href="soc.html" onclick="routePage(event, 'soc.html'); toggleMobileNav();" class="block py-1 px-2 text-slate-300 hover:text-[#D6A84F]">Incident Response &amp; Forensics</a>
+            <a href="soc.html" onclick="routePage(event, 'soc.html'); closeMobileNav();" class="block py-1 px-2 text-[#D6A84F] font-semibold">SOC-as-a-Service (24×7)</a>
+            <a href="soc.html" onclick="routePage(event, 'soc.html'); closeMobileNav();" class="block py-1 px-2 text-slate-300 hover:text-[#D6A84F]">Threat Detection &amp; Response</a>
+            <a href="soc.html" onclick="routePage(event, 'soc.html'); closeMobileNav();" class="block py-1 px-2 text-slate-300 hover:text-[#D6A84F]">Incident Response &amp; Forensics</a>
           </div>
           <div>
             <span class="font-mono text-[10px] font-bold uppercase text-[#D6A84F] block px-2 pt-1">Security Consulting &amp; AI</span>
-            <a href="soc.html" onclick="routePage(event, 'soc.html'); toggleMobileNav();" class="block py-1 px-2 text-slate-300 hover:text-[#D6A84F]">Cybersecurity Consulting &amp; Risk</a>
-            <a href="soc.html" onclick="routePage(event, 'soc.html'); toggleMobileNav();" class="block py-1 px-2 text-slate-300 hover:text-[#D6A84F]">AI Security &amp; Governance</a>
+            <a href="soc.html" onclick="routePage(event, 'soc.html'); closeMobileNav();" class="block py-1 px-2 text-slate-300 hover:text-[#D6A84F]">Cybersecurity Consulting &amp; Risk</a>
+            <a href="soc.html" onclick="routePage(event, 'soc.html'); closeMobileNav();" class="block py-1 px-2 text-slate-300 hover:text-[#D6A84F]">AI Security &amp; Governance</a>
           </div>
         </div>
       </div>
 
-      <!-- IT SERVICES + -->
+      <!-- 4. IT SERVICES + -->
       <div class="border-b border-[#2C3136] pb-1">
-        <div class="flex items-center justify-between py-1 cursor-pointer" onclick="toggleMobileAccordion('mobileITMenu', 'mobileITChev')">
+        <div class="flex items-center justify-between py-2 cursor-pointer" onclick="toggleMobileAccordion('mobileITMenu', 'mobileITChev')">
           <span class="text-sm font-semibold text-white hover:text-[#D6A84F] transition-colors">IT SERVICES</span>
-          <button type="button" class="p-1.5 rounded-lg text-slate-400 hover:text-white focus:outline-none" aria-label="Toggle IT Services submenu">
+          <button type="button" class="p-1.5 rounded-lg text-slate-400 hover:text-white focus:outline-none" aria-label="Toggle IT Services submenu" aria-expanded="false">
             <svg class="w-4 h-4 transition-transform duration-200" id="mobileITChev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <polyline points="6 9 12 15 18 9"></polyline>
             </svg>
           </button>
         </div>
         <div id="mobileITMenu" class="hidden pl-3 pr-2 py-1.5 space-y-1 bg-[#14171A] rounded-xl border border-[#2C3136] my-1 text-xs">
-          <a href="it-services.html" onclick="routePage(event, 'it-services.html'); toggleMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Website Development</a>
-          <a href="it-services.html" onclick="routePage(event, 'it-services.html'); toggleMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Application Development</a>
-          <a href="it-services.html" onclick="routePage(event, 'it-services.html'); toggleMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Cloud Solutions</a>
-          <a href="it-services.html" onclick="routePage(event, 'it-services.html'); toggleMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Network Solutions</a>
-          <a href="it-services.html" onclick="routePage(event, 'it-services.html'); toggleMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">IT Infrastructure &amp; Support</a>
-          <a href="it-services.html" onclick="routePage(event, 'it-services.html'); toggleMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Application Testing</a>
-          <a href="it-services.html" onclick="routePage(event, 'it-services.html'); toggleMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">IT Resource Management</a>
+          <a href="it-services.html" onclick="routePage(event, 'it-services.html'); closeMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Website Development</a>
+          <a href="it-services.html" onclick="routePage(event, 'it-services.html'); closeMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Application Development</a>
+          <a href="it-services.html" onclick="routePage(event, 'it-services.html'); closeMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Cloud Solutions</a>
+          <a href="it-services.html" onclick="routePage(event, 'it-services.html'); closeMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Network Solutions</a>
+          <a href="it-services.html" onclick="routePage(event, 'it-services.html'); closeMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">IT Infrastructure &amp; Support</a>
+          <a href="it-services.html" onclick="routePage(event, 'it-services.html'); closeMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Application Testing</a>
+          <a href="it-services.html" onclick="routePage(event, 'it-services.html'); closeMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">IT Resource Management</a>
         </div>
       </div>
 
-      <!-- ACADEMIA + -->
+      <!-- 5. ACADEMIA + -->
       <div class="border-b border-[#2C3136] pb-1">
-        <div class="flex items-center justify-between py-1 cursor-pointer" onclick="toggleMobileAccordion('mobileAcademiaMenu', 'mobileAcademiaChev')">
+        <div class="flex items-center justify-between py-2 cursor-pointer" onclick="toggleMobileAccordion('mobileAcademiaMenu', 'mobileAcademiaChev')">
           <span class="text-sm font-semibold text-white hover:text-[#D6A84F] transition-colors">ACADEMIA</span>
-          <button type="button" class="p-1.5 rounded-lg text-slate-400 hover:text-white focus:outline-none" aria-label="Toggle Academia submenu">
+          <button type="button" class="p-1.5 rounded-lg text-slate-400 hover:text-white focus:outline-none" aria-label="Toggle Academia submenu" aria-expanded="false">
             <svg class="w-4 h-4 transition-transform duration-200" id="mobileAcademiaChev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <polyline points="6 9 12 15 18 9"></polyline>
             </svg>
           </button>
         </div>
         <div id="mobileAcademiaMenu" class="hidden pl-3 pr-2 py-1.5 space-y-1 bg-[#14171A] rounded-xl border border-[#2C3136] my-1 text-xs">
-          <a href="campus.html" onclick="routePage(event, 'campus.html'); toggleMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Academic Partnerships</a>
-          <a href="campus.html" onclick="routePage(event, 'campus.html'); toggleMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Cybersecurity Workshops</a>
-          <a href="campus.html" onclick="routePage(event, 'campus.html'); toggleMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Faculty Development Programs</a>
-          <a href="campus.html" onclick="routePage(event, 'campus.html'); toggleMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Student Skill Development</a>
-          <a href="campus.html" onclick="routePage(event, 'campus.html'); toggleMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Campus Cybersecurity Programs</a>
-          <a href="internships.html" onclick="routePage(event, \'internships.html\'); toggleMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]"><!-- href="internships.html#program" -->3-Month Cybersecurity Internship</a>
+          <a href="campus.html" onclick="routePage(event, 'campus.html'); closeMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Academic Partnerships</a>
+          <a href="campus.html" onclick="routePage(event, 'campus.html'); closeMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Cybersecurity Workshops</a>
+          <a href="campus.html" onclick="routePage(event, 'campus.html'); closeMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Faculty Development Programs</a>
+          <a href="campus.html" onclick="routePage(event, 'campus.html'); closeMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Student Skill Development</a>
+          <a href="campus.html" onclick="routePage(event, 'campus.html'); closeMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Campus Cybersecurity Programs</a>
+          <a href="internships.html" onclick="routePage(event, 'internships.html'); closeMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]"><!-- href="internships.html#program" -->3-Month Cybersecurity Internship</a>
         </div>
       </div>
 
-      <!-- INTERNSHIPS + (Expandable Accordion) -->
-      <div class="border-b border-[var(--border-white)]/40 pb-1">
-        <div class="flex items-center justify-between py-1 cursor-pointer" onclick="toggleMobileAccordion('mobileInternshipsMenu', 'mobileInternshipsChev')">
-          <span class="text-sm font-semibold text-[var(--text-white-head)] hover:text-[#B08D57] dark:hover:text-[#D6A84F] transition-colors">INTERNSHIPS</span>
-          <button type="button" class="p-1.5 rounded-lg text-slate-500 hover:text-[var(--text-white-head)] hover:bg-slate-100 dark:hover:bg-[#24282C] focus:outline-none" aria-label="Toggle Internships submenu">
+      <!-- 6. INTERNSHIPS + (Expandable Accordion, pure trigger, does NOT navigate) -->
+      <div class="border-b border-[#2C3136] pb-1">
+        <div class="flex items-center justify-between py-2 cursor-pointer" onclick="toggleMobileAccordion('mobileInternshipsMenu', 'mobileInternshipsChev')">
+          <span class="text-sm font-semibold text-white hover:text-[#D6A84F] transition-colors">INTERNSHIPS</span>
+          <button type="button" class="p-1.5 rounded-lg text-slate-400 hover:text-white focus:outline-none" aria-label="Toggle Internships submenu" aria-expanded="false">
             <svg class="w-4 h-4 transition-transform duration-200" id="mobileInternshipsChev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <polyline points="6 9 12 15 18 9"></polyline>
             </svg>
           </button>
         </div>
-        <div id="mobileInternshipsMenu" class="hidden pl-3 pr-2 py-1.5 space-y-1 bg-slate-50 dark:bg-[#15181B] rounded-xl border border-[var(--border-white)] my-1 text-xs">
+        <div id="mobileInternshipsMenu" class="hidden pl-3 pr-2 py-1.5 space-y-1 bg-[#14171A] rounded-xl border border-[#2C3136] my-1 text-xs">
           <!-- Mobile anchors: href="internships.html#program" href="internships.html#journey" -->
-          <a href="internships.html" onclick="routePage(event, 'internships.html'); toggleMobileNav();" class="py-1.5 px-2 hover:text-[#B08D57] dark:hover:text-[#D6A84F] flex items-center gap-2">
+          <a href="internships.html" onclick="routePage(event, 'internships.html'); closeMobileNav();" class="py-1.5 px-2 hover:text-[#D6A84F] text-slate-300 flex items-center gap-2">
             <i data-lucide="layers" class="w-3.5 h-3.5 text-[#D6A84F]"></i>
             <span>Program</span>
           </a>
-          <a href="internships.html#pathways" onclick="routePage(event, 'internships.html', 'pathways'); toggleMobileNav();" class="py-1.5 px-2 hover:text-[#B08D57] dark:hover:text-[#D6A84F] flex items-center gap-2">
+          <a href="internships.html#pathways" onclick="routePage(event, 'internships.html', 'pathways'); closeMobileNav();" class="py-1.5 px-2 hover:text-[#D6A84F] text-slate-300 flex items-center gap-2">
             <i data-lucide="git-fork" class="w-3.5 h-3.5 text-[#D6A84F]"></i>
             <span>Pathways</span>
           </a>
-          <a href="internships.html#student-journey" onclick="routePage(event, 'internships.html', 'student-journey'); toggleMobileNav();" class="py-1.5 px-2 hover:text-[#B08D57] dark:hover:text-[#D6A84F] flex items-center gap-2">
+          <a href="internships.html#student-journey" onclick="routePage(event, 'internships.html', 'student-journey'); closeMobileNav();" class="py-1.5 px-2 hover:text-[#D6A84F] text-slate-300 flex items-center gap-2">
             <i data-lucide="milestone" class="w-3.5 h-3.5 text-[#D6A84F]"></i>
             <span>Student Journey</span>
           </a>
-          <a href="internships.html#institutional-model" onclick="routePage(event, 'internships.html', 'institutional-model'); toggleMobileNav();" class="py-1.5 px-2 hover:text-[#B08D57] dark:hover:text-[#D6A84F] flex items-center gap-2">
+          <a href="internships.html#institutional-model" onclick="routePage(event, 'internships.html', 'institutional-model'); closeMobileNav();" class="py-1.5 px-2 hover:text-[#D6A84F] text-slate-300 flex items-center gap-2">
             <i data-lucide="building-2" class="w-3.5 h-3.5 text-[#D6A84F]"></i>
             <span>Institutional Model</span>
           </a>
-          <div class="pt-1 mt-1 border-t border-slate-200 dark:border-[#2C3136]">
-            <a href="internships.html" onclick="routePage(event, 'internships.html'); toggleMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">
+          <div class="pt-1 mt-1 border-t border-[#2C3136]">
+            <a href="internships.html" onclick="routePage(event, 'internships.html'); closeMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F] flex items-center justify-between">
               <span>View Internship Program</span>
               <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
             </a>
@@ -1088,74 +1137,103 @@
         </div>
       </div>
 
-      <!-- TRAINING & CERTIFICATIONS + -->
+      <!-- 7. TRAINING & CERTIFICATIONS + -->
       <div class="border-b border-[#2C3136] pb-1">
-        <div class="flex items-center justify-between py-1 cursor-pointer" onclick="toggleMobileAccordion('mobileTrainingMenu', 'mobileTrainingChev')">
+        <div class="flex items-center justify-between py-2 cursor-pointer" onclick="toggleMobileAccordion('mobileTrainingMenu', 'mobileTrainingChev')">
           <span class="text-sm font-semibold text-white hover:text-[#D6A84F] transition-colors">TRAINING &amp; CERTIFICATIONS</span>
-          <button type="button" class="p-1.5 rounded-lg text-slate-400 hover:text-white focus:outline-none" aria-label="Toggle Training submenu">
+          <button type="button" class="p-1.5 rounded-lg text-slate-400 hover:text-white focus:outline-none" aria-label="Toggle Training submenu" aria-expanded="false">
             <svg class="w-4 h-4 transition-transform duration-200" id="mobileTrainingChev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <polyline points="6 9 12 15 18 9"></polyline>
             </svg>
           </button>
         </div>
         <div id="mobileTrainingMenu" class="hidden pl-3 pr-2 py-1.5 space-y-1 bg-[#14171A] rounded-xl border border-[#2C3136] my-1 text-xs">
-          <a href="training.html" onclick="routePage(event, 'training.html'); toggleMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Cybersecurity Training</a>
-          <a href="enterprises.html" onclick="routePage(event, 'enterprises.html'); toggleMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Corporate Training</a>
-          <a href="isc2.html" onclick="routePage(event, 'isc2.html'); toggleMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">CISSP &amp; ISC2 Credentials</a>
-          <a href="ec-council.html" onclick="routePage(event, 'ec-council.html'); toggleMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">EC-Council Certifications</a>
-          <a href="cambridge.html" onclick="routePage(event, 'cambridge.html'); toggleMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Cambridge Learning</a>
-          <a href="training.html" onclick="routePage(event, 'training.html'); toggleMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Professional Upskilling</a>
+          <a href="training.html" onclick="routePage(event, 'training.html'); closeMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Cybersecurity Training</a>
+          <a href="enterprises.html" onclick="routePage(event, 'enterprises.html'); closeMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Corporate Training</a>
+          <a href="isc2.html" onclick="routePage(event, 'isc2.html'); closeMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">CISSP &amp; ISC2 Credentials</a>
+          <a href="ec-council.html" onclick="routePage(event, 'ec-council.html'); closeMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">EC-Council Certifications</a>
+          <a href="cambridge.html" onclick="routePage(event, 'cambridge.html'); closeMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Cambridge Learning</a>
+          <a href="training.html" onclick="routePage(event, 'training.html'); closeMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Professional Upskilling</a>
         </div>
       </div>
 
-      <!-- CORPORATE + -->
+      <!-- 8. CORPORATE + -->
       <div class="border-b border-[#2C3136] pb-1">
-        <div class="flex items-center justify-between py-1 cursor-pointer" onclick="toggleMobileAccordion('mobileCorporateMenu', 'mobileCorporateChev')">
+        <div class="flex items-center justify-between py-2 cursor-pointer" onclick="toggleMobileAccordion('mobileCorporateMenu', 'mobileCorporateChev')">
           <span class="text-sm font-semibold text-white hover:text-[#D6A84F] transition-colors">CORPORATE</span>
-          <button type="button" class="p-1.5 rounded-lg text-slate-400 hover:text-white focus:outline-none" aria-label="Toggle Corporate submenu">
+          <button type="button" class="p-1.5 rounded-lg text-slate-400 hover:text-white focus:outline-none" aria-label="Toggle Corporate submenu" aria-expanded="false">
             <svg class="w-4 h-4 transition-transform duration-200" id="mobileCorporateChev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <polyline points="6 9 12 15 18 9"></polyline>
             </svg>
           </button>
         </div>
         <div id="mobileCorporateMenu" class="hidden pl-3 pr-2 py-1.5 space-y-1 bg-[#14171A] rounded-xl border border-[#2C3136] my-1 text-xs">
-          <a href="enterprises.html" onclick="routePage(event, 'enterprises.html'); toggleMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Cybersecurity Consulting</a>
-          <a href="enterprises.html" onclick="routePage(event, 'enterprises.html'); toggleMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Corporate Training</a>
-          <a href="enterprises.html" onclick="routePage(event, 'enterprises.html'); toggleMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Employee Awareness</a>
-          <a href="enterprises.html" onclick="routePage(event, 'enterprises.html'); toggleMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Security Assessments</a>
-          <a href="soc.html" onclick="routePage(event, 'soc.html'); toggleMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Managed Security Services</a>
-          <a href="it-services.html" onclick="routePage(event, 'it-services.html'); toggleMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Enterprise Partnerships</a>
+          <a href="enterprises.html" onclick="routePage(event, 'enterprises.html'); closeMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Cybersecurity Consulting</a>
+          <a href="enterprises.html" onclick="routePage(event, 'enterprises.html'); closeMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Corporate Training</a>
+          <a href="enterprises.html" onclick="routePage(event, 'enterprises.html'); closeMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Employee Awareness</a>
+          <a href="enterprises.html" onclick="routePage(event, 'enterprises.html'); closeMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Security Assessments</a>
+          <a href="soc.html" onclick="routePage(event, 'soc.html'); closeMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Managed Security Services</a>
+          <a href="it-services.html" onclick="routePage(event, 'it-services.html'); closeMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Enterprise Partnerships</a>
         </div>
       </div>
 
-      <!-- RESOURCES + -->
+      <!-- 9. RESOURCES + -->
       <div class="border-b border-[#2C3136] pb-1">
-        <div class="flex items-center justify-between py-1 cursor-pointer" onclick="toggleMobileAccordion('mobileResourcesMenu', 'mobileResourcesChev')">
+        <div class="flex items-center justify-between py-2 cursor-pointer" onclick="toggleMobileAccordion('mobileResourcesMenu', 'mobileResourcesChev')">
           <span class="text-sm font-semibold text-white hover:text-[#D6A84F] transition-colors">RESOURCES</span>
-          <button type="button" class="p-1.5 rounded-lg text-slate-400 hover:text-white focus:outline-none" aria-label="Toggle Resources submenu">
+          <button type="button" class="p-1.5 rounded-lg text-slate-400 hover:text-white focus:outline-none" aria-label="Toggle Resources submenu" aria-expanded="false">
             <svg class="w-4 h-4 transition-transform duration-200" id="mobileResourcesChev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <polyline points="6 9 12 15 18 9"></polyline>
             </svg>
           </button>
         </div>
         <div id="mobileResourcesMenu" class="hidden pl-3 pr-2 py-1.5 space-y-1 bg-[#14171A] rounded-xl border border-[#2C3136] my-1 text-xs">
-          <a href="training.html" onclick="routePage(event, 'training.html'); toggleMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Insights</a>
-          <a href="training.html" onclick="routePage(event, 'training.html'); toggleMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Events &amp; Workshops</a>
-          <a href="training-schedule.html" onclick="routePage(event, 'training-schedule.html'); toggleMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Training Calendar</a>
-          <a href="about.html" onclick="routePage(event, 'about.html'); toggleMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Case Studies</a>
-          <a href="index.html" onclick="routePage(event, 'index.html'); toggleMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Gallery</a>
-          <a href="contact.html" onclick="routePage(event, 'contact.html'); toggleMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Downloads</a>
+          <a href="training.html" onclick="routePage(event, 'training.html'); closeMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Insights</a>
+          <a href="training.html" onclick="routePage(event, 'training.html'); closeMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Events &amp; Workshops</a>
+          <a href="training-schedule.html" onclick="routePage(event, 'training-schedule.html'); closeMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Training Calendar</a>
+          <a href="about.html" onclick="routePage(event, 'about.html'); closeMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Case Studies</a>
+          <a href="index.html" onclick="routePage(event, 'index.html'); closeMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Gallery</a>
+          <a href="contact.html" onclick="routePage(event, 'contact.html'); closeMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Downloads</a>
         </div>
       </div>
 
-      <!-- CONTACT -->
-      <a href="contact.html" onclick="routePage(event, 'contact.html'); toggleMobileNav();" class="block w-full text-left text-sm font-semibold text-white hover:text-[#D6A84F] py-1 border-b border-[#2C3136]">CONTACT</a>
+      <!-- 10. CONTACT + -->
+      <div class="border-b border-[#2C3136] pb-1">
+        <div class="flex items-center justify-between py-2 cursor-pointer" onclick="toggleMobileAccordion('mobileContactMenu', 'mobileContactChev')">
+          <span class="text-sm font-semibold text-white hover:text-[#D6A84F] transition-colors">CONTACT</span>
+          <button type="button" class="p-1.5 rounded-lg text-slate-400 hover:text-white focus:outline-none" aria-label="Toggle Contact submenu" aria-expanded="false">
+            <svg class="w-4 h-4 transition-transform duration-200" id="mobileContactChev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+        </div>
+        <div id="mobileContactMenu" class="hidden pl-3 pr-2 py-1.5 space-y-1 bg-[#14171A] rounded-xl border border-[#2C3136] my-1 text-xs">
+          <a href="contact.html" onclick="routePage(event, 'contact.html'); closeMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Contact Us</a>
+          <a href="contact.html" onclick="routePage(event, 'contact.html'); closeMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Enquire Now</a>
+          <a href="contact.html" onclick="routePage(event, 'contact.html'); closeMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Partner With Us</a>
+        </div>
+      </div>
 
-      <!-- ENQUIRE NOW -->
-      <a href="contact.html" onclick="routePage(event, 'contact.html'); toggleMobileNav();" class="w-full mt-3 flex items-center justify-center gap-2 px-5 py-3 rounded-full bg-[#D6A84F] text-[#18202A] text-xs font-bold shadow-md cursor-pointer">
-        <span>ENQUIRE NOW</span>
-        <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
-      </a>
+      <!-- APPEARANCE / DARK MODE TOGGLE (Mobile Accessible) -->
+      <div class="pt-3 pb-1">
+        <button type="button" onclick="toggleTheme()" class="w-full flex items-center justify-between px-4 py-2.5 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 text-slate-200 transition-colors cursor-pointer">
+          <span class="text-xs font-semibold tracking-wider font-mono">APPEARANCE</span>
+          <div class="flex items-center gap-2 text-xs font-semibold text-[#D6A84F]">
+            <i data-lucide="sun" class="w-4 h-4 hidden dark:inline-block"></i>
+            <i data-lucide="moon" class="w-4 h-4 inline-block dark:hidden"></i>
+            <span class="dark:hidden">DARK MODE</span>
+            <span class="hidden dark:inline">LIGHT MODE</span>
+          </div>
+        </button>
+      </div>
+
+      <!-- ENQUIRE NOW (Mobile Full-width Button) -->
+      <div class="pt-1 pb-2">
+        <a href="contact.html" onclick="routePage(event, 'contact.html'); closeMobileNav();" class="w-full flex items-center justify-center gap-2 px-5 py-3 rounded-full bg-[#D6A84F] hover:bg-[#C2943F] text-[#18202A] text-xs font-bold uppercase tracking-wider shadow-md cursor-pointer transition-colors">
+          <span>ENQUIRE NOW</span>
+          <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+        </a>
+      </div>
 
     </div>
   </header>
@@ -5742,24 +5820,51 @@ Thank you.`
       }
     });
 
+        function closeMobileNav() {
+      const m = document.getElementById('mobileDrawer');
+      const btn = document.getElementById('mobileMenuBtn');
+      if (m && !m.classList.contains('hidden')) {
+        m.classList.add('hidden');
+        document.body.style.overflow = '';
+      }
+      if (btn) {
+        btn.classList.remove('is-active');
+        btn.setAttribute('aria-expanded', 'false');
+        btn.setAttribute('aria-label', 'Open navigation');
+      }
+    }
+
+    function openMobileNav() {
+      const m = document.getElementById('mobileDrawer');
+      const btn = document.getElementById('mobileMenuBtn');
+      if (m) {
+        m.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+      }
+      if (btn) {
+        btn.classList.add('is-active');
+        btn.setAttribute('aria-expanded', 'true');
+        btn.setAttribute('aria-label', 'Close navigation');
+      }
+    }
+
+    function toggleMobileNav() {
+      const m = document.getElementById('mobileDrawer');
+      if (!m) return;
+      if (m.classList.contains('hidden')) {
+        openMobileNav();
+      } else {
+        closeMobileNav();
+      }
+    }
+
     function closeAllDrawers() {
+      closeMobileNav();
       const b = document.getElementById('capabilityDrawerBackdrop');
       const d = document.getElementById('capabilityDrawer');
       if (b) b.classList.add('hidden');
       if (d) d.classList.add('translate-x-full');
       document.body.style.overflow = '';
-    }
-
-    // Mobile nav toggle with background scroll lock
-    function toggleMobileNav() {
-      const m = document.getElementById('mobileDrawer');
-      if (!m) return;
-      const isHidden = m.classList.toggle('hidden');
-      if (!isHidden) {
-        document.body.style.overflow = 'hidden';
-      } else {
-        document.body.style.overflow = '';
-      }
     }
 
     // Isolate wheel scrolling on specific scrollable containers
