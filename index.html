@@ -429,7 +429,7 @@
     }
 
   
-        /* ==================== DROPDOWNS & HEADER Z-INDEX SYSTEM ==================== */
+            /* ==================== DROPDOWNS & HEADER Z-INDEX SYSTEM ==================== */
     header {
       position: sticky !important;
       top: 0 !important;
@@ -481,7 +481,26 @@
       top: 100% !important;
       z-index: 9999 !important;
       pointer-events: none;
+      white-space: normal !important;
     }
+    .nav-dropdown-panel a {
+      line-height: 1.4;
+    }
+    #dropdown-cybersecurity {
+      white-space: normal !important;
+    }
+    #dropdown-cybersecurity .mega-menu-grid {
+      display: grid !important;
+      grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+      gap: 1.25rem !important;
+    }
+    #dropdown-cybersecurity a {
+      white-space: normal !important;
+      word-break: normal !important;
+      overflow-wrap: break-word !important;
+      display: block !important;
+    }
+
     /* Dropdown Hover and Open State (Desktop 1200px+) */
     @media (min-width: 1200px) {
       .nav-item-dropdown:hover > .nav-dropdown-panel,
@@ -619,7 +638,7 @@
         <img src="assets/images/sln-consulting-logo.png" alt="SLN Consulting - Solutions for Seamless Growth" class="h-10 sm:h-11 w-auto object-contain block" style="max-height: 44px; width: auto;" />
       </a>
 
-            <!-- Center: Main Navigation (10 Items, single clean horizontal flex row, vertically centered) -->
+                  <!-- Center: Main Navigation (10 Items, single clean horizontal flex row, vertically centered) -->
       <nav class="hidden xl:flex items-center gap-1 xl:gap-1.5 2xl:gap-3 text-[11.5px] xl:text-[12px] 2xl:text-[13.5px] font-medium tracking-normal header-desktop-nav flex-nowrap whitespace-nowrap min-w-0" aria-label="Main Navigation">
         
         <!-- 1. Home -->
@@ -672,72 +691,72 @@
               <polyline points="6 9 12 15 18 9"></polyline>
             </svg>
           </button>
-          <!-- Mega Dropdown Panel (Dark Theme) -->
-          <div id="dropdown-cybersecurity" class="nav-dropdown-panel hidden absolute top-full -left-16 xl:-left-24 pt-2 w-[760px] xl:w-[820px] z-[9999] transition-all duration-150">
-            <div class="bg-[#181C20] rounded-2xl border border-[#2C3136] shadow-2xl p-5 overflow-hidden text-xs">
-              <div class="grid grid-cols-4 gap-4">
+          <!-- Mega Dropdown Panel (Dark Theme, Wide 4-Column Layout without Text Collision) -->
+          <div id="dropdown-cybersecurity" class="nav-dropdown-panel hidden absolute top-full -left-20 xl:-left-32 pt-2 w-[880px] xl:w-[940px] 2xl:w-[980px] max-w-[calc(100vw-32px)] z-[9999] transition-all duration-150">
+            <div class="bg-[#181C20] rounded-2xl border border-[#2C3136] shadow-2xl p-5 sm:p-6 overflow-hidden text-xs">
+              <div class="grid grid-cols-4 gap-5 mega-menu-grid min-w-0">
                 
                 <!-- Category 1: Offensive Security -->
-                <div>
-                  <div class="font-mono text-[10px] font-bold uppercase text-[#D6A84F] tracking-wider mb-2 pb-1 border-b border-[#2C3136] flex items-center gap-1.5">
+                <div class="min-w-0">
+                  <div class="font-mono text-[10px] font-bold uppercase text-[#D6A84F] tracking-wider mb-2 pb-1 border-b border-[#2C3136] flex items-center gap-1.5 whitespace-nowrap">
                     <i data-lucide="shield" class="w-3.5 h-3.5 text-[#D6A84F]"></i>
                     <span>Offensive Security</span>
                   </div>
-                  <ul class="space-y-1.5">
-                    <li><a href="soc.html" onclick="routePage(event, 'soc.html'); closeAllNavDropdowns();" class="text-slate-300 hover:text-[#D6A84F] transition-colors block py-0.5">Vulnerability Assessment &amp; Pen Testing</a></li>
-                    <li><a href="soc.html" onclick="routePage(event, 'soc.html'); closeAllNavDropdowns();" class="text-slate-300 hover:text-[#D6A84F] transition-colors block py-0.5">Web Application Security</a></li>
-                    <li><a href="soc.html" onclick="routePage(event, 'soc.html'); closeAllNavDropdowns();" class="text-slate-300 hover:text-[#D6A84F] transition-colors block py-0.5">Mobile Application Security</a></li>
-                    <li><a href="soc.html" onclick="routePage(event, 'soc.html'); closeAllNavDropdowns();" class="text-slate-300 hover:text-[#D6A84F] transition-colors block py-0.5">Cloud Security Assessment</a></li>
-                    <li><a href="soc.html" onclick="routePage(event, 'soc.html'); closeAllNavDropdowns();" class="text-slate-300 hover:text-[#D6A84F] transition-colors block py-0.5">API Security Testing</a></li>
-                    <li><a href="soc.html" onclick="routePage(event, 'soc.html'); closeAllNavDropdowns();" class="text-slate-300 hover:text-[#D6A84F] transition-colors block py-0.5">Network Penetration Testing</a></li>
+                  <ul class="space-y-2 min-w-0">
+                    <li><a href="soc.html" onclick="routePage(event, 'soc.html'); closeAllNavDropdowns();" class="text-slate-300 hover:text-[#D6A84F] transition-colors block py-0.5 leading-snug">Vulnerability Assessment &amp; Pen Testing</a></li>
+                    <li><a href="soc.html" onclick="routePage(event, 'soc.html'); closeAllNavDropdowns();" class="text-slate-300 hover:text-[#D6A84F] transition-colors block py-0.5 leading-snug">Web Application Security</a></li>
+                    <li><a href="soc.html" onclick="routePage(event, 'soc.html'); closeAllNavDropdowns();" class="text-slate-300 hover:text-[#D6A84F] transition-colors block py-0.5 leading-snug">Mobile Application Security</a></li>
+                    <li><a href="soc.html" onclick="routePage(event, 'soc.html'); closeAllNavDropdowns();" class="text-slate-300 hover:text-[#D6A84F] transition-colors block py-0.5 leading-snug">Cloud Security Assessment</a></li>
+                    <li><a href="soc.html" onclick="routePage(event, 'soc.html'); closeAllNavDropdowns();" class="text-slate-300 hover:text-[#D6A84F] transition-colors block py-0.5 leading-snug">API Security Testing</a></li>
+                    <li><a href="soc.html" onclick="routePage(event, 'soc.html'); closeAllNavDropdowns();" class="text-slate-300 hover:text-[#D6A84F] transition-colors block py-0.5 leading-snug">Network Penetration Testing</a></li>
                   </ul>
                 </div>
 
                 <!-- Category 2: Security Operations & Defense -->
-                <div>
-                  <div class="font-mono text-[10px] font-bold uppercase text-[#D6A84F] tracking-wider mb-2 pb-1 border-b border-[#2C3136] flex items-center gap-1.5">
+                <div class="min-w-0">
+                  <div class="font-mono text-[10px] font-bold uppercase text-[#D6A84F] tracking-wider mb-2 pb-1 border-b border-[#2C3136] flex items-center gap-1.5 whitespace-nowrap">
                     <i data-lucide="activity" class="w-3.5 h-3.5 text-[#D6A84F]"></i>
                     <span>Security Operations</span>
                   </div>
-                  <ul class="space-y-1.5">
-                    <li><a href="soc.html" onclick="routePage(event, 'soc.html'); closeAllNavDropdowns();" class="text-[#D6A84F] font-semibold hover:underline block py-0.5">SOC-as-a-Service (24×7)</a></li>
-                    <li><a href="soc.html" onclick="routePage(event, 'soc.html'); closeAllNavDropdowns();" class="text-slate-300 hover:text-[#D6A84F] transition-colors block py-0.5">Threat Detection &amp; Response</a></li>
-                    <li><a href="soc.html" onclick="routePage(event, 'soc.html'); closeAllNavDropdowns();" class="text-slate-300 hover:text-[#D6A84F] transition-colors block py-0.5">SIEM Implementation &amp; Mgmt</a></li>
-                    <li><a href="soc.html" onclick="routePage(event, 'soc.html'); closeAllNavDropdowns();" class="text-slate-300 hover:text-[#D6A84F] transition-colors block py-0.5">Incident Response &amp; Forensics</a></li>
-                    <li><a href="soc.html" onclick="routePage(event, 'soc.html'); closeAllNavDropdowns();" class="text-slate-300 hover:text-[#D6A84F] transition-colors block py-0.5">Threat Intelligence &amp; Hunting</a></li>
-                    <li><a href="soc.html" onclick="routePage(event, 'soc.html'); closeAllNavDropdowns();" class="text-slate-300 hover:text-[#D6A84F] transition-colors block py-0.5">Continuous Monitoring</a></li>
+                  <ul class="space-y-2 min-w-0">
+                    <li><a href="soc.html" onclick="routePage(event, 'soc.html'); closeAllNavDropdowns();" class="text-[#D6A84F] font-semibold hover:underline block py-0.5 leading-snug">SOC-as-a-Service (24×7)</a></li>
+                    <li><a href="soc.html" onclick="routePage(event, 'soc.html'); closeAllNavDropdowns();" class="text-slate-300 hover:text-[#D6A84F] transition-colors block py-0.5 leading-snug">Threat Detection &amp; Response</a></li>
+                    <li><a href="soc.html" onclick="routePage(event, 'soc.html'); closeAllNavDropdowns();" class="text-slate-300 hover:text-[#D6A84F] transition-colors block py-0.5 leading-snug">SIEM Implementation &amp; Mgmt</a></li>
+                    <li><a href="soc.html" onclick="routePage(event, 'soc.html'); closeAllNavDropdowns();" class="text-slate-300 hover:text-[#D6A84F] transition-colors block py-0.5 leading-snug">Incident Response &amp; Forensics</a></li>
+                    <li><a href="soc.html" onclick="routePage(event, 'soc.html'); closeAllNavDropdowns();" class="text-slate-300 hover:text-[#D6A84F] transition-colors block py-0.5 leading-snug">Threat Intelligence &amp; Hunting</a></li>
+                    <li><a href="soc.html" onclick="routePage(event, 'soc.html'); closeAllNavDropdowns();" class="text-slate-300 hover:text-[#D6A84F] transition-colors block py-0.5 leading-snug">Continuous Monitoring</a></li>
                   </ul>
                 </div>
 
                 <!-- Category 3: Security Consulting & Governance -->
-                <div>
-                  <div class="font-mono text-[10px] font-bold uppercase text-[#D6A84F] tracking-wider mb-2 pb-1 border-b border-[#2C3136] flex items-center gap-1.5">
+                <div class="min-w-0">
+                  <div class="font-mono text-[10px] font-bold uppercase text-[#D6A84F] tracking-wider mb-2 pb-1 border-b border-[#2C3136] flex items-center gap-1.5 whitespace-nowrap">
                     <i data-lucide="file-check-2" class="w-3.5 h-3.5 text-[#D6A84F]"></i>
                     <span>Consulting &amp; Risk</span>
                   </div>
-                  <ul class="space-y-1.5">
-                    <li><a href="soc.html" onclick="routePage(event, 'soc.html'); closeAllNavDropdowns();" class="text-slate-300 hover:text-[#D6A84F] transition-colors block py-0.5">Cybersecurity Consulting</a></li>
-                    <li><a href="soc.html" onclick="routePage(event, 'soc.html'); closeAllNavDropdowns();" class="text-slate-300 hover:text-[#D6A84F] transition-colors block py-0.5">Risk Assessment &amp; Governance</a></li>
-                    <li><a href="soc.html" onclick="routePage(event, 'soc.html'); closeAllNavDropdowns();" class="text-slate-300 hover:text-[#D6A84F] transition-colors block py-0.5">Compliance (ISO, DPDP, CERT-In)</a></li>
-                    <li><a href="soc.html" onclick="routePage(event, 'soc.html'); closeAllNavDropdowns();" class="text-slate-300 hover:text-[#D6A84F] transition-colors block py-0.5">Security Architecture Design</a></li>
-                    <li><a href="soc.html" onclick="routePage(event, 'soc.html'); closeAllNavDropdowns();" class="text-slate-300 hover:text-[#D6A84F] transition-colors block py-0.5">Third-Party Vendor Risk Mgmt</a></li>
-                    <li><a href="soc.html" onclick="routePage(event, 'soc.html'); closeAllNavDropdowns();" class="text-slate-300 hover:text-[#D6A84F] transition-colors block py-0.5">Data Privacy Frameworks</a></li>
+                  <ul class="space-y-2 min-w-0">
+                    <li><a href="soc.html" onclick="routePage(event, 'soc.html'); closeAllNavDropdowns();" class="text-slate-300 hover:text-[#D6A84F] transition-colors block py-0.5 leading-snug">Cybersecurity Consulting</a></li>
+                    <li><a href="soc.html" onclick="routePage(event, 'soc.html'); closeAllNavDropdowns();" class="text-slate-300 hover:text-[#D6A84F] transition-colors block py-0.5 leading-snug">Risk Assessment &amp; Governance</a></li>
+                    <li><a href="soc.html" onclick="routePage(event, 'soc.html'); closeAllNavDropdowns();" class="text-slate-300 hover:text-[#D6A84F] transition-colors block py-0.5 leading-snug">Compliance (ISO, DPDP, CERT-In)</a></li>
+                    <li><a href="soc.html" onclick="routePage(event, 'soc.html'); closeAllNavDropdowns();" class="text-slate-300 hover:text-[#D6A84F] transition-colors block py-0.5 leading-snug">Security Architecture Design</a></li>
+                    <li><a href="soc.html" onclick="routePage(event, 'soc.html'); closeAllNavDropdowns();" class="text-slate-300 hover:text-[#D6A84F] transition-colors block py-0.5 leading-snug">Third-Party Vendor Risk Mgmt</a></li>
+                    <li><a href="soc.html" onclick="routePage(event, 'soc.html'); closeAllNavDropdowns();" class="text-slate-300 hover:text-[#D6A84F] transition-colors block py-0.5 leading-snug">Data Privacy Frameworks</a></li>
                   </ul>
                 </div>
 
                 <!-- Category 4: Specialized Services & Frameworks -->
-                <div>
-                  <div class="font-mono text-[10px] font-bold uppercase text-[#D6A84F] tracking-wider mb-2 pb-1 border-b border-[#2C3136] flex items-center gap-1.5">
+                <div class="min-w-0">
+                  <div class="font-mono text-[10px] font-bold uppercase text-[#D6A84F] tracking-wider mb-2 pb-1 border-b border-[#2C3136] flex items-center gap-1.5 whitespace-nowrap">
                     <i data-lucide="sparkles" class="w-3.5 h-3.5 text-[#D6A84F]"></i>
                     <span>Specialized Services</span>
                   </div>
-                  <ul class="space-y-1.5">
-                    <li><a href="soc.html" onclick="routePage(event, 'soc.html'); closeAllNavDropdowns();" class="text-slate-300 hover:text-[#D6A84F] transition-colors block py-0.5">Zero Trust Architecture</a></li>
-                    <li><a href="soc.html" onclick="routePage(event, 'soc.html'); closeAllNavDropdowns();" class="text-slate-300 hover:text-[#D6A84F] transition-colors block py-0.5">Cloud Security (AWS/Azure/GCP)</a></li>
-                    <li><a href="soc.html" onclick="routePage(event, 'soc.html'); closeAllNavDropdowns();" class="text-slate-300 hover:text-[#D6A84F] transition-colors block py-0.5">DevSecOps Integration</a></li>
-                    <li><a href="soc.html" onclick="routePage(event, 'soc.html'); closeAllNavDropdowns();" class="text-slate-300 hover:text-[#D6A84F] transition-colors block py-0.5">IoT &amp; OT Security Testing</a></li>
-                    <li><a href="soc.html" onclick="routePage(event, 'soc.html'); closeAllNavDropdowns();" class="text-slate-300 hover:text-[#D6A84F] transition-colors block py-0.5">AI Defense Frameworks</a></li>
-                    <li><a href="soc.html" onclick="routePage(event, 'soc.html'); closeAllNavDropdowns();" class="text-[#D6A84F] font-semibold hover:underline block py-0.5">View All Cybersecurity &rarr;</a></li>
+                  <ul class="space-y-2 min-w-0">
+                    <li><a href="soc.html" onclick="routePage(event, 'soc.html'); closeAllNavDropdowns();" class="text-slate-300 hover:text-[#D6A84F] transition-colors block py-0.5 leading-snug">Zero Trust Architecture</a></li>
+                    <li><a href="soc.html" onclick="routePage(event, 'soc.html'); closeAllNavDropdowns();" class="text-slate-300 hover:text-[#D6A84F] transition-colors block py-0.5 leading-snug">Cloud Security (AWS/Azure/GCP)</a></li>
+                    <li><a href="soc.html" onclick="routePage(event, 'soc.html'); closeAllNavDropdowns();" class="text-slate-300 hover:text-[#D6A84F] transition-colors block py-0.5 leading-snug">DevSecOps Integration</a></li>
+                    <li><a href="soc.html" onclick="routePage(event, 'soc.html'); closeAllNavDropdowns();" class="text-slate-300 hover:text-[#D6A84F] transition-colors block py-0.5 leading-snug">IoT &amp; OT Security Testing</a></li>
+                    <li><a href="soc.html" onclick="routePage(event, 'soc.html'); closeAllNavDropdowns();" class="text-slate-300 hover:text-[#D6A84F] transition-colors block py-0.5 leading-snug">AI Defense Frameworks</a></li>
+                    <li><a href="soc.html" onclick="routePage(event, 'soc.html'); closeAllNavDropdowns();" class="text-[#D6A84F] font-semibold hover:underline block py-0.5 leading-snug">View All Cybersecurity &rarr;</a></li>
                   </ul>
                 </div>
 
