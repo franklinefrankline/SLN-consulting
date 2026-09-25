@@ -349,15 +349,17 @@
       flex-wrap: nowrap !important;
       width: 100% !important;
     }
-    .header-desktop-nav {
-      display: flex !important;
-      align-items: center !important;
-      flex-wrap: nowrap !important;
-      white-space: nowrap !important;
-    }
-    .header-desktop-nav > * {
-      flex-shrink: 0 !important;
-      white-space: nowrap !important;
+    @media (min-width: 992px) {
+      .header-desktop-nav {
+        display: flex !important;
+        align-items: center !important;
+        flex-wrap: nowrap !important;
+        white-space: nowrap !important;
+      }
+      .header-desktop-nav > * {
+        flex-shrink: 0 !important;
+        white-space: nowrap !important;
+      }
     }
 
     /* Home Hero Styles */
@@ -429,14 +431,64 @@
     }
 
   
-            /* ==================== DROPDOWNS & HEADER Z-INDEX SYSTEM ==================== */
-    header {
-      position: sticky !important;
+                    /* ==================== BOTH HEADERS FIXED & Z-INDEX SYSTEM ==================== */
+    :root {
+      --utility-height: 33px;
+      --navbar-height: 77px;
+      --header-total-height: 110px;
+    }
+
+    @media (max-width: 991.98px) {
+      :root {
+        --utility-height: 33px;
+        --navbar-height: 69px;
+        --header-total-height: 102px;
+      }
+    }
+
+    html,
+    body {
+      max-width: 100%;
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+
+    body {
+      padding-top: var(--header-total-height);
+    }
+
+    .page-content {
+      padding-top: var(--header-total-height);
+    }
+
+    .top-utility-bar {
+      position: fixed !important;
       top: 0 !important;
-      z-index: 1000 !important;
+      left: 0 !important;
+      right: 0 !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+      z-index: 10002 !important;
+      overflow-x: hidden !important;
+    }
+
+    header,
+    .header,
+    .main-navbar {
+      position: fixed !important;
+      top: var(--utility-height) !important;
+      left: 0 !important;
+      right: 0 !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+      z-index: 10001 !important;
       overflow: visible !important;
     }
-    .navbar-container {
+
+    .navbar-container,
+    .mobile-header {
       position: relative !important;
       overflow: visible !important;
       width: 100%;
@@ -449,60 +501,147 @@
       justify-content: space-between !important;
       flex-wrap: nowrap !important;
     }
-    .header-desktop-row {
-      display: flex !important;
-      align-items: center !important;
-      justify-content: space-between !important;
-      flex-wrap: nowrap !important;
-      width: 100% !important;
-      overflow: visible !important;
-    }
-    .header-desktop-nav {
-      position: relative !important;
-      overflow: visible !important;
-      flex: 1;
-      display: flex !important;
-      align-items: center !important;
-      justify-content: flex-end !important;
-      flex-wrap: nowrap !important;
-      white-space: nowrap !important;
-      margin: 0;
-      padding: 0;
-    }
-    .header-desktop-nav > * {
+
+    .logo {
       flex-shrink: 0 !important;
-      white-space: nowrap !important;
-    }
-    .nav-item-dropdown {
-      position: relative !important;
-    }
-    .nav-dropdown-panel {
-      position: absolute !important;
-      top: 100% !important;
-      z-index: 9999 !important;
-      pointer-events: none;
-      white-space: normal !important;
-    }
-    .nav-dropdown-panel a {
-      line-height: 1.4;
-    }
-    #dropdown-cybersecurity {
-      white-space: normal !important;
-    }
-    #dropdown-cybersecurity .mega-menu-grid {
-      display: grid !important;
-      grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
-      gap: 1.25rem !important;
-    }
-    #dropdown-cybersecurity a {
-      white-space: normal !important;
-      word-break: normal !important;
-      overflow-wrap: break-word !important;
-      display: block !important;
+      display: flex !important;
+      align-items: center !important;
     }
 
-    /* Dropdown Hover and Open State (Desktop 1200px+) */
-    @media (min-width: 1200px) {
+    .mobile-menu-toggle {
+      flex-shrink: 0 !important;
+    }
+
+    .top-utility-bar {
+      max-width: 100%;
+      overflow-x: hidden;
+    }
+
+    /* ==================== MOBILE & TABLET (< 992px) ==================== */
+    @media (max-width: 991.98px) {
+      .navbar-container,
+      .mobile-header {
+        height: 68px !important;
+        padding: 0 16px !important;
+      }
+
+      .logo {
+        max-width: 110px !important;
+        height: auto !important;
+      }
+
+      .logo img,
+      .logo-img {
+        max-width: 110px !important;
+        max-height: 38px !important;
+        height: auto !important;
+        object-fit: contain !important;
+      }
+
+      /* Desktop navigation completely hidden on mobile/tablet */
+      .desktop-nav,
+      .desktop-menu,
+      .desktop-nav-links,
+      .header-desktop-nav {
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+        pointer-events: none !important;
+        width: 0 !important;
+        height: 0 !important;
+        overflow: hidden !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        position: absolute !important;
+        left: -9999px !important;
+      }
+
+      #headerThemeToggle,
+      .desktop-cta-enquire {
+        display: none !important;
+      }
+
+      #mobileMenuBtn,
+      .mobile-menu-toggle {
+        display: flex !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        pointer-events: auto !important;
+        margin-left: auto !important;
+        min-width: 44px !important;
+        min-height: 44px !important;
+      }
+
+      .mobile-menu,
+      #mobileDrawer {
+        position: absolute !important;
+        top: 100% !important;
+        left: 0 !important;
+        width: 100% !important;
+        max-width: 100vw !important;
+        z-index: 10002 !important;
+        background-color: #181C20 !important;
+        border-top: 1px solid #2C3136 !important;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.5) !important;
+      }
+    }
+
+    /* ==================== DESKTOP (>= 992px) ==================== */
+    @media (min-width: 992px) {
+      .header-desktop-row {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        flex-wrap: nowrap !important;
+        width: 100% !important;
+        overflow: visible !important;
+      }
+
+      .header-desktop-nav,
+      .desktop-nav {
+        position: relative !important;
+        overflow: visible !important;
+        flex: 1;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: flex-end !important;
+        flex-wrap: nowrap !important;
+        white-space: nowrap !important;
+        margin: 0;
+        padding: 0;
+        visibility: visible !important;
+        opacity: 1 !important;
+        pointer-events: auto !important;
+        width: auto !important;
+        height: auto !important;
+        left: auto !important;
+      }
+
+      .header-desktop-nav > * {
+        flex-shrink: 0 !important;
+        white-space: nowrap !important;
+      }
+
+      #mobileMenuBtn,
+      .mobile-menu-toggle {
+        display: none !important;
+        visibility: hidden !important;
+        pointer-events: none !important;
+      }
+
+      #headerThemeToggle {
+        display: flex !important;
+      }
+
+      .desktop-cta-enquire {
+        display: inline-flex !important;
+      }
+
+      #mobileDrawer,
+      .mobile-menu {
+        display: none !important;
+      }
+
       .nav-item-dropdown:hover > .nav-dropdown-panel,
       .nav-dropdown-panel.is-open {
         display: block !important;
@@ -511,30 +650,66 @@
         pointer-events: auto !important;
         animation: navDropdownFade 0.18s cubic-bezier(0.16, 1, 0.3, 1) forwards;
       }
+
       .nav-item-dropdown:hover .dropdown-chev,
       .nav-item-dropdown.is-open .dropdown-chev,
       .nav-item-dropdown button[aria-expanded="true"] .dropdown-chev {
         transform: rotate(180deg);
       }
     }
+
+    /* Desktop medium screens (992px to 1199.98px) single-row optimization */
+    @media (min-width: 992px) and (max-width: 1199.98px) {
+      .header-desktop-nav {
+        gap: 0.35rem !important;
+        font-size: 11.5px !important;
+      }
+      .header-desktop-nav .nav-btn {
+        padding-left: 0.3rem !important;
+        padding-right: 0.3rem !important;
+        font-size: 11.5px !important;
+      }
+      .desktop-cta-enquire {
+        padding-left: 0.85rem !important;
+        padding-right: 0.85rem !important;
+        font-size: 11.5px !important;
+      }
+      #headerThemeToggle {
+        padding-left: 0.5rem !important;
+        padding-right: 0.5rem !important;
+      }
+    }
+
+    /* Cybersecurity Dropdown (Compact 180px–220px) */
+    .nav-item-dropdown {
+      position: relative !important;
+    }
+    .nav-dropdown-panel {
+      position: absolute !important;
+      top: calc(100% + 8px) !important;
+      left: 0 !important;
+      width: 190px !important;
+      max-width: 220px !important;
+      z-index: 10003 !important;
+      pointer-events: none;
+      white-space: normal !important;
+    }
+    .nav-dropdown-panel a {
+      line-height: 1.4;
+    }
+    #dropdown-cybersecurity {
+      position: absolute !important;
+      top: calc(100% + 8px) !important;
+      left: 0 !important;
+      width: 190px !important;
+      max-width: 220px !important;
+      z-index: 10003 !important;
+      white-space: normal !important;
+    }
+
     @keyframes navDropdownFade {
       from { opacity: 0; transform: translateY(-4px); }
       to { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes internshipDropdownFade {
-      from { opacity: 0; transform: translateY(-4px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    #internshipsNavRoot:hover #internshipsChevron,
-    #internshipsNavBtn[aria-expanded="true"] #internshipsChevron,
-    #internshipsChevron.rotate-180 {
-      transform: rotate(180deg);
-    }
-    #internshipsDropdownPanel.is-open {
-      display: block !important;
-      opacity: 1 !important;
-      visibility: visible !important;
-      pointer-events: auto !important;
     }
 
     /* ==================== RESPONSIVE NAVBAR & HAMBURGER STYLES ==================== */
@@ -566,16 +741,11 @@
       #mobileMenuBtn .bar-top,
       #mobileMenuBtn .bar-mid,
       #mobileMenuBtn .bar-bot,
-      .dropdown-chev,
-      #internshipsChevron {
+      .dropdown-chev {
         animation: none !important;
         transition: none !important;
         transform: none !important;
       }
-    }
-    body {
-      max-width: 100vw;
-      overflow-x: hidden;
     }
   </style>
 
@@ -593,12 +763,9 @@
 </head>
 <body class="min-h-screen flex flex-col antialiased selection:bg-[#D6A84F]/30 selection:text-white">
 
-        <!-- ==================== PREMIUM ENTERPRISE CYBERSECURITY DARK HEADER ==================== -->
-  <!-- ==================== PREMIUM ENTERPRISE CYBERSECURITY DARK HEADER ==================== -->
-  <header class="sticky top-0 z-[1000] bg-[#16191D] border-b border-white/[0.08] shadow-lg transition-colors duration-200">
-    
-    <!-- ROW 1 — TOP INFORMATION BAR (Dark Charcoal Bar) -->
-    <div class="bg-[#111315] border-b border-white/[0.06] text-slate-300">
+        <!-- ==================== ROW 1 — TOP UTILITY BAR (Scrolls away with page) ==================== -->
+<!-- ROW 1 — TOP INFORMATION BAR (Dark Charcoal Bar) -->
+    <div class="bg-[#111315] border-b border-white/[0.06] text-slate-300 top-utility-bar">
       <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-2 flex items-center justify-between gap-4 text-xs">
         
         <!-- Left: SLN CONSULTING | SOLUTIONS FOR SEAMLESS GROWTH | Location -->
@@ -630,60 +797,27 @@
       </div>
     </div>
 
+<!-- ==================== PREMIUM ENTERPRISE CYBERSECURITY DARK HEADER ==================== -->
+  <!-- ==================== PREMIUM ENTERPRISE CYBERSECURITY DARK HEADER ==================== -->
+  <header class="header main-navbar fixed z-[10001] bg-[#16191D] border-b border-white/[0.08] shadow-lg transition-colors duration-200">
     <!-- ROW 2 — MAIN NAVIGATION BAR (Seamless Dark Continuous Header) -->
-    <div class="navbar-container max-w-[1440px] w-full mx-auto px-3 sm:px-5 xl:px-6 h-[76px] flex items-center justify-between gap-3 xl:gap-4 header-desktop-row flex-nowrap">
+    <div class="navbar-container mobile-header max-w-[1440px] w-full mx-auto px-3 sm:px-5 xl:px-6 h-[76px] flex items-center justify-between gap-3 xl:gap-4 header-desktop-row flex-nowrap">
       
       <!-- Left: Logo (Transparent area, no white background, vertically centered) -->
-      <a href="index.html" onclick="routePage(event, 'index.html')" class="flex items-center shrink-0 focus:outline-none transition-transform hover:opacity-95" aria-label="SLN Consulting Home">
-        <img src="assets/images/sln-consulting-logo.png" alt="SLN Consulting - Solutions for Seamless Growth" class="h-10 sm:h-11 w-auto object-contain block" style="max-height: 44px; width: auto;" />
+      <a href="index.html" onclick="routePage(event, 'index.html')" class="flex items-center shrink-0 focus:outline-none transition-transform hover:opacity-95 logo" aria-label="SLN Consulting Home">
+        <img src="assets/images/sln-consulting-logo.png" alt="SLN Consulting - Solutions for Seamless Growth" class="h-10 sm:h-11 w-auto object-contain block logo-img" style="max-height: 44px; width: auto;" />
       </a>
 
-                  <!-- Center: Main Navigation (10 Items, single clean horizontal flex row, vertically centered) -->
-      <nav class="hidden xl:flex items-center gap-1 xl:gap-1.5 2xl:gap-3 text-[11.5px] xl:text-[12px] 2xl:text-[13.5px] font-medium tracking-normal header-desktop-nav flex-nowrap whitespace-nowrap min-w-0" aria-label="Main Navigation">
+                        <!-- Center: Main Navigation (10 Items, single clean horizontal flex row, vertically centered) -->
+      <nav class="hidden xl:flex items-center gap-1 xl:gap-2 2xl:gap-3.5 text-[12px] xl:text-[12.5px] 2xl:text-[13.5px] font-medium tracking-normal header-desktop-nav desktop-nav flex-nowrap whitespace-nowrap min-w-0" aria-label="Main Navigation">
         
         <!-- 1. Home -->
         <a href="index.html" onclick="routePage(event, 'index.html')" class="nav-btn font-medium xl:font-semibold text-[#D6A84F] border-b-2 border-[#D6A84F] pb-1 transition-all whitespace-nowrap" data-route="index.html">Home</a>
 
-        <!-- 2. About Us ▾ -->
-        <div class="relative group/nav flex items-center h-full nav-item-dropdown" data-dropdown="about">
-          <button type="button" class="nav-btn font-medium xl:font-semibold text-slate-300 hover:text-[#D6A84F] border-b-2 border-transparent pb-1 transition-all flex items-center gap-1 focus:outline-none whitespace-nowrap cursor-pointer" data-route="about.html" aria-haspopup="true" aria-expanded="false" onclick="toggleNavDropdown(event, 'about')">
-            <span>About Us</span>
-            <svg class="w-3 h-3 text-slate-400 group-hover/nav:text-[#D6A84F] transition-transform duration-200 dropdown-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="6 9 12 15 18 9"></polyline>
-            </svg>
-          </button>
-          <!-- About Us Dropdown Panel (Dark Theme) -->
-          <div id="dropdown-about" class="nav-dropdown-panel hidden absolute top-full left-0 pt-2 w-[240px] z-[9999] transition-all duration-150">
-            <div class="bg-[#181C20] rounded-xl border border-[#2C3136] shadow-2xl py-2 overflow-hidden text-xs">
-              <a href="about.html" onclick="routePage(event, 'about.html'); closeAllNavDropdowns();" class="flex items-center gap-2.5 px-4 py-2 hover:bg-[#22272B] text-slate-300 hover:text-[#D6A84F] transition-colors">
-                <span class="w-1.5 h-1.5 rounded-full bg-[#D6A84F] shrink-0"></span>
-                <span>About SLN</span>
-              </a>
-              <a href="about.html#leadership" onclick="routePage(event, 'about.html', 'leadership'); closeAllNavDropdowns();" class="flex items-center gap-2.5 px-4 py-2 hover:bg-[#22272B] text-slate-300 hover:text-[#D6A84F] transition-colors">
-                <span class="w-1.5 h-1.5 rounded-full bg-[#D6A84F] shrink-0"></span>
-                <span>Our Leadership</span>
-              </a>
-              <a href="about.html#why-sln" onclick="routePage(event, 'about.html', 'why-sln'); closeAllNavDropdowns();" class="flex items-center gap-2.5 px-4 py-2 hover:bg-[#22272B] text-slate-300 hover:text-[#D6A84F] transition-colors">
-                <span class="w-1.5 h-1.5 rounded-full bg-[#D6A84F] shrink-0"></span>
-                <span>Why SLN?</span>
-              </a>
-              <a href="about.html#partners" onclick="routePage(event, 'about.html', 'partners'); closeAllNavDropdowns();" class="flex items-center gap-2.5 px-4 py-2 hover:bg-[#22272B] text-slate-300 hover:text-[#D6A84F] transition-colors">
-                <span class="w-1.5 h-1.5 rounded-full bg-[#D6A84F] shrink-0"></span>
-                <span>Partners &amp; Accreditations</span>
-              </a>
-              <a href="about.html#clients" onclick="routePage(event, 'about.html', 'clients'); closeAllNavDropdowns();" class="flex items-center gap-2.5 px-4 py-2 hover:bg-[#22272B] text-slate-300 hover:text-[#D6A84F] transition-colors">
-                <span class="w-1.5 h-1.5 rounded-full bg-[#D6A84F] shrink-0"></span>
-                <span>Our Clients</span>
-              </a>
-              <a href="about.html#success-stories" onclick="routePage(event, 'about.html', 'success-stories'); closeAllNavDropdowns();" class="flex items-center gap-2.5 px-4 py-2 hover:bg-[#22272B] text-slate-300 hover:text-[#D6A84F] transition-colors">
-                <span class="w-1.5 h-1.5 rounded-full bg-[#D6A84F] shrink-0"></span>
-                <span>Success Stories</span>
-              </a>
-            </div>
-          </div>
-        </div>
+        <!-- 2. About Us (Direct Navigation Link — No Dropdown) -->
+        <a href="about.html" onclick="routePage(event, 'about.html')" class="nav-btn font-medium xl:font-semibold text-slate-300 hover:text-[#D6A84F] border-b-2 border-transparent pb-1 transition-all whitespace-nowrap" data-route="about.html">About Us</a>
 
-        <!-- 3. Cybersecurity ▾ (Dark Mega-Menu with 4 Strategic Categories) -->
+        <!-- 3. Cybersecurity ▾ (ONLY Dropdown — Compact SaaS & VAPT) -->
         <div class="relative group/nav flex items-center h-full nav-item-dropdown" data-dropdown="cybersecurity">
           <button type="button" class="nav-btn font-medium xl:font-semibold text-slate-300 hover:text-[#D6A84F] border-b-2 border-transparent pb-1 transition-all flex items-center gap-1 focus:outline-none whitespace-nowrap cursor-pointer" data-route="soc.html" aria-haspopup="true" aria-expanded="false" onclick="toggleNavDropdown(event, 'cybersecurity')">
             <span>Cybersecurity</span>
@@ -691,358 +825,41 @@
               <polyline points="6 9 12 15 18 9"></polyline>
             </svg>
           </button>
-          <!-- Mega Dropdown Panel (Dark Theme, Wide 4-Column Layout without Text Collision) -->
-          <div id="dropdown-cybersecurity" class="nav-dropdown-panel hidden absolute top-full -left-20 xl:-left-32 pt-2 w-[880px] xl:w-[940px] 2xl:w-[980px] max-w-[calc(100vw-32px)] z-[9999] transition-all duration-150">
-            <div class="bg-[#181C20] rounded-2xl border border-[#2C3136] shadow-2xl p-5 sm:p-6 overflow-hidden text-xs">
-              <div class="grid grid-cols-4 gap-5 mega-menu-grid min-w-0">
-                
-                <!-- Category 1: Offensive Security -->
-                <div class="min-w-0">
-                  <div class="font-mono text-[10px] font-bold uppercase text-[#D6A84F] tracking-wider mb-2 pb-1 border-b border-[#2C3136] flex items-center gap-1.5 whitespace-nowrap">
-                    <i data-lucide="shield" class="w-3.5 h-3.5 text-[#D6A84F]"></i>
-                    <span>Offensive Security</span>
-                  </div>
-                  <ul class="space-y-2 min-w-0">
-                    <li><a href="soc.html" onclick="routePage(event, 'soc.html'); closeAllNavDropdowns();" class="text-slate-300 hover:text-[#D6A84F] transition-colors block py-0.5 leading-snug">Vulnerability Assessment &amp; Pen Testing</a></li>
-                    <li><a href="soc.html" onclick="routePage(event, 'soc.html'); closeAllNavDropdowns();" class="text-slate-300 hover:text-[#D6A84F] transition-colors block py-0.5 leading-snug">Web Application Security</a></li>
-                    <li><a href="soc.html" onclick="routePage(event, 'soc.html'); closeAllNavDropdowns();" class="text-slate-300 hover:text-[#D6A84F] transition-colors block py-0.5 leading-snug">Mobile Application Security</a></li>
-                    <li><a href="soc.html" onclick="routePage(event, 'soc.html'); closeAllNavDropdowns();" class="text-slate-300 hover:text-[#D6A84F] transition-colors block py-0.5 leading-snug">Cloud Security Assessment</a></li>
-                    <li><a href="soc.html" onclick="routePage(event, 'soc.html'); closeAllNavDropdowns();" class="text-slate-300 hover:text-[#D6A84F] transition-colors block py-0.5 leading-snug">API Security Testing</a></li>
-                    <li><a href="soc.html" onclick="routePage(event, 'soc.html'); closeAllNavDropdowns();" class="text-slate-300 hover:text-[#D6A84F] transition-colors block py-0.5 leading-snug">Network Penetration Testing</a></li>
-                  </ul>
-                </div>
-
-                <!-- Category 2: Security Operations & Defense -->
-                <div class="min-w-0">
-                  <div class="font-mono text-[10px] font-bold uppercase text-[#D6A84F] tracking-wider mb-2 pb-1 border-b border-[#2C3136] flex items-center gap-1.5 whitespace-nowrap">
-                    <i data-lucide="activity" class="w-3.5 h-3.5 text-[#D6A84F]"></i>
-                    <span>Security Operations</span>
-                  </div>
-                  <ul class="space-y-2 min-w-0">
-                    <li><a href="soc.html" onclick="routePage(event, 'soc.html'); closeAllNavDropdowns();" class="text-[#D6A84F] font-semibold hover:underline block py-0.5 leading-snug">SOC-as-a-Service (24×7)</a></li>
-                    <li><a href="soc.html" onclick="routePage(event, 'soc.html'); closeAllNavDropdowns();" class="text-slate-300 hover:text-[#D6A84F] transition-colors block py-0.5 leading-snug">Threat Detection &amp; Response</a></li>
-                    <li><a href="soc.html" onclick="routePage(event, 'soc.html'); closeAllNavDropdowns();" class="text-slate-300 hover:text-[#D6A84F] transition-colors block py-0.5 leading-snug">SIEM Implementation &amp; Mgmt</a></li>
-                    <li><a href="soc.html" onclick="routePage(event, 'soc.html'); closeAllNavDropdowns();" class="text-slate-300 hover:text-[#D6A84F] transition-colors block py-0.5 leading-snug">Incident Response &amp; Forensics</a></li>
-                    <li><a href="soc.html" onclick="routePage(event, 'soc.html'); closeAllNavDropdowns();" class="text-slate-300 hover:text-[#D6A84F] transition-colors block py-0.5 leading-snug">Threat Intelligence &amp; Hunting</a></li>
-                    <li><a href="soc.html" onclick="routePage(event, 'soc.html'); closeAllNavDropdowns();" class="text-slate-300 hover:text-[#D6A84F] transition-colors block py-0.5 leading-snug">Continuous Monitoring</a></li>
-                  </ul>
-                </div>
-
-                <!-- Category 3: Security Consulting & Governance -->
-                <div class="min-w-0">
-                  <div class="font-mono text-[10px] font-bold uppercase text-[#D6A84F] tracking-wider mb-2 pb-1 border-b border-[#2C3136] flex items-center gap-1.5 whitespace-nowrap">
-                    <i data-lucide="file-check-2" class="w-3.5 h-3.5 text-[#D6A84F]"></i>
-                    <span>Consulting &amp; Risk</span>
-                  </div>
-                  <ul class="space-y-2 min-w-0">
-                    <li><a href="soc.html" onclick="routePage(event, 'soc.html'); closeAllNavDropdowns();" class="text-slate-300 hover:text-[#D6A84F] transition-colors block py-0.5 leading-snug">Cybersecurity Consulting</a></li>
-                    <li><a href="soc.html" onclick="routePage(event, 'soc.html'); closeAllNavDropdowns();" class="text-slate-300 hover:text-[#D6A84F] transition-colors block py-0.5 leading-snug">Risk Assessment &amp; Governance</a></li>
-                    <li><a href="soc.html" onclick="routePage(event, 'soc.html'); closeAllNavDropdowns();" class="text-slate-300 hover:text-[#D6A84F] transition-colors block py-0.5 leading-snug">Compliance (ISO, DPDP, CERT-In)</a></li>
-                    <li><a href="soc.html" onclick="routePage(event, 'soc.html'); closeAllNavDropdowns();" class="text-slate-300 hover:text-[#D6A84F] transition-colors block py-0.5 leading-snug">Security Architecture Design</a></li>
-                    <li><a href="soc.html" onclick="routePage(event, 'soc.html'); closeAllNavDropdowns();" class="text-slate-300 hover:text-[#D6A84F] transition-colors block py-0.5 leading-snug">Third-Party Vendor Risk Mgmt</a></li>
-                    <li><a href="soc.html" onclick="routePage(event, 'soc.html'); closeAllNavDropdowns();" class="text-slate-300 hover:text-[#D6A84F] transition-colors block py-0.5 leading-snug">Data Privacy Frameworks</a></li>
-                  </ul>
-                </div>
-
-                <!-- Category 4: Specialized Services & Frameworks -->
-                <div class="min-w-0">
-                  <div class="font-mono text-[10px] font-bold uppercase text-[#D6A84F] tracking-wider mb-2 pb-1 border-b border-[#2C3136] flex items-center gap-1.5 whitespace-nowrap">
-                    <i data-lucide="sparkles" class="w-3.5 h-3.5 text-[#D6A84F]"></i>
-                    <span>Specialized Services</span>
-                  </div>
-                  <ul class="space-y-2 min-w-0">
-                    <li><a href="soc.html" onclick="routePage(event, 'soc.html'); closeAllNavDropdowns();" class="text-slate-300 hover:text-[#D6A84F] transition-colors block py-0.5 leading-snug">Zero Trust Architecture</a></li>
-                    <li><a href="soc.html" onclick="routePage(event, 'soc.html'); closeAllNavDropdowns();" class="text-slate-300 hover:text-[#D6A84F] transition-colors block py-0.5 leading-snug">Cloud Security (AWS/Azure/GCP)</a></li>
-                    <li><a href="soc.html" onclick="routePage(event, 'soc.html'); closeAllNavDropdowns();" class="text-slate-300 hover:text-[#D6A84F] transition-colors block py-0.5 leading-snug">DevSecOps Integration</a></li>
-                    <li><a href="soc.html" onclick="routePage(event, 'soc.html'); closeAllNavDropdowns();" class="text-slate-300 hover:text-[#D6A84F] transition-colors block py-0.5 leading-snug">IoT &amp; OT Security Testing</a></li>
-                    <li><a href="soc.html" onclick="routePage(event, 'soc.html'); closeAllNavDropdowns();" class="text-slate-300 hover:text-[#D6A84F] transition-colors block py-0.5 leading-snug">AI Defense Frameworks</a></li>
-                    <li><a href="soc.html" onclick="routePage(event, 'soc.html'); closeAllNavDropdowns();" class="text-[#D6A84F] font-semibold hover:underline block py-0.5 leading-snug">View All Cybersecurity &rarr;</a></li>
-                  </ul>
-                </div>
-
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- 4. IT Services ▾ -->
-        <div class="relative group/nav flex items-center h-full nav-item-dropdown" data-dropdown="it-services">
-          <button type="button" class="nav-btn font-medium xl:font-semibold text-slate-300 hover:text-[#D6A84F] border-b-2 border-transparent pb-1 transition-all flex items-center gap-1 focus:outline-none whitespace-nowrap cursor-pointer" data-route="it-services.html" aria-haspopup="true" aria-expanded="false" onclick="toggleNavDropdown(event, 'it-services')">
-            <span>IT Services</span>
-            <svg class="w-3 h-3 text-slate-400 group-hover/nav:text-[#D6A84F] transition-transform duration-200 dropdown-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="6 9 12 15 18 9"></polyline>
-            </svg>
-          </button>
-          <!-- IT Services Dropdown Panel (Dark Theme) -->
-          <div id="dropdown-it-services" class="nav-dropdown-panel hidden absolute top-full left-0 pt-2 w-[240px] z-[9999] transition-all duration-150">
+          <!-- Compact Dropdown Panel (SaaS & VAPT Only) -->
+          <div id="dropdown-cybersecurity" class="nav-dropdown-panel hidden absolute top-[calc(100%+8px)] left-0 w-[190px] z-[10003] transition-all duration-150">
             <div class="bg-[#181C20] rounded-xl border border-[#2C3136] shadow-2xl py-2 overflow-hidden text-xs">
-              <a href="it-services.html" onclick="routePage(event, 'it-services.html'); closeAllNavDropdowns();" class="flex items-center gap-2.5 px-4 py-2 hover:bg-[#22272B] text-slate-300 hover:text-[#D6A84F] transition-colors">
+              <a href="soc.html#soc-as-a-service" onclick="routePage(event, 'soc.html', 'soc-as-a-service'); closeAllNavDropdowns();" class="flex items-center gap-2.5 px-4 py-2.5 hover:bg-[#22272B] text-slate-200 hover:text-[#D6A84F] font-medium transition-colors">
                 <span class="w-1.5 h-1.5 rounded-full bg-[#D6A84F] shrink-0"></span>
-                <span>Website Development</span>
+                <span>SaaS</span>
               </a>
-              <a href="it-services.html" onclick="routePage(event, 'it-services.html'); closeAllNavDropdowns();" class="flex items-center gap-2.5 px-4 py-2 hover:bg-[#22272B] text-slate-300 hover:text-[#D6A84F] transition-colors">
+              <a href="soc.html#vapt" onclick="routePage(event, 'soc.html', 'vapt'); closeAllNavDropdowns();" class="flex items-center gap-2.5 px-4 py-2.5 hover:bg-[#22272B] text-slate-200 hover:text-[#D6A84F] font-medium transition-colors">
                 <span class="w-1.5 h-1.5 rounded-full bg-[#D6A84F] shrink-0"></span>
-                <span>Application Development</span>
-              </a>
-              <a href="it-services.html" onclick="routePage(event, 'it-services.html'); closeAllNavDropdowns();" class="flex items-center gap-2.5 px-4 py-2 hover:bg-[#22272B] text-slate-300 hover:text-[#D6A84F] transition-colors">
-                <span class="w-1.5 h-1.5 rounded-full bg-[#D6A84F] shrink-0"></span>
-                <span>Cloud Solutions</span>
-              </a>
-              <a href="it-services.html" onclick="routePage(event, 'it-services.html'); closeAllNavDropdowns();" class="flex items-center gap-2.5 px-4 py-2 hover:bg-[#22272B] text-slate-300 hover:text-[#D6A84F] transition-colors">
-                <span class="w-1.5 h-1.5 rounded-full bg-[#D6A84F] shrink-0"></span>
-                <span>Network Solutions</span>
-              </a>
-              <a href="it-services.html" onclick="routePage(event, 'it-services.html'); closeAllNavDropdowns();" class="flex items-center gap-2.5 px-4 py-2 hover:bg-[#22272B] text-slate-300 hover:text-[#D6A84F] transition-colors">
-                <span class="w-1.5 h-1.5 rounded-full bg-[#D6A84F] shrink-0"></span>
-                <span>IT Infrastructure &amp; Support</span>
-              </a>
-              <a href="it-services.html" onclick="routePage(event, 'it-services.html'); closeAllNavDropdowns();" class="flex items-center gap-2.5 px-4 py-2 hover:bg-[#22272B] text-slate-300 hover:text-[#D6A84F] transition-colors">
-                <span class="w-1.5 h-1.5 rounded-full bg-[#D6A84F] shrink-0"></span>
-                <span>Application Testing</span>
-              </a>
-              <a href="it-services.html" onclick="routePage(event, 'it-services.html'); closeAllNavDropdowns();" class="flex items-center gap-2.5 px-4 py-2 hover:bg-[#22272B] text-slate-300 hover:text-[#D6A84F] transition-colors">
-                <span class="w-1.5 h-1.5 rounded-full bg-[#D6A84F] shrink-0"></span>
-                <span>IT Resource Management</span>
+                <span>VAPT</span>
               </a>
             </div>
           </div>
         </div>
 
-        <!-- 5. Academia ▾ -->
-        <div class="relative group/nav flex items-center h-full nav-item-dropdown" data-dropdown="academia">
-          <button type="button" class="nav-btn font-medium xl:font-semibold text-slate-300 hover:text-[#D6A84F] border-b-2 border-transparent pb-1 transition-all flex items-center gap-1 focus:outline-none whitespace-nowrap cursor-pointer" data-route="campus.html" aria-haspopup="true" aria-expanded="false" onclick="toggleNavDropdown(event, 'academia')">
-            <span>Academia</span>
-            <svg class="w-3 h-3 text-slate-400 group-hover/nav:text-[#D6A84F] transition-transform duration-200 dropdown-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="6 9 12 15 18 9"></polyline>
-            </svg>
-          </button>
-          <!-- Academia Dropdown Panel (Dark Theme) -->
-          <div id="dropdown-academia" class="nav-dropdown-panel hidden absolute top-full left-0 pt-2 w-[260px] z-[9999] transition-all duration-150">
-            <div class="bg-[#181C20] rounded-xl border border-[#2C3136] shadow-2xl py-2 overflow-hidden text-xs">
-              <a href="campus.html" onclick="routePage(event, 'campus.html'); closeAllNavDropdowns();" class="flex items-center gap-2.5 px-4 py-2 hover:bg-[#22272B] text-slate-300 hover:text-[#D6A84F] transition-colors">
-                <span class="w-1.5 h-1.5 rounded-full bg-[#D6A84F] shrink-0"></span>
-                <span>Academic Partnerships</span>
-              </a>
-              <a href="campus.html" onclick="routePage(event, 'campus.html'); closeAllNavDropdowns();" class="flex items-center gap-2.5 px-4 py-2 hover:bg-[#22272B] text-slate-300 hover:text-[#D6A84F] transition-colors">
-                <span class="w-1.5 h-1.5 rounded-full bg-[#D6A84F] shrink-0"></span>
-                <span>Cybersecurity Workshops</span>
-              </a>
-              <a href="campus.html" onclick="routePage(event, 'campus.html'); closeAllNavDropdowns();" class="flex items-center gap-2.5 px-4 py-2 hover:bg-[#22272B] text-slate-300 hover:text-[#D6A84F] transition-colors">
-                <span class="w-1.5 h-1.5 rounded-full bg-[#D6A84F] shrink-0"></span>
-                <span>Faculty Development Programs</span>
-              </a>
-              <a href="campus.html" onclick="routePage(event, 'campus.html'); closeAllNavDropdowns();" class="flex items-center gap-2.5 px-4 py-2 hover:bg-[#22272B] text-slate-300 hover:text-[#D6A84F] transition-colors">
-                <span class="w-1.5 h-1.5 rounded-full bg-[#D6A84F] shrink-0"></span>
-                <span>Student Skill Development</span>
-              </a>
-              <a href="campus.html" onclick="routePage(event, 'campus.html'); closeAllNavDropdowns();" class="flex items-center gap-2.5 px-4 py-2 hover:bg-[#22272B] text-slate-300 hover:text-[#D6A84F] transition-colors">
-                <span class="w-1.5 h-1.5 rounded-full bg-[#D6A84F] shrink-0"></span>
-                <span>Campus Cybersecurity Programs</span>
-              </a>
-              <a href="internships.html" onclick="routePage(event, 'internships.html'); closeAllNavDropdowns();" class="flex items-center gap-2.5 px-4 py-2 hover:bg-[#22272B] text-[#D6A84F] font-semibold transition-colors">
-                <span class="w-1.5 h-1.5 rounded-full bg-[#D6A84F] shrink-0"></span>
-                <span>3-Month Cybersecurity Internship</span>
-              </a>
-            </div>
-          </div>
-        </div>
+        <!-- 4. IT Services (Direct Navigation Link — No Dropdown) -->
+        <a href="it-services.html" onclick="routePage(event, 'it-services.html')" class="nav-btn font-medium xl:font-semibold text-slate-300 hover:text-[#D6A84F] border-b-2 border-transparent pb-1 transition-all whitespace-nowrap" data-route="it-services.html">IT Services</a>
 
-        <!-- 6. Internships ▾ (Pure Trigger, Does NOT Navigate Parent) -->
-        <div class="relative group/nav flex items-center h-full nav-item-dropdown" id="internshipsNavRoot" data-dropdown="internships">
-          <button 
-            type="button" 
-            class="nav-btn font-medium xl:font-semibold text-slate-300 hover:text-[#D6A84F] border-b-2 border-transparent pb-1 transition-all flex items-center gap-1 focus:outline-none whitespace-nowrap cursor-pointer" 
-            data-route="internships.html" 
-            id="internshipsNavBtn" 
-            aria-haspopup="true" 
-            aria-expanded="false" 
-            onclick="toggleInternshipsDropdown(event)"
-          >
-            <span>Internships</span>
-            <svg class="w-3 h-3 text-slate-400 group-hover/nav:text-[#D6A84F] transition-transform duration-200 dropdown-chev" id="internshipsChevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="6 9 12 15 18 9"></polyline>
-            </svg>
-          </button>
+        <!-- 5. Academia (Direct Navigation Link — No Dropdown) -->
+        <a href="campus.html" onclick="routePage(event, 'campus.html')" class="nav-btn font-medium xl:font-semibold text-slate-300 hover:text-[#D6A84F] border-b-2 border-transparent pb-1 transition-all whitespace-nowrap" data-route="campus.html">Academia</a>
 
-          <!-- Internships Pure Dropdown Panel -->
-          <div id="internshipsDropdownPanel" class="nav-dropdown-panel hidden absolute top-full left-0 pt-2 w-[280px] z-[9999] transition-all duration-150">
-            <div class="bg-[#181C20] rounded-xl border border-[#2C3136] shadow-xl overflow-hidden text-xs text-white">
-              <div class="px-4 py-2.5 bg-[#202428] border-b border-[#2C3136] flex items-center justify-between">
-                <span class="font-mono text-[11px] font-bold text-[#D6A84F] uppercase tracking-wider">INTERNSHIPS</span>
-                <span class="text-[10px] font-medium px-2 py-0.5 rounded bg-[#D6A84F]/15 text-[#D6A84F]">Cohort 2027</span>
-              </div>
-              <div class="py-1">
-                <!-- Dropdown anchors: href="internships.html#program" href="internships.html#journey" -->
-                <a href="internships.html" onclick="routePage(event, 'internships.html'); closeAllNavDropdowns(); closeInternshipsDropdown();" class="flex items-center gap-2.5 px-4 py-2.5 hover:bg-[#22272B] text-slate-200 hover:text-[#D6A84F] transition-colors group/item">
-                  <i data-lucide="layers" class="w-3.5 h-3.5 text-[#D6A84F] shrink-0"></i>
-                  <span class="font-medium">Program</span>
-                </a>
-                <a href="internships.html#pathways" onclick="routePage(event, 'internships.html', 'pathways'); closeAllNavDropdowns(); closeInternshipsDropdown();" class="flex items-center gap-2.5 px-4 py-2.5 hover:bg-[#22272B] text-slate-200 hover:text-[#D6A84F] transition-colors group/item">
-                  <i data-lucide="git-fork" class="w-3.5 h-3.5 text-[#D6A84F] shrink-0"></i>
-                  <span class="font-medium">Pathways</span>
-                </a>
-                <a href="internships.html#student-journey" onclick="routePage(event, 'internships.html', 'student-journey'); closeAllNavDropdowns(); closeInternshipsDropdown();" class="flex items-center gap-2.5 px-4 py-2.5 hover:bg-[#22272B] text-slate-200 hover:text-[#D6A84F] transition-colors group/item">
-                  <i data-lucide="milestone" class="w-3.5 h-3.5 text-[#D6A84F] shrink-0"></i>
-                  <span class="font-medium">Student Journey</span>
-                </a>
-                <a href="internships.html#institutional-model" onclick="routePage(event, 'internships.html', 'institutional-model'); closeAllNavDropdowns(); closeInternshipsDropdown();" class="flex items-center gap-2.5 px-4 py-2.5 hover:bg-[#22272B] text-slate-200 hover:text-[#D6A84F] transition-colors group/item">
-                  <i data-lucide="building-2" class="w-3.5 h-3.5 text-[#D6A84F] shrink-0"></i>
-                  <span class="font-medium">Institutional Model</span>
-                </a>
-              </div>
-              <div class="p-2 border-t border-[#2C3136] bg-[#181C20]">
-                <a href="internships.html" onclick="routePage(event, 'internships.html'); closeAllNavDropdowns(); closeInternshipsDropdown();" class="flex items-center justify-between px-3 py-2 rounded-lg bg-[#D6A84F]/10 hover:bg-[#D6A84F]/20 text-[#D6A84F] font-semibold transition-colors">
-                  <span>View Internship Program</span>
-                  <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
+        <!-- 6. Internships (Direct Navigation Link — No Dropdown) -->
+        <a href="internships.html" onclick="routePage(event, 'internships.html')" class="nav-btn font-medium xl:font-semibold text-slate-300 hover:text-[#D6A84F] border-b-2 border-transparent pb-1 transition-all whitespace-nowrap" data-route="internships.html">Internships</a>
 
-        <!-- 7. Training & Certifications ▾ -->
-        <div class="relative group/nav flex items-center h-full nav-item-dropdown" data-dropdown="training">
-          <button type="button" class="nav-btn font-medium xl:font-semibold text-slate-300 hover:text-[#D6A84F] border-b-2 border-transparent pb-1 transition-all flex items-center gap-1 focus:outline-none whitespace-nowrap cursor-pointer" data-route="training.html" aria-haspopup="true" aria-expanded="false" onclick="toggleNavDropdown(event, 'training')">
-            <span>Training &amp; Certifications</span>
-            <svg class="w-3 h-3 text-slate-400 group-hover/nav:text-[#D6A84F] transition-transform duration-200 dropdown-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="6 9 12 15 18 9"></polyline>
-            </svg>
-          </button>
-          <!-- Training Dropdown Panel (Dark Theme) -->
-          <div id="dropdown-training" class="nav-dropdown-panel hidden absolute top-full left-0 pt-2 w-[260px] z-[9999] transition-all duration-150">
-            <div class="bg-[#181C20] rounded-xl border border-[#2C3136] shadow-2xl py-2 overflow-hidden text-xs">
-              <a href="training.html" onclick="routePage(event, 'training.html'); closeAllNavDropdowns();" class="flex items-center gap-2.5 px-4 py-2 hover:bg-[#22272B] text-slate-300 hover:text-[#D6A84F] transition-colors">
-                <span class="w-1.5 h-1.5 rounded-full bg-[#D6A84F] shrink-0"></span>
-                <span>Cybersecurity Training</span>
-              </a>
-              <a href="enterprises.html" onclick="routePage(event, 'enterprises.html'); closeAllNavDropdowns();" class="flex items-center gap-2.5 px-4 py-2 hover:bg-[#22272B] text-slate-300 hover:text-[#D6A84F] transition-colors">
-                <span class="w-1.5 h-1.5 rounded-full bg-[#D6A84F] shrink-0"></span>
-                <span>Corporate Training</span>
-              </a>
-              <a href="isc2.html" onclick="routePage(event, 'isc2.html'); closeAllNavDropdowns();" class="flex items-center gap-2.5 px-4 py-2 hover:bg-[#22272B] text-slate-300 hover:text-[#D6A84F] transition-colors">
-                <span class="w-1.5 h-1.5 rounded-full bg-[#D6A84F] shrink-0"></span>
-                <span>CISSP &amp; ISC2 Credentials</span>
-              </a>
-              <a href="ec-council.html" onclick="routePage(event, 'ec-council.html'); closeAllNavDropdowns();" class="flex items-center gap-2.5 px-4 py-2 hover:bg-[#22272B] text-slate-300 hover:text-[#D6A84F] transition-colors">
-                <span class="w-1.5 h-1.5 rounded-full bg-[#D6A84F] shrink-0"></span>
-                <span>EC-Council Certifications</span>
-              </a>
-              <a href="cambridge.html" onclick="routePage(event, 'cambridge.html'); closeAllNavDropdowns();" class="flex items-center gap-2.5 px-4 py-2 hover:bg-[#22272B] text-slate-300 hover:text-[#D6A84F] transition-colors">
-                <span class="w-1.5 h-1.5 rounded-full bg-[#D6A84F] shrink-0"></span>
-                <span>Cambridge English Learning</span>
-              </a>
-              <a href="training.html" onclick="routePage(event, 'training.html'); closeAllNavDropdowns();" class="flex items-center gap-2.5 px-4 py-2 hover:bg-[#22272B] text-slate-300 hover:text-[#D6A84F] transition-colors">
-                <span class="w-1.5 h-1.5 rounded-full bg-[#D6A84F] shrink-0"></span>
-                <span>Professional Upskilling</span>
-              </a>
-            </div>
-          </div>
-        </div>
+        <!-- 7. Training & Certifications (Direct Navigation Link — No Dropdown) -->
+        <a href="training.html" onclick="routePage(event, 'training.html')" class="nav-btn font-medium xl:font-semibold text-slate-300 hover:text-[#D6A84F] border-b-2 border-transparent pb-1 transition-all whitespace-nowrap" data-route="training.html">Training &amp; Certifications</a>
 
-        <!-- 8. Corporate ▾ -->
-        <div class="relative group/nav flex items-center h-full nav-item-dropdown" data-dropdown="corporate">
-          <button type="button" class="nav-btn font-medium xl:font-semibold text-slate-300 hover:text-[#D6A84F] border-b-2 border-transparent pb-1 transition-all flex items-center gap-1 focus:outline-none whitespace-nowrap cursor-pointer" data-route="enterprises.html" aria-haspopup="true" aria-expanded="false" onclick="toggleNavDropdown(event, 'corporate')">
-            <span>Corporate</span>
-            <svg class="w-3 h-3 text-slate-400 group-hover/nav:text-[#D6A84F] transition-transform duration-200 dropdown-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="6 9 12 15 18 9"></polyline>
-            </svg>
-          </button>
-          <!-- Corporate Dropdown Panel (Dark Theme) -->
-          <div id="dropdown-corporate" class="nav-dropdown-panel hidden absolute top-full left-0 pt-2 w-[240px] z-[9999] transition-all duration-150">
-            <div class="bg-[#181C20] rounded-xl border border-[#2C3136] shadow-2xl py-2 overflow-hidden text-xs">
-              <a href="enterprises.html" onclick="routePage(event, 'enterprises.html'); closeAllNavDropdowns();" class="flex items-center gap-2.5 px-4 py-2 hover:bg-[#22272B] text-slate-300 hover:text-[#D6A84F] transition-colors">
-                <span class="w-1.5 h-1.5 rounded-full bg-[#D6A84F] shrink-0"></span>
-                <span>Cybersecurity Consulting</span>
-              </a>
-              <a href="enterprises.html" onclick="routePage(event, 'enterprises.html'); closeAllNavDropdowns();" class="flex items-center gap-2.5 px-4 py-2 hover:bg-[#22272B] text-slate-300 hover:text-[#D6A84F] transition-colors">
-                <span class="w-1.5 h-1.5 rounded-full bg-[#D6A84F] shrink-0"></span>
-                <span>Corporate Training</span>
-              </a>
-              <a href="enterprises.html" onclick="routePage(event, 'enterprises.html'); closeAllNavDropdowns();" class="flex items-center gap-2.5 px-4 py-2 hover:bg-[#22272B] text-slate-300 hover:text-[#D6A84F] transition-colors">
-                <span class="w-1.5 h-1.5 rounded-full bg-[#D6A84F] shrink-0"></span>
-                <span>Employee Awareness</span>
-              </a>
-              <a href="enterprises.html" onclick="routePage(event, 'enterprises.html'); closeAllNavDropdowns();" class="flex items-center gap-2.5 px-4 py-2 hover:bg-[#22272B] text-slate-300 hover:text-[#D6A84F] transition-colors">
-                <span class="w-1.5 h-1.5 rounded-full bg-[#D6A84F] shrink-0"></span>
-                <span>Security Assessments</span>
-              </a>
-              <a href="soc.html" onclick="routePage(event, 'soc.html'); closeAllNavDropdowns();" class="flex items-center gap-2.5 px-4 py-2 hover:bg-[#22272B] text-slate-300 hover:text-[#D6A84F] transition-colors">
-                <span class="w-1.5 h-1.5 rounded-full bg-[#D6A84F] shrink-0"></span>
-                <span>Managed Security Services</span>
-              </a>
-              <a href="it-services.html" onclick="routePage(event, 'it-services.html'); closeAllNavDropdowns();" class="flex items-center gap-2.5 px-4 py-2 hover:bg-[#22272B] text-slate-300 hover:text-[#D6A84F] transition-colors">
-                <span class="w-1.5 h-1.5 rounded-full bg-[#D6A84F] shrink-0"></span>
-                <span>Enterprise Partnerships</span>
-              </a>
-            </div>
-          </div>
-        </div>
+        <!-- 8. Corporate (Direct Navigation Link — No Dropdown) -->
+        <a href="enterprises.html" onclick="routePage(event, 'enterprises.html')" class="nav-btn font-medium xl:font-semibold text-slate-300 hover:text-[#D6A84F] border-b-2 border-transparent pb-1 transition-all whitespace-nowrap" data-route="enterprises.html">Corporate</a>
 
-        <!-- 9. Resources ▾ -->
-        <div class="relative group/nav flex items-center h-full nav-item-dropdown" data-dropdown="resources">
-          <button type="button" class="nav-btn font-medium xl:font-semibold text-slate-300 hover:text-[#D6A84F] border-b-2 border-transparent pb-1 transition-all flex items-center gap-1 focus:outline-none whitespace-nowrap cursor-pointer" data-route="training.html" aria-haspopup="true" aria-expanded="false" onclick="toggleNavDropdown(event, 'resources')">
-            <span>Resources</span>
-            <svg class="w-3 h-3 text-slate-400 group-hover/nav:text-[#D6A84F] transition-transform duration-200 dropdown-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="6 9 12 15 18 9"></polyline>
-            </svg>
-          </button>
-          <!-- Resources Dropdown Panel (Dark Theme) -->
-          <div id="dropdown-resources" class="nav-dropdown-panel hidden absolute top-full left-0 pt-2 w-[220px] z-[9999] transition-all duration-150">
-            <div class="bg-[#181C20] rounded-xl border border-[#2C3136] shadow-2xl py-2 overflow-hidden text-xs">
-              <a href="training.html" onclick="routePage(event, 'training.html'); closeAllNavDropdowns();" class="flex items-center gap-2.5 px-4 py-2 hover:bg-[#22272B] text-slate-300 hover:text-[#D6A84F] transition-colors">
-                <span class="w-1.5 h-1.5 rounded-full bg-[#D6A84F] shrink-0"></span>
-                <span>Insights</span>
-              </a>
-              <a href="training.html" onclick="routePage(event, 'training.html'); closeAllNavDropdowns();" class="flex items-center gap-2.5 px-4 py-2 hover:bg-[#22272B] text-slate-300 hover:text-[#D6A84F] transition-colors">
-                <span class="w-1.5 h-1.5 rounded-full bg-[#D6A84F] shrink-0"></span>
-                <span>Events &amp; Workshops</span>
-              </a>
-              <a href="training-schedule.html" onclick="routePage(event, 'training-schedule.html'); closeAllNavDropdowns();" class="flex items-center gap-2.5 px-4 py-2 hover:bg-[#22272B] text-slate-300 hover:text-[#D6A84F] transition-colors">
-                <span class="w-1.5 h-1.5 rounded-full bg-[#D6A84F] shrink-0"></span>
-                <span>Training Calendar</span>
-              </a>
-              <a href="about.html" onclick="routePage(event, 'about.html'); closeAllNavDropdowns();" class="flex items-center gap-2.5 px-4 py-2 hover:bg-[#22272B] text-slate-300 hover:text-[#D6A84F] transition-colors">
-                <span class="w-1.5 h-1.5 rounded-full bg-[#D6A84F] shrink-0"></span>
-                <span>Case Studies</span>
-              </a>
-              <a href="index.html" onclick="routePage(event, 'index.html'); closeAllNavDropdowns();" class="flex items-center gap-2.5 px-4 py-2 hover:bg-[#22272B] text-slate-300 hover:text-[#D6A84F] transition-colors">
-                <span class="w-1.5 h-1.5 rounded-full bg-[#D6A84F] shrink-0"></span>
-                <span>Gallery</span>
-              </a>
-              <a href="contact.html" onclick="routePage(event, 'contact.html'); closeAllNavDropdowns();" class="flex items-center gap-2.5 px-4 py-2 hover:bg-[#22272B] text-slate-300 hover:text-[#D6A84F] transition-colors">
-                <span class="w-1.5 h-1.5 rounded-full bg-[#D6A84F] shrink-0"></span>
-                <span>Downloads</span>
-              </a>
-            </div>
-          </div>
-        </div>
+        <!-- 9. Resources (Direct Navigation Link — No Dropdown) -->
+        <a href="resources.html" onclick="routePage(event, 'resources.html')" class="nav-btn font-medium xl:font-semibold text-slate-300 hover:text-[#D6A84F] border-b-2 border-transparent pb-1 transition-all whitespace-nowrap" data-route="resources.html">Resources</a>
 
-        <!-- 10. Contact ▾ -->
-        <div class="relative group/nav flex items-center h-full nav-item-dropdown" data-dropdown="contact">
-          <button type="button" class="nav-btn font-medium xl:font-semibold text-slate-300 hover:text-[#D6A84F] border-b-2 border-transparent pb-1 transition-all flex items-center gap-1 focus:outline-none whitespace-nowrap cursor-pointer" data-route="contact.html" aria-haspopup="true" aria-expanded="false" onclick="toggleNavDropdown(event, 'contact')">
-            <span>Contact</span>
-            <svg class="w-3 h-3 text-slate-400 group-hover/nav:text-[#D6A84F] transition-transform duration-200 dropdown-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="6 9 12 15 18 9"></polyline>
-            </svg>
-          </button>
-          <!-- Contact Dropdown Panel (Dark Theme) -->
-          <div id="dropdown-contact" class="nav-dropdown-panel hidden absolute top-full right-0 pt-2 w-[200px] z-[9999] transition-all duration-150">
-            <div class="bg-[#181C20] rounded-xl border border-[#2C3136] shadow-2xl py-2 overflow-hidden text-xs">
-              <a href="contact.html" onclick="routePage(event, 'contact.html'); closeAllNavDropdowns();" class="flex items-center gap-2.5 px-4 py-2 hover:bg-[#22272B] text-slate-300 hover:text-[#D6A84F] transition-colors">
-                <span class="w-1.5 h-1.5 rounded-full bg-[#D6A84F] shrink-0"></span>
-                <span>Contact Us</span>
-              </a>
-              <a href="contact.html" onclick="routePage(event, 'contact.html'); closeAllNavDropdowns();" class="flex items-center gap-2.5 px-4 py-2 hover:bg-[#22272B] text-slate-300 hover:text-[#D6A84F] transition-colors">
-                <span class="w-1.5 h-1.5 rounded-full bg-[#D6A84F] shrink-0"></span>
-                <span>Enquire Now</span>
-              </a>
-              <a href="contact.html" onclick="routePage(event, 'contact.html'); closeAllNavDropdowns();" class="flex items-center gap-2.5 px-4 py-2 hover:bg-[#22272B] text-slate-300 hover:text-[#D6A84F] transition-colors">
-                <span class="w-1.5 h-1.5 rounded-full bg-[#D6A84F] shrink-0"></span>
-                <span>Partner With Us</span>
-              </a>
-            </div>
-          </div>
-        </div>
+        <!-- 10. Contact (Direct Navigation Link — No Dropdown) -->
+        <a href="contact.html" onclick="routePage(event, 'contact.html')" class="nav-btn font-medium xl:font-semibold text-slate-300 hover:text-[#D6A84F] border-b-2 border-transparent pb-1 transition-all whitespace-nowrap" data-route="contact.html">Contact</a>
 
       </nav>
 
@@ -1072,7 +889,7 @@
         <button 
           type="button" 
           onclick="toggleMobileNav()" 
-          class="xl:hidden flex items-center justify-center w-11 h-11 min-w-[44px] min-h-[44px] rounded-xl text-slate-200 hover:text-white bg-white/5 hover:bg-white/10 border border-white/10 focus:outline-none focus:ring-2 focus:ring-[#D6A84F] transition-all cursor-pointer select-none" 
+          class="xl:hidden flex items-center justify-center w-11 h-11 min-w-[44px] min-h-[44px] rounded-xl text-slate-200 hover:text-white bg-white/5 hover:bg-white/10 border border-white/10 focus:outline-none focus:ring-2 focus:ring-[#D6A84F] transition-all cursor-pointer select-none mobile-menu-toggle" 
           aria-label="Open navigation" 
           aria-expanded="false" 
           aria-controls="mobileDrawer" 
@@ -1089,32 +906,15 @@
 
     </div>
 <!-- Mobile Drawer Navigation -->
-    <div id="mobileDrawer" class="hidden xl:hidden border-t border-[#2C3136] bg-[#181C20] px-4 sm:px-6 py-5 space-y-3 isolate-scroll max-h-[calc(100vh-80px)] overflow-y-auto custom-scrollbar shadow-2xl text-white w-full max-w-[100vw]">
+    <div id="mobileDrawer" class="hidden xl:hidden mobile-menu border-t border-[#2C3136] bg-[#181C20] px-4 sm:px-6 py-5 space-y-3 isolate-scroll max-h-[calc(100vh-var(--header-total-height))] overflow-y-auto custom-scrollbar shadow-2xl text-white w-full max-w-[100vw] z-[10002]">
       
-      <!-- 1. HOME -->
+      <!-- 1. HOME (Direct Link) -->
       <a href="index.html" onclick="routePage(event, 'index.html'); closeMobileNav();" class="block w-full text-left text-sm font-semibold text-white hover:text-[#D6A84F] py-2 border-b border-[#2C3136] transition-colors">HOME</a>
 
-      <!-- 2. ABOUT US + -->
-      <div class="border-b border-[#2C3136] pb-1">
-        <div class="flex items-center justify-between py-2 cursor-pointer" onclick="toggleMobileAccordion('mobileAboutMenu', 'mobileAboutChev')">
-          <span class="text-sm font-semibold text-white hover:text-[#D6A84F] transition-colors">ABOUT US</span>
-          <button type="button" class="p-1.5 rounded-lg text-slate-400 hover:text-white focus:outline-none" aria-label="Toggle About Us submenu" aria-expanded="false">
-            <svg class="w-4 h-4 transition-transform duration-200" id="mobileAboutChev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="6 9 12 15 18 9"></polyline>
-            </svg>
-          </button>
-        </div>
-        <div id="mobileAboutMenu" class="hidden pl-3 pr-2 py-1.5 space-y-1 bg-[#14171A] rounded-xl border border-[#2C3136] my-1 text-xs">
-          <a href="about.html" onclick="routePage(event, 'about.html'); closeMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">About SLN</a>
-          <a href="about.html#leadership" onclick="routePage(event, 'about.html', 'leadership'); closeMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Our Leadership</a>
-          <a href="about.html#why-sln" onclick="routePage(event, 'about.html', 'why-sln'); closeMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Why SLN?</a>
-          <a href="about.html#partners" onclick="routePage(event, 'about.html', 'partners'); closeMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Partners &amp; Accreditations</a>
-          <a href="about.html#clients" onclick="routePage(event, 'about.html', 'clients'); closeMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Our Clients</a>
-          <a href="about.html#success-stories" onclick="routePage(event, 'about.html', 'success-stories'); closeMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Success Stories</a>
-        </div>
-      </div>
+      <!-- 2. ABOUT US (Direct Link — No Dropdown) -->
+      <a href="about.html" onclick="routePage(event, 'about.html'); closeMobileNav();" class="block w-full text-left text-sm font-semibold text-white hover:text-[#D6A84F] py-2 border-b border-[#2C3136] transition-colors">ABOUT US</a>
 
-      <!-- 3. CYBERSECURITY + -->
+      <!-- 3. CYBERSECURITY ▾ (ONLY Expandable Accordion: SaaS & VAPT) -->
       <div class="border-b border-[#2C3136] pb-1">
         <div class="flex items-center justify-between py-2 cursor-pointer" onclick="toggleMobileAccordion('mobileCyberMenu', 'mobileCyberChev')">
           <span class="text-sm font-semibold text-white hover:text-[#D6A84F] transition-colors">CYBERSECURITY</span>
@@ -1124,181 +924,38 @@
             </svg>
           </button>
         </div>
-        <div id="mobileCyberMenu" class="hidden pl-3 pr-2 py-1.5 space-y-2 bg-[#14171A] rounded-xl border border-[#2C3136] my-1 text-xs">
-          <div>
-            <span class="font-mono text-[10px] font-bold uppercase text-[#D6A84F] block px-2 pt-1">Offensive Security</span>
-            <a href="soc.html" onclick="routePage(event, 'soc.html'); closeMobileNav();" class="block py-1 px-2 text-slate-300 hover:text-[#D6A84F]">VAPT &amp; Pen Testing</a>
-            <a href="soc.html" onclick="routePage(event, 'soc.html'); closeMobileNav();" class="block py-1 px-2 text-slate-300 hover:text-[#D6A84F]">Web, Mobile &amp; API Security</a>
-            <a href="soc.html" onclick="routePage(event, 'soc.html'); closeMobileNav();" class="block py-1 px-2 text-slate-300 hover:text-[#D6A84F]">Cloud &amp; Network Security</a>
-          </div>
-          <div>
-            <span class="font-mono text-[10px] font-bold uppercase text-[#D6A84F] block px-2 pt-1">Security Operations</span>
-            <a href="soc.html" onclick="routePage(event, 'soc.html'); closeMobileNav();" class="block py-1 px-2 text-[#D6A84F] font-semibold">SOC-as-a-Service (24×7)</a>
-            <a href="soc.html" onclick="routePage(event, 'soc.html'); closeMobileNav();" class="block py-1 px-2 text-slate-300 hover:text-[#D6A84F]">Threat Detection &amp; Response</a>
-            <a href="soc.html" onclick="routePage(event, 'soc.html'); closeMobileNav();" class="block py-1 px-2 text-slate-300 hover:text-[#D6A84F]">Incident Response &amp; Forensics</a>
-          </div>
-          <div>
-            <span class="font-mono text-[10px] font-bold uppercase text-[#D6A84F] block px-2 pt-1">Security Consulting &amp; AI</span>
-            <a href="soc.html" onclick="routePage(event, 'soc.html'); closeMobileNav();" class="block py-1 px-2 text-slate-300 hover:text-[#D6A84F]">Cybersecurity Consulting &amp; Risk</a>
-            <a href="soc.html" onclick="routePage(event, 'soc.html'); closeMobileNav();" class="block py-1 px-2 text-slate-300 hover:text-[#D6A84F]">AI Security &amp; Governance</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- 4. IT SERVICES + -->
-      <div class="border-b border-[#2C3136] pb-1">
-        <div class="flex items-center justify-between py-2 cursor-pointer" onclick="toggleMobileAccordion('mobileITMenu', 'mobileITChev')">
-          <span class="text-sm font-semibold text-white hover:text-[#D6A84F] transition-colors">IT SERVICES</span>
-          <button type="button" class="p-1.5 rounded-lg text-slate-400 hover:text-white focus:outline-none" aria-label="Toggle IT Services submenu" aria-expanded="false">
-            <svg class="w-4 h-4 transition-transform duration-200" id="mobileITChev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="6 9 12 15 18 9"></polyline>
-            </svg>
-          </button>
-        </div>
-        <div id="mobileITMenu" class="hidden pl-3 pr-2 py-1.5 space-y-1 bg-[#14171A] rounded-xl border border-[#2C3136] my-1 text-xs">
-          <a href="it-services.html" onclick="routePage(event, 'it-services.html'); closeMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Website Development</a>
-          <a href="it-services.html" onclick="routePage(event, 'it-services.html'); closeMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Application Development</a>
-          <a href="it-services.html" onclick="routePage(event, 'it-services.html'); closeMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Cloud Solutions</a>
-          <a href="it-services.html" onclick="routePage(event, 'it-services.html'); closeMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Network Solutions</a>
-          <a href="it-services.html" onclick="routePage(event, 'it-services.html'); closeMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">IT Infrastructure &amp; Support</a>
-          <a href="it-services.html" onclick="routePage(event, 'it-services.html'); closeMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Application Testing</a>
-          <a href="it-services.html" onclick="routePage(event, 'it-services.html'); closeMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">IT Resource Management</a>
-        </div>
-      </div>
-
-      <!-- 5. ACADEMIA + -->
-      <div class="border-b border-[#2C3136] pb-1">
-        <div class="flex items-center justify-between py-2 cursor-pointer" onclick="toggleMobileAccordion('mobileAcademiaMenu', 'mobileAcademiaChev')">
-          <span class="text-sm font-semibold text-white hover:text-[#D6A84F] transition-colors">ACADEMIA</span>
-          <button type="button" class="p-1.5 rounded-lg text-slate-400 hover:text-white focus:outline-none" aria-label="Toggle Academia submenu" aria-expanded="false">
-            <svg class="w-4 h-4 transition-transform duration-200" id="mobileAcademiaChev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="6 9 12 15 18 9"></polyline>
-            </svg>
-          </button>
-        </div>
-        <div id="mobileAcademiaMenu" class="hidden pl-3 pr-2 py-1.5 space-y-1 bg-[#14171A] rounded-xl border border-[#2C3136] my-1 text-xs">
-          <a href="campus.html" onclick="routePage(event, 'campus.html'); closeMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Academic Partnerships</a>
-          <a href="campus.html" onclick="routePage(event, 'campus.html'); closeMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Cybersecurity Workshops</a>
-          <a href="campus.html" onclick="routePage(event, 'campus.html'); closeMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Faculty Development Programs</a>
-          <a href="campus.html" onclick="routePage(event, 'campus.html'); closeMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Student Skill Development</a>
-          <a href="campus.html" onclick="routePage(event, 'campus.html'); closeMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Campus Cybersecurity Programs</a>
-          <a href="internships.html" onclick="routePage(event, 'internships.html'); closeMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]"><!-- href="internships.html#program" -->3-Month Cybersecurity Internship</a>
-        </div>
-      </div>
-
-      <!-- 6. INTERNSHIPS + (Expandable Accordion, pure trigger, does NOT navigate) -->
-      <div class="border-b border-[#2C3136] pb-1">
-        <div class="flex items-center justify-between py-2 cursor-pointer" onclick="toggleMobileAccordion('mobileInternshipsMenu', 'mobileInternshipsChev')">
-          <span class="text-sm font-semibold text-white hover:text-[#D6A84F] transition-colors">INTERNSHIPS</span>
-          <button type="button" class="p-1.5 rounded-lg text-slate-400 hover:text-white focus:outline-none" aria-label="Toggle Internships submenu" aria-expanded="false">
-            <svg class="w-4 h-4 transition-transform duration-200" id="mobileInternshipsChev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="6 9 12 15 18 9"></polyline>
-            </svg>
-          </button>
-        </div>
-        <div id="mobileInternshipsMenu" class="hidden pl-3 pr-2 py-1.5 space-y-1 bg-[#14171A] rounded-xl border border-[#2C3136] my-1 text-xs">
-          <!-- Mobile anchors: href="internships.html#program" href="internships.html#journey" -->
-          <a href="internships.html" onclick="routePage(event, 'internships.html'); closeMobileNav();" class="py-1.5 px-2 hover:text-[#D6A84F] text-slate-300 flex items-center gap-2">
-            <i data-lucide="layers" class="w-3.5 h-3.5 text-[#D6A84F]"></i>
-            <span>Program</span>
+        <div id="mobileCyberMenu" class="hidden pl-3 pr-2 py-1.5 space-y-1 bg-[#14171A] rounded-xl border border-[#2C3136] my-1 text-xs">
+          <a href="soc.html#soc-as-a-service" onclick="routePage(event, 'soc.html', 'soc-as-a-service'); closeMobileNav();" class="py-2 px-3 text-slate-300 hover:text-[#D6A84F] font-medium transition-colors flex items-center gap-2">
+            <span class="w-1.5 h-1.5 rounded-full bg-[#D6A84F]"></span>
+            <span>SaaS</span>
           </a>
-          <a href="internships.html#pathways" onclick="routePage(event, 'internships.html', 'pathways'); closeMobileNav();" class="py-1.5 px-2 hover:text-[#D6A84F] text-slate-300 flex items-center gap-2">
-            <i data-lucide="git-fork" class="w-3.5 h-3.5 text-[#D6A84F]"></i>
-            <span>Pathways</span>
+          <a href="soc.html#vapt" onclick="routePage(event, 'soc.html', 'vapt'); closeMobileNav();" class="py-2 px-3 text-slate-300 hover:text-[#D6A84F] font-medium transition-colors flex items-center gap-2">
+            <span class="w-1.5 h-1.5 rounded-full bg-[#D6A84F]"></span>
+            <span>VAPT</span>
           </a>
-          <a href="internships.html#student-journey" onclick="routePage(event, 'internships.html', 'student-journey'); closeMobileNav();" class="py-1.5 px-2 hover:text-[#D6A84F] text-slate-300 flex items-center gap-2">
-            <i data-lucide="milestone" class="w-3.5 h-3.5 text-[#D6A84F]"></i>
-            <span>Student Journey</span>
-          </a>
-          <a href="internships.html#institutional-model" onclick="routePage(event, 'internships.html', 'institutional-model'); closeMobileNav();" class="py-1.5 px-2 hover:text-[#D6A84F] text-slate-300 flex items-center gap-2">
-            <i data-lucide="building-2" class="w-3.5 h-3.5 text-[#D6A84F]"></i>
-            <span>Institutional Model</span>
-          </a>
-          <div class="pt-1 mt-1 border-t border-[#2C3136]">
-            <a href="internships.html" onclick="routePage(event, 'internships.html'); closeMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F] flex items-center justify-between">
-              <span>View Internship Program</span>
-              <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
-            </a>
-          </div>
         </div>
       </div>
 
-      <!-- 7. TRAINING & CERTIFICATIONS + -->
-      <div class="border-b border-[#2C3136] pb-1">
-        <div class="flex items-center justify-between py-2 cursor-pointer" onclick="toggleMobileAccordion('mobileTrainingMenu', 'mobileTrainingChev')">
-          <span class="text-sm font-semibold text-white hover:text-[#D6A84F] transition-colors">TRAINING &amp; CERTIFICATIONS</span>
-          <button type="button" class="p-1.5 rounded-lg text-slate-400 hover:text-white focus:outline-none" aria-label="Toggle Training submenu" aria-expanded="false">
-            <svg class="w-4 h-4 transition-transform duration-200" id="mobileTrainingChev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="6 9 12 15 18 9"></polyline>
-            </svg>
-          </button>
-        </div>
-        <div id="mobileTrainingMenu" class="hidden pl-3 pr-2 py-1.5 space-y-1 bg-[#14171A] rounded-xl border border-[#2C3136] my-1 text-xs">
-          <a href="training.html" onclick="routePage(event, 'training.html'); closeMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Cybersecurity Training</a>
-          <a href="enterprises.html" onclick="routePage(event, 'enterprises.html'); closeMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Corporate Training</a>
-          <a href="isc2.html" onclick="routePage(event, 'isc2.html'); closeMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">CISSP &amp; ISC2 Credentials</a>
-          <a href="ec-council.html" onclick="routePage(event, 'ec-council.html'); closeMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">EC-Council Certifications</a>
-          <a href="cambridge.html" onclick="routePage(event, 'cambridge.html'); closeMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Cambridge Learning</a>
-          <a href="training.html" onclick="routePage(event, 'training.html'); closeMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Professional Upskilling</a>
-        </div>
-      </div>
+      <!-- 4. IT SERVICES (Direct Link — No Dropdown) -->
+      <a href="it-services.html" onclick="routePage(event, 'it-services.html'); closeMobileNav();" class="block w-full text-left text-sm font-semibold text-white hover:text-[#D6A84F] py-2 border-b border-[#2C3136] transition-colors">IT SERVICES</a>
 
-      <!-- 8. CORPORATE + -->
-      <div class="border-b border-[#2C3136] pb-1">
-        <div class="flex items-center justify-between py-2 cursor-pointer" onclick="toggleMobileAccordion('mobileCorporateMenu', 'mobileCorporateChev')">
-          <span class="text-sm font-semibold text-white hover:text-[#D6A84F] transition-colors">CORPORATE</span>
-          <button type="button" class="p-1.5 rounded-lg text-slate-400 hover:text-white focus:outline-none" aria-label="Toggle Corporate submenu" aria-expanded="false">
-            <svg class="w-4 h-4 transition-transform duration-200" id="mobileCorporateChev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="6 9 12 15 18 9"></polyline>
-            </svg>
-          </button>
-        </div>
-        <div id="mobileCorporateMenu" class="hidden pl-3 pr-2 py-1.5 space-y-1 bg-[#14171A] rounded-xl border border-[#2C3136] my-1 text-xs">
-          <a href="enterprises.html" onclick="routePage(event, 'enterprises.html'); closeMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Cybersecurity Consulting</a>
-          <a href="enterprises.html" onclick="routePage(event, 'enterprises.html'); closeMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Corporate Training</a>
-          <a href="enterprises.html" onclick="routePage(event, 'enterprises.html'); closeMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Employee Awareness</a>
-          <a href="enterprises.html" onclick="routePage(event, 'enterprises.html'); closeMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Security Assessments</a>
-          <a href="soc.html" onclick="routePage(event, 'soc.html'); closeMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Managed Security Services</a>
-          <a href="it-services.html" onclick="routePage(event, 'it-services.html'); closeMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Enterprise Partnerships</a>
-        </div>
-      </div>
+      <!-- 5. ACADEMIA (Direct Link — No Dropdown) -->
+      <a href="campus.html" onclick="routePage(event, 'campus.html'); closeMobileNav();" class="block w-full text-left text-sm font-semibold text-white hover:text-[#D6A84F] py-2 border-b border-[#2C3136] transition-colors">ACADEMIA</a>
 
-      <!-- 9. RESOURCES + -->
-      <div class="border-b border-[#2C3136] pb-1">
-        <div class="flex items-center justify-between py-2 cursor-pointer" onclick="toggleMobileAccordion('mobileResourcesMenu', 'mobileResourcesChev')">
-          <span class="text-sm font-semibold text-white hover:text-[#D6A84F] transition-colors">RESOURCES</span>
-          <button type="button" class="p-1.5 rounded-lg text-slate-400 hover:text-white focus:outline-none" aria-label="Toggle Resources submenu" aria-expanded="false">
-            <svg class="w-4 h-4 transition-transform duration-200" id="mobileResourcesChev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="6 9 12 15 18 9"></polyline>
-            </svg>
-          </button>
-        </div>
-        <div id="mobileResourcesMenu" class="hidden pl-3 pr-2 py-1.5 space-y-1 bg-[#14171A] rounded-xl border border-[#2C3136] my-1 text-xs">
-          <a href="training.html" onclick="routePage(event, 'training.html'); closeMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Insights</a>
-          <a href="training.html" onclick="routePage(event, 'training.html'); closeMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Events &amp; Workshops</a>
-          <a href="training-schedule.html" onclick="routePage(event, 'training-schedule.html'); closeMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Training Calendar</a>
-          <a href="about.html" onclick="routePage(event, 'about.html'); closeMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Case Studies</a>
-          <a href="index.html" onclick="routePage(event, 'index.html'); closeMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Gallery</a>
-          <a href="contact.html" onclick="routePage(event, 'contact.html'); closeMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Downloads</a>
-        </div>
-      </div>
+      <!-- 6. INTERNSHIPS (Direct Link — No Dropdown) -->
+      <a href="internships.html" onclick="routePage(event, 'internships.html'); closeMobileNav();" class="block w-full text-left text-sm font-semibold text-white hover:text-[#D6A84F] py-2 border-b border-[#2C3136] transition-colors">INTERNSHIPS</a>
 
-      <!-- 10. CONTACT + -->
-      <div class="border-b border-[#2C3136] pb-1">
-        <div class="flex items-center justify-between py-2 cursor-pointer" onclick="toggleMobileAccordion('mobileContactMenu', 'mobileContactChev')">
-          <span class="text-sm font-semibold text-white hover:text-[#D6A84F] transition-colors">CONTACT</span>
-          <button type="button" class="p-1.5 rounded-lg text-slate-400 hover:text-white focus:outline-none" aria-label="Toggle Contact submenu" aria-expanded="false">
-            <svg class="w-4 h-4 transition-transform duration-200" id="mobileContactChev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="6 9 12 15 18 9"></polyline>
-            </svg>
-          </button>
-        </div>
-        <div id="mobileContactMenu" class="hidden pl-3 pr-2 py-1.5 space-y-1 bg-[#14171A] rounded-xl border border-[#2C3136] my-1 text-xs">
-          <a href="contact.html" onclick="routePage(event, 'contact.html'); closeMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Contact Us</a>
-          <a href="contact.html" onclick="routePage(event, 'contact.html'); closeMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Enquire Now</a>
-          <a href="contact.html" onclick="routePage(event, 'contact.html'); closeMobileNav();" class="block py-1.5 px-2 text-slate-300 hover:text-[#D6A84F]">Partner With Us</a>
-        </div>
-      </div>
+      <!-- 7. TRAINING & CERTIFICATIONS (Direct Link — No Dropdown) -->
+      <a href="training.html" onclick="routePage(event, 'training.html'); closeMobileNav();" class="block w-full text-left text-sm font-semibold text-white hover:text-[#D6A84F] py-2 border-b border-[#2C3136] transition-colors">TRAINING &amp; CERTIFICATIONS</a>
+
+      <!-- 8. CORPORATE (Direct Link — No Dropdown) -->
+      <a href="enterprises.html" onclick="routePage(event, 'enterprises.html'); closeMobileNav();" class="block w-full text-left text-sm font-semibold text-white hover:text-[#D6A84F] py-2 border-b border-[#2C3136] transition-colors">CORPORATE</a>
+
+      <!-- 9. RESOURCES (Direct Link — No Dropdown) -->
+      <a href="resources.html" onclick="routePage(event, 'resources.html'); closeMobileNav();" class="block w-full text-left text-sm font-semibold text-white hover:text-[#D6A84F] py-2 border-b border-[#2C3136] transition-colors">RESOURCES</a>
+
+      <!-- 10. CONTACT (Direct Link — No Dropdown) -->
+      <a href="contact.html" onclick="routePage(event, 'contact.html'); closeMobileNav();" class="block w-full text-left text-sm font-semibold text-white hover:text-[#D6A84F] py-2 border-b border-[#2C3136] transition-colors">CONTACT</a>
 
       <!-- APPEARANCE / DARK MODE TOGGLE (Mobile Accessible) -->
       <div class="pt-3 pb-1">
@@ -2223,7 +1880,7 @@
                   <i data-lucide="clipboard-check" class="w-5 h-5"></i>
                 </div>
                 <div>
-                  <h3 class="font-display font-bold text-xs sm:text-sm text-white group-hover:text-[#D6A84F] transition-colors leading-snug">VAPT &amp; Security Testing</h3>
+                  <h3 id="vapt" class="font-display font-bold text-xs sm:text-sm text-white group-hover:text-[#D6A84F] transition-colors leading-snug">VAPT &amp; Security Testing</h3>
                 </div>
               </div>
               <div class="w-8 h-8 rounded-full bg-[#282D32] border border-[#3A4046] flex items-center justify-center text-[#D6A84F] group-hover:bg-[#D6A84F] group-hover:text-[#111315] group-hover:translate-x-1 transition-all shrink-0">
@@ -4876,6 +4533,402 @@
   </main>
 
   <!-- ==================== VIEW 5: CONTACT (contact.html) ==================== -->
+    <!-- ==================== VIEW: RESOURCES (resources.html) ==================== -->
+  <main id="view-resources" class="page-view flex-1 bg-white dark:bg-[#111315]">
+
+    <!-- HERO SECTION: RESOURCES & INSIGHTS -->
+    <section class="white-section relative py-12 sm:py-16 lg:py-20 border-b border-[var(--border-white)] overflow-hidden bg-gradient-to-b from-white via-slate-50/50 to-white dark:from-[#111315] dark:via-[#16191D] dark:to-[#111315]" id="resources-hero">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+          
+          <!-- Hero Left Column: Eyebrow, Heading, Description, Category Badges -->
+          <div class="lg:col-span-6 space-y-6 sm:space-y-8">
+            <div class="space-y-3">
+              <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-[#D6A84F]/10 border border-[#D6A84F]/30 text-[#B08D57] dark:text-[#D6A84F] text-xs font-mono font-bold uppercase tracking-wider">
+                <i data-lucide="book-open" class="w-4 h-4 text-[#D6A84F]"></i>
+                <span>RESOURCES &amp; INSIGHTS</span>
+              </div>
+              <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-display text-[var(--text-white-head)] tracking-tight leading-[1.15]">
+                Knowledge for <span class="text-[#D6A84F]">Secure, Smarter Growth</span>
+              </h1>
+              <p class="text-sm sm:text-base text-[var(--text-white-body)] leading-relaxed max-w-xl">
+                SLN Consulting provides cybersecurity insights, advisories, case studies, events, workshops, training resources, and useful downloads to empower your security architecture.
+              </p>
+            </div>
+
+            <!-- Quick Category Pill Jump Links -->
+            <div class="flex flex-wrap gap-2 pt-1">
+              <a href="#insights" onclick="const el=document.getElementById('insights'); if(el){event.preventDefault(); el.scrollIntoView({behavior:'smooth'});}" class="px-3.5 py-1.5 rounded-full text-xs font-semibold bg-slate-100 dark:bg-[#1E2328] hover:bg-[#D6A84F]/20 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-[#2D3339] transition-colors inline-flex items-center gap-1.5">
+                <i data-lucide="shield-alert" class="w-3.5 h-3.5 text-[#D6A84F]"></i>
+                <span>Advisories</span>
+              </a>
+              <a href="#events" onclick="const el=document.getElementById('events'); if(el){event.preventDefault(); el.scrollIntoView({behavior:'smooth'});}" class="px-3.5 py-1.5 rounded-full text-xs font-semibold bg-slate-100 dark:bg-[#1E2328] hover:bg-[#D6A84F]/20 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-[#2D3339] transition-colors inline-flex items-center gap-1.5">
+                <i data-lucide="calendar" class="w-3.5 h-3.5 text-[#D6A84F]"></i>
+                <span>Events</span>
+              </a>
+              <a href="#case-studies" onclick="const el=document.getElementById('case-studies'); if(el){event.preventDefault(); el.scrollIntoView({behavior:'smooth'});}" class="px-3.5 py-1.5 rounded-full text-xs font-semibold bg-slate-100 dark:bg-[#1E2328] hover:bg-[#D6A84F]/20 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-[#2D3339] transition-colors inline-flex items-center gap-1.5">
+                <i data-lucide="file-check" class="w-3.5 h-3.5 text-[#D6A84F]"></i>
+                <span>Case Studies</span>
+              </a>
+              <a href="#calendar-preview" onclick="const el=document.getElementById('calendar-preview'); if(el){event.preventDefault(); el.scrollIntoView({behavior:'smooth'});}" class="px-3.5 py-1.5 rounded-full text-xs font-semibold bg-slate-100 dark:bg-[#1E2328] hover:bg-[#D6A84F]/20 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-[#2D3339] transition-colors inline-flex items-center gap-1.5">
+                <i data-lucide="clock" class="w-3.5 h-3.5 text-[#D6A84F]"></i>
+                <span>Training Schedule</span>
+              </a>
+              <a href="#campus-skilling" onclick="const el=document.getElementById('campus-skilling'); if(el){event.preventDefault(); el.scrollIntoView({behavior:'smooth'});}" class="px-3.5 py-1.5 rounded-full text-xs font-semibold bg-slate-100 dark:bg-[#1E2328] hover:bg-[#D6A84F]/20 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-[#2D3339] transition-colors inline-flex items-center gap-1.5">
+                <i data-lucide="graduation-cap" class="w-3.5 h-3.5 text-[#D6A84F]"></i>
+                <span>Campus Skilling</span>
+              </a>
+              <a href="#downloads" onclick="const el=document.getElementById('downloads'); if(el){event.preventDefault(); el.scrollIntoView({behavior:'smooth'});}" class="px-3.5 py-1.5 rounded-full text-xs font-semibold bg-slate-100 dark:bg-[#1E2328] hover:bg-[#D6A84F]/20 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-[#2D3339] transition-colors inline-flex items-center gap-1.5">
+                <i data-lucide="download" class="w-3.5 h-3.5 text-[#D6A84F]"></i>
+                <span>Downloads</span>
+              </a>
+            </div>
+
+            <!-- Action buttons -->
+            <div class="flex flex-wrap items-center gap-3 pt-2">
+              <a href="#downloads" onclick="const el=document.getElementById('downloads'); if(el){event.preventDefault(); el.scrollIntoView({behavior:'smooth'});}" class="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-[#D6A84F] hover:bg-[#C2943F] text-[#111315] font-bold text-xs uppercase tracking-wider shadow-md transition-all">
+                <span>Access Free Downloads</span>
+                <i data-lucide="arrow-down" class="w-4 h-4"></i>
+              </a>
+              <a href="contact.html" onclick="routePage(event, 'contact.html')" class="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-[#18202A] dark:bg-[#1E2328] hover:bg-[#252B33] text-white font-semibold text-xs border border-slate-700 shadow-sm transition-all">
+                <span>Request Custom Advisory</span>
+                <i data-lucide="mail" class="w-4 h-4 text-[#D6A84F]"></i>
+              </a>
+            </div>
+
+          </div>
+
+          <!-- Hero Right Column: Large Imagery with Overlay Badges -->
+          <div class="lg:col-span-6 relative">
+            <div class="relative rounded-3xl overflow-hidden shadow-2xl border border-[var(--border-white)] dark:border-[#3A4046] h-72 sm:h-96 lg:h-[400px] bg-slate-900 group">
+              <img 
+                src="assets/hero_offerings_office.jpg" 
+                alt="SLN Consulting Cybersecurity Research &amp; Insights Center" 
+                class="w-full h-full object-cover group-hover:scale-102 transition-transform duration-500"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-[#111315]/90 via-transparent to-transparent flex flex-col justify-end p-5 sm:p-6">
+                <div class="bg-[#181C20]/95 backdrop-blur-xs px-4 py-3 rounded-2xl border border-white/10 shadow-lg flex items-center justify-between gap-4">
+                  <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-xl bg-[#D6A84F]/15 flex items-center justify-center text-[#D6A84F] shrink-0">
+                      <i data-lucide="shield" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                      <span class="text-[10px] font-mono text-[#D6A84F] uppercase tracking-wider block font-bold">SECURITY RESEARCH &amp; ADVISORY</span>
+                      <span class="text-xs sm:text-sm font-semibold text-white">Actionable Cyber Intelligence</span>
+                    </div>
+                  </div>
+                  <span class="font-mono text-xs px-2.5 py-1 rounded-lg bg-emerald-500/20 text-emerald-400 font-bold border border-emerald-500/30 shrink-0">Updated 2026</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: 6 CORE RESOURCE CATEGORIES -->
+    <section class="py-16 sm:py-20 bg-slate-50 dark:bg-[#16191D] border-b border-[var(--border-white)] dark:border-[#2C3136]">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center max-w-3xl mx-auto space-y-3 mb-12">
+          <div class="inline-flex items-center gap-2 text-xs font-mono font-bold text-[#B08D57] dark:text-[#D6A84F] uppercase tracking-wider">
+            <span class="w-5 h-[2px] bg-[#D6A84F]"></span> RESOURCE DIRECTORY <span class="w-5 h-[2px] bg-[#D6A84F]"></span>
+          </div>
+          <h2 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold font-display text-[var(--text-white-head)]">
+            Explore Curated Knowledge &amp; Tools
+          </h2>
+          <p class="text-sm sm:text-base text-[var(--text-white-body)]">
+            Access threat analysis, learning frameworks, case blueprints, and operational downloads built by SLN Consulting's security practitioners.
+          </p>
+        </div>
+
+        <!-- 6 Core Category Cards Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+          
+          <!-- Card 1: Insights & Advisories -->
+          <div id="insights" class="resource-card p-6 sm:p-7 rounded-2xl bg-white dark:bg-[#1B1E21] border border-slate-200 dark:border-[#2C3136] shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group">
+            <div class="space-y-4">
+              <div class="w-12 h-12 rounded-xl bg-[#D6A84F]/15 text-[#B08D57] dark:text-[#D6A84F] flex items-center justify-center font-bold text-lg group-hover:scale-105 transition-transform">
+                <i data-lucide="shield-alert" class="w-6 h-6"></i>
+              </div>
+              <div class="space-y-1.5">
+                <span class="text-[11px] font-mono font-bold text-[#D6A84F] uppercase tracking-wider">01 / INTELLIGENCE</span>
+                <h3 class="text-lg font-bold text-[var(--text-white-head)] group-hover:text-[#D6A84F] transition-colors">
+                  Insights &amp; Advisories
+                </h3>
+                <p class="text-xs sm:text-sm text-[var(--text-white-body)] leading-relaxed">
+                  Real-time threat notifications, Zero Trust defense frameworks, VAPT advisory bulletins, and regulatory compliance updates.
+                </p>
+              </div>
+              <ul class="text-xs space-y-2 text-[var(--text-white-body)] pt-2 border-t border-slate-100 dark:border-[#2C3136]">
+                <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-[#D6A84F]"></i> Ransomware Incident Playbooks</li>
+                <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-[#D6A84F]"></i> Cloud Misconfiguration Audits</li>
+                <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-[#D6A84F]"></i> Quarterly Threat Landscape Report</li>
+              </ul>
+            </div>
+            <div class="pt-6">
+              <a href="contact.html" onclick="routePage(event, 'contact.html')" class="inline-flex items-center gap-1.5 text-xs font-bold text-[#D6A84F] hover:underline">
+                <span>Request Advisory Briefing</span>
+                <i data-lucide="chevron-right" class="w-4 h-4"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- Card 2: Events & Workshops -->
+          <div id="events" class="resource-card p-6 sm:p-7 rounded-2xl bg-white dark:bg-[#1B1E21] border border-slate-200 dark:border-[#2C3136] shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group">
+            <div class="space-y-4">
+              <div class="w-12 h-12 rounded-xl bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center font-bold text-lg group-hover:scale-105 transition-transform">
+                <i data-lucide="calendar" class="w-6 h-6"></i>
+              </div>
+              <div class="space-y-1.5">
+                <span class="text-[11px] font-mono font-bold text-[#D6A84F] uppercase tracking-wider">02 / INTERACTION</span>
+                <h3 class="text-lg font-bold text-[var(--text-white-head)] group-hover:text-[#D6A84F] transition-colors">
+                  Events &amp; Workshops
+                </h3>
+                <p class="text-xs sm:text-sm text-[var(--text-white-body)] leading-relaxed">
+                  Interactive CISO executive roundtables, live technical webinars, red-vs-blue defense simulations, and corporate clinics.
+                </p>
+              </div>
+              <ul class="text-xs space-y-2 text-[var(--text-white-body)] pt-2 border-t border-slate-100 dark:border-[#2C3136]">
+                <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-[#D6A84F]"></i> Bi-Weekly SME Cyber Webinars</li>
+                <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-[#D6A84F]"></i> Annual Cyber Defense Conclave</li>
+                <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-[#D6A84F]"></i> Executive Awareness Masterclasses</li>
+              </ul>
+            </div>
+            <div class="pt-6">
+              <a href="contact.html" onclick="routePage(event, 'contact.html')" class="inline-flex items-center gap-1.5 text-xs font-bold text-[#D6A84F] hover:underline">
+                <span>Register for Upcoming Events</span>
+                <i data-lucide="chevron-right" class="w-4 h-4"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- Card 3: Case Studies -->
+          <div id="case-studies" class="resource-card p-6 sm:p-7 rounded-2xl bg-white dark:bg-[#1B1E21] border border-slate-200 dark:border-[#2C3136] shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group">
+            <div class="space-y-4">
+              <div class="w-12 h-12 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center font-bold text-lg group-hover:scale-105 transition-transform">
+                <i data-lucide="file-check" class="w-6 h-6"></i>
+              </div>
+              <div class="space-y-1.5">
+                <span class="text-[11px] font-mono font-bold text-[#D6A84F] uppercase tracking-wider">03 / EVIDENCE</span>
+                <h3 class="text-lg font-bold text-[var(--text-white-head)] group-hover:text-[#D6A84F] transition-colors">
+                  Case Studies
+                </h3>
+                <p class="text-xs sm:text-sm text-[var(--text-white-body)] leading-relaxed">
+                  Real-world enterprise success stories across Banking, FinTech, Healthcare, Higher Education, and Cloud SaaS ecosystems.
+                </p>
+              </div>
+              <ul class="text-xs space-y-2 text-[var(--text-white-body)] pt-2 border-t border-slate-100 dark:border-[#2C3136]">
+                <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-[#D6A84F]"></i> 24/7 SOC Transformation for Banking Group</li>
+                <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-[#D6A84F]"></i> ISO 27001 Certification in 90 Days</li>
+                <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-[#D6A84F]"></i> 2500+ Student Campus Skilling Rollout</li>
+              </ul>
+            </div>
+            <div class="pt-6">
+              <a href="about.html" onclick="routePage(event, 'about.html')" class="inline-flex items-center gap-1.5 text-xs font-bold text-[#D6A84F] hover:underline">
+                <span>View Enterprise Case Studies</span>
+                <i data-lucide="chevron-right" class="w-4 h-4"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- Card 4: Training Calendar -->
+          <div id="calendar-preview" class="resource-card p-6 sm:p-7 rounded-2xl bg-white dark:bg-[#1B1E21] border border-slate-200 dark:border-[#2C3136] shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group">
+            <div class="space-y-4">
+              <div class="w-12 h-12 rounded-xl bg-purple-500/10 text-purple-600 dark:text-purple-400 flex items-center justify-center font-bold text-lg group-hover:scale-105 transition-transform">
+                <i data-lucide="clock" class="w-6 h-6"></i>
+              </div>
+              <div class="space-y-1.5">
+                <span class="text-[11px] font-mono font-bold text-[#D6A84F] uppercase tracking-wider">04 / SCHEDULE</span>
+                <h3 class="text-lg font-bold text-[var(--text-white-head)] group-hover:text-[#D6A84F] transition-colors">
+                  Training Calendar
+                </h3>
+                <p class="text-xs sm:text-sm text-[var(--text-white-body)] leading-relaxed">
+                  Scheduled batches, weekend cohorts, and fast-track bootcamps for globally recognized certifications and professional development.
+                </p>
+              </div>
+              <ul class="text-xs space-y-2 text-[var(--text-white-body)] pt-2 border-t border-slate-100 dark:border-[#2C3136]">
+                <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-[#D6A84F]"></i> EC-Council CEH v13 Master Schedules</li>
+                <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-[#D6A84F]"></i> (ISC)² CC &amp; CISSP Executive Batches</li>
+                <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-[#D6A84F]"></i> Cambridge Business Language Tracks</li>
+              </ul>
+            </div>
+            <div class="pt-6">
+              <a href="training.html" onclick="routePage(event, 'training.html')" class="inline-flex items-center gap-1.5 text-xs font-bold text-[#D6A84F] hover:underline">
+                <span>View Full Training Calendar</span>
+                <i data-lucide="chevron-right" class="w-4 h-4"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- Card 5: Campus Skilling -->
+          <div id="campus-skilling" class="resource-card p-6 sm:p-7 rounded-2xl bg-white dark:bg-[#1B1E21] border border-slate-200 dark:border-[#2C3136] shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group">
+            <div class="space-y-4">
+              <div class="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center font-bold text-lg group-hover:scale-105 transition-transform">
+                <i data-lucide="graduation-cap" class="w-6 h-6"></i>
+              </div>
+              <div class="space-y-1.5">
+                <span class="text-[11px] font-mono font-bold text-[#D6A84F] uppercase tracking-wider">05 / ACADEMIA</span>
+                <h3 class="text-lg font-bold text-[var(--text-white-head)] group-hover:text-[#D6A84F] transition-colors">
+                  Campus Skilling
+                </h3>
+                <p class="text-xs sm:text-sm text-[var(--text-white-body)] leading-relaxed">
+                  Institutional blueprints, faculty development resources, curriculum mapping toolkits, and student cybersecurity clubs.
+                </p>
+              </div>
+              <ul class="text-xs space-y-2 text-[var(--text-white-body)] pt-2 border-t border-slate-100 dark:border-[#2C3136]">
+                <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-[#D6A84F]"></i> 3-Month Internship Curriculum Framework</li>
+                <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-[#D6A84F]"></i> Faculty Train-The-Trainer (TTT) Handbooks</li>
+                <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-[#D6A84F]"></i> Student Hackathon Problem Banks</li>
+              </ul>
+            </div>
+            <div class="pt-6">
+              <a href="campus.html" onclick="routePage(event, 'campus.html')" class="inline-flex items-center gap-1.5 text-xs font-bold text-[#D6A84F] hover:underline">
+                <span>Explore Campus Model</span>
+                <i data-lucide="chevron-right" class="w-4 h-4"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- Card 6: Downloads & Toolkits -->
+          <div id="downloads" class="resource-card p-6 sm:p-7 rounded-2xl bg-white dark:bg-[#1B1E21] border border-slate-200 dark:border-[#2C3136] shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group">
+            <div class="space-y-4">
+              <div class="w-12 h-12 rounded-xl bg-teal-500/10 text-teal-600 dark:text-teal-400 flex items-center justify-center font-bold text-lg group-hover:scale-105 transition-transform">
+                <i data-lucide="download-cloud" class="w-6 h-6"></i>
+              </div>
+              <div class="space-y-1.5">
+                <span class="text-[11px] font-mono font-bold text-[#D6A84F] uppercase tracking-wider">06 / TOOLKITS</span>
+                <h3 class="text-lg font-bold text-[var(--text-white-head)] group-hover:text-[#D6A84F] transition-colors">
+                  Downloads &amp; Toolkits
+                </h3>
+                <p class="text-xs sm:text-sm text-[var(--text-white-body)] leading-relaxed">
+                  Downloadable security checklists, course brochures, program prospectuses, and compliance preparedness templates.
+                </p>
+              </div>
+              <ul class="text-xs space-y-2 text-[var(--text-white-body)] pt-2 border-t border-slate-100 dark:border-[#2C3136]">
+                <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-[#D6A84F]"></i> SLN Corporate Capabilities Brochure (PDF)</li>
+                <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-[#D6A84F]"></i> Enterprise VAPT Scope Questionnaire</li>
+                <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-[#D6A84F]"></i> SOC 2 &amp; ISO 27001 Readiness Matrix</li>
+              </ul>
+            </div>
+            <div class="pt-6">
+              <a href="contact.html" onclick="routePage(event, 'contact.html')" class="inline-flex items-center gap-1.5 text-xs font-bold text-[#D6A84F] hover:underline">
+                <span>Request Download Package</span>
+                <i data-lucide="chevron-right" class="w-4 h-4"></i>
+              </a>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION: FEATURED ARTICLES & WHITE PAPERS -->
+    <section class="py-16 sm:py-20 bg-white dark:bg-[#111315] border-b border-[var(--border-white)] dark:border-[#2C3136]">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
+          <div>
+            <div class="inline-flex items-center gap-2 text-xs font-mono font-bold text-[#B08D57] dark:text-[#D6A84F] uppercase tracking-wider mb-2">
+              <span class="w-5 h-[2px] bg-[#E85A17]"></span> CURATED PUBLICATIONS
+            </div>
+            <h2 class="text-2xl sm:text-3xl font-extrabold font-display text-[var(--text-white-head)]">
+              Latest Security Publications &amp; Briefings
+            </h2>
+          </div>
+          <a href="contact.html" onclick="routePage(event, 'contact.html')" class="inline-flex items-center gap-2 text-xs font-bold text-[#D6A84F] hover:underline">
+            <span>Subscribe for Technical Updates</span>
+            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </a>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+          
+          <!-- Article 1 -->
+          <div class="rounded-2xl border border-slate-200 dark:border-[#2C3136] overflow-hidden bg-white dark:bg-[#181C20] shadow-sm hover:shadow-lg transition-all space-y-4 p-5">
+            <div class="flex items-center justify-between text-[11px] font-mono text-slate-500 dark:text-slate-400">
+              <span class="px-2.5 py-0.5 rounded-full bg-[#D6A84F]/15 text-[#B08D57] dark:text-[#D6A84F] font-bold">CYBER ADVISORY</span>
+              <span>March 2026</span>
+            </div>
+            <h4 class="text-base font-bold text-[var(--text-white-head)] leading-snug">
+              Architecting Zero Trust for Hybrid Cloud Workloads
+            </h4>
+            <p class="text-xs text-[var(--text-white-body)] leading-relaxed">
+              Step-by-step guidance on micro-segmentation, identity enforcement, and continuous posture monitoring across distributed cloud environments.
+            </p>
+            <div class="pt-2 border-t border-slate-100 dark:border-[#2C3136] flex items-center justify-between text-xs">
+              <span class="text-slate-500 dark:text-slate-400 font-mono">6 min read</span>
+              <a href="contact.html" onclick="routePage(event, 'contact.html')" class="font-bold text-[#D6A84F] hover:underline inline-flex items-center gap-1">Read Briefing <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i></a>
+            </div>
+          </div>
+
+          <!-- Article 2 -->
+          <div class="rounded-2xl border border-slate-200 dark:border-[#2C3136] overflow-hidden bg-white dark:bg-[#181C20] shadow-sm hover:shadow-lg transition-all space-y-4 p-5">
+            <div class="flex items-center justify-between text-[11px] font-mono text-slate-500 dark:text-slate-400">
+              <span class="px-2.5 py-0.5 rounded-full bg-blue-500/15 text-blue-600 dark:text-blue-400 font-bold">VAPT METHODOLOGY</span>
+              <span>February 2026</span>
+            </div>
+            <h4 class="text-base font-bold text-[var(--text-white-head)] leading-snug">
+              2026 Vulnerability Assessment &amp; Penetration Testing Benchmark
+            </h4>
+            <p class="text-xs text-[var(--text-white-body)] leading-relaxed">
+              Analysis of top API security vulnerabilities, credential stuffing patterns, and remediation priorities for modern Web and Mobile applications.
+            </p>
+            <div class="pt-2 border-t border-slate-100 dark:border-[#2C3136] flex items-center justify-between text-xs">
+              <span class="text-slate-500 dark:text-slate-400 font-mono">8 min read</span>
+              <a href="contact.html" onclick="routePage(event, 'contact.html')" class="font-bold text-[#D6A84F] hover:underline inline-flex items-center gap-1">Read Briefing <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i></a>
+            </div>
+          </div>
+
+          <!-- Article 3 -->
+          <div class="rounded-2xl border border-slate-200 dark:border-[#2C3136] overflow-hidden bg-white dark:bg-[#181C20] shadow-sm hover:shadow-lg transition-all space-y-4 p-5">
+            <div class="flex items-center justify-between text-[11px] font-mono text-slate-500 dark:text-slate-400">
+              <span class="px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 font-bold">SKILLING REPORT</span>
+              <span>January 2026</span>
+            </div>
+            <h4 class="text-base font-bold text-[var(--text-white-head)] leading-snug">
+              Closing the Cybersecurity Workforce Talent Gap in Academia
+            </h4>
+            <p class="text-xs text-[var(--text-white-body)] leading-relaxed">
+              How bridging academic curriculums with live SOC environments and hands-on capstones accelerates student employability by over 300%.
+            </p>
+            <div class="pt-2 border-t border-slate-100 dark:border-[#2C3136] flex items-center justify-between text-xs">
+              <span class="text-slate-500 dark:text-slate-400 font-mono">5 min read</span>
+              <a href="contact.html" onclick="routePage(event, 'contact.html')" class="font-bold text-[#D6A84F] hover:underline inline-flex items-center gap-1">Read Briefing <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i></a>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION: CALL TO ACTION BANNER -->
+    <section class="py-14 sm:py-16 bg-[#16191D] text-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-8">
+        <div class="space-y-2 text-center md:text-left">
+          <span class="font-mono text-xs uppercase tracking-wider text-[#D6A84F] font-bold">ENTERPRISE KNOWLEDGE PARTNERSHIP</span>
+          <h2 class="text-2xl sm:text-3xl font-extrabold font-display">
+            Need Custom Security Intelligence or Training Roadmaps?
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-400 max-w-xl">
+            Our subject matter experts work directly with corporate leaders and educational institutions to develop bespoke advisory frameworks.
+          </p>
+        </div>
+        <div class="flex items-center gap-4 shrink-0">
+          <a href="contact.html" onclick="routePage(event, 'contact.html')" class="px-7 py-3.5 rounded-full bg-[#D6A84F] hover:bg-[#C2943F] text-[#111315] font-bold text-xs uppercase tracking-wider shadow-md transition inline-flex items-center gap-2">
+            <span>Contact Advisory Team</span>
+            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+
   <main id="view-contact" class="page-view flex-1">
     
     <!-- Main Contact Section -->
@@ -5187,7 +5240,7 @@
         <!-- Company Area -->
         <div class="lg:col-span-7 space-y-3.5">
           <a href="index.html" onclick="routePage(event, 'index.html')" class="inline-block group focus:outline-none" aria-label="SLN Consulting Home">
-            <img src="assets/images/sln-consulting-logo.png" alt="SLN Consulting - Solutions for Seamless Growth" class="h-10 w-auto object-contain block" style="max-height: 44px; width: auto;" />
+            <img src="assets/images/sln-consulting-logo.png" alt="SLN Consulting - Solutions for Seamless Growth" class="h-10 w-auto object-contain block logo-img" style="max-height: 44px; width: auto;" />
           </a>
           
           <div class="font-display font-bold text-sm text-[#D6A84F] tracking-wide">
@@ -5491,6 +5544,7 @@
       'soc.html': 'view-soc',
       'soc': 'view-soc',
       'soc-as-a-service': 'view-soc',
+      'saas': 'view-soc',
       'cybersecurity': 'view-soc',
       'offensive-security': 'view-soc',
       'security-operations': 'view-soc',
@@ -5574,7 +5628,13 @@
       'employee-awareness': 'view-enterprises',
 
       // Resources
-      'resources': 'view-training',
+      'resources.html': 'view-resources',
+      'resources': 'view-resources',
+      'resources-and-insights': 'view-resources',
+      'advisories': 'view-resources',
+      'case-studies': 'view-resources',
+      'whitepapers': 'view-resources',
+      'downloads': 'view-resources',
       'training-calendar': 'view-training',
       'events-workshops': 'view-training',
       'insights': 'view-about',
@@ -5870,6 +5930,7 @@ Thank you.`
       if (cleanPath === 'about-us' || cleanPath === 'about') cleanPath = 'about.html';
       if (cleanPath === 'contact-us' || cleanPath === 'contact') cleanPath = 'contact.html';
       if (cleanPath === 'training' || cleanPath === 'training-schedule' || cleanPath === 'training-schedule.html') cleanPath = 'training.html';
+      if (cleanPath === 'resources' || cleanPath === 'resources.html') cleanPath = 'resources.html';
       if (cleanPath === 'enterprises' || cleanPath === 'enterprise' || cleanPath === 'corporate') cleanPath = 'enterprises.html';
       if (cleanPath === 'campus' || cleanPath === 'academia') cleanPath = 'campus.html';
       if (cleanPath === 'internships' || cleanPath === 'internship') cleanPath = 'internships.html';
@@ -5903,6 +5964,7 @@ Thank you.`
         else if (viewId === 'view-internships' && routeAttr === 'internships.html') isMatching = true;
         else if ((viewId === 'view-training' || viewId === 'view-cambridge' || viewId === 'view-isc2' || viewId === 'view-ec-council') && routeAttr === 'training.html') isMatching = true;
         else if (viewId === 'view-enterprises' && routeAttr === 'enterprises.html') isMatching = true;
+        else if (viewId === 'view-resources' && routeAttr === 'resources.html') isMatching = true;
         else if (viewId === 'view-contact' && routeAttr === 'contact.html') isMatching = true;
 
         if (isMatching) {
@@ -5998,7 +6060,6 @@ Thank you.`
       const btn = document.getElementById('mobileMenuBtn');
       if (m) {
         m.classList.remove('hidden');
-        document.body.style.overflow = 'hidden';
       }
       if (btn) {
         btn.classList.add('is-active');
