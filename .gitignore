@@ -1,0 +1,15 @@
+# Large files and archives
+assets.zip
+
+# Vercel
+.vercel/
+
+# Dependencies
+node_modules/
+
+# Logs
+*.log
+
+# OS metadata
+.DS_Store
+Thumbs.db
