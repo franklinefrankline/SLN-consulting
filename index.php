@@ -219,10 +219,7 @@
                 <swiper-slide>
                     <img id="banner2" src="./assets/img/sln-img/slk-banner2.jpg" alt="">
                 </swiper-slide>
-                <swiper-slide>
-                    <img id="banner-bcbuzz" src="./assets/img/sln-img/bcbuzz-partner-banner.jpg" alt="BCBUZZ Technologies Technical Partner">
-                </swiper-slide>
-    
+
                 <swiper-slide>
                     <img id="banner4" src="./assets/img/sln-img/slk-banner4.jpg" alt="">
                 </swiper-slide>
@@ -368,7 +365,21 @@
                     </h4> <br>
                     <h4>CC, CCSP, CISSP, CSSLP</h4><br><br>
                 </div>
-            </div>									            <div class="col-lg-12 mb-2">                <div class="partner-map text-center">                    <h4 style="font-size: 24px; color:blue;">Authorised Training Centre (ATC) of EC-Council                     </h4><br>                    <h4>CEH / CND /CHFI / CPENT / CASE / CCSE / CTIA /CSA</h4>                </div>            </div>
+            </div>
+
+            <div class="col-lg-12 mb-2">
+                <div class="partner-map text-center">
+                    <h4 style="font-size: 24px; color:blue;">Authorised Training Centre (ATC) of EC-Council</h4><br>
+                    <h4>CEH / CND / CHFI / CPENT / CASE / CCSE / CTIA / CSA</h4><br><br>
+                </div>
+            </div>
+
+            <div class="col-lg-12 mb-2">
+                <div class="partner-map text-center">
+                    <h4 style="font-size: 24px; color:blue;">BCBUZZ Technologies &mdash; Technical Partner</h4><br>
+                    <h4>Internship | VAPT | SOC</h4>
+                </div>
+            </div>
 
 
         </div>
@@ -568,13 +579,6 @@
         window.location.href = './isc2.php';
     });
 
-    var bannerBcbuzz = document.getElementById('banner-bcbuzz');
-    if (bannerBcbuzz) {
-        bannerBcbuzz.style.cursor = 'pointer';
-        bannerBcbuzz.addEventListener('click', function() {
-            window.location.href = './soc.php';
-        });
-    }
 
     var bannerInternship = document.getElementById('banner-cybersecurity-internship');
     if (bannerInternship) {

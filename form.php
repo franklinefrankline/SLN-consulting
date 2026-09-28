@@ -64,6 +64,20 @@
                     <div class="contact-form-style-one">
                         <!-- <h5 class="sub-title">Have Questions?</h5> -->
                         <h2 class="heading">Send us a Message</h2>
+                        <!-- Form Submission Status Banner -->
+                        <div id="contact-status-container">
+                            <?php if (isset($_GET['status'])): ?>
+                                <div id="contact-status" class="alert <?php echo ($_GET['status'] === 'success') ? 'alert-success' : 'alert-danger'; ?>" style="<?php echo ($_GET['status'] === 'success') ? 'background-color: #ecfdf5; border: 1px solid #a7f3d0; color: #065f46;' : 'background-color: #fef2f2; border: 1px solid #fecaca; color: #991b1b;'; ?> border-radius: 8px; padding: 14px 18px; font-size: 15px; margin-bottom: 20px;">
+                                    <?php if ($_GET['status'] === 'success'): ?>
+                                        <i class="fas fa-check-circle" style="color: #059669; margin-right: 8px;"></i>
+                                        <strong>Thank you!</strong> Your request has been submitted successfully. We will call you at your preferred time.
+                                    <?php else: ?>
+                                        <i class="fas fa-exclamation-circle" style="color: #dc2626; margin-right: 8px;"></i>
+                                        <strong>Notice:</strong> <?php echo htmlspecialchars($_GET['msg'] ?? 'Unable to send request at this time.'); ?>
+                                    <?php endif; ?>
+                                </div>
+                            <?php endif; ?>
+                        </div>
                         <form action="conmail1.php" method="POST">
                             <div class="row">
                                 <div class="col-lg-12">
@@ -112,10 +126,14 @@
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <select class="form-control" name="Services" required>
-                                            <option value="">Select Service *</option>
+                                            <option value="">Select Service *</option>
+                                            <option value="soc">SOC As A Service</option>
+                                            <option value="vapt">VAPT</option>
+                                            <option value="cybersecurity_internship">Cybersecurity Internship</option>
                                             <option value="skilling">Skilling</option>
                                             <option value="cambridge">Cambridge</option>
-                                            <option value="nure">Campus ERP</option>
+                                            <option value="nure">ISC2</option>
+                                            <option value="ec">EC-Council</option>
                                             <option value="it_services">IT Services</option>
                                         </select>
                                     </div>
@@ -173,7 +191,74 @@
     <script src="assets/js/rangeSlider.min.js"></script>
     <script src="assets/js/jquery-ui.min.js"></script>
     <script src="assets/js/validnavs.js"></script>
-    <script src="assets/js/main.js"></script>
+    <script src="assets/js/main.js"></script>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var form = document.querySelector('form[action="conmail1.php"]');
+        if (!form) return;
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            var submitBtn = form.querySelector('button[type="submit"]');
+            var originalBtnHtml = submitBtn ? submitBtn.innerHTML : 'Submit';
+            var container = document.getElementById('contact-status-container');
+
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin" style="margin-right: 8px;"></i> Sending...';
+            }
+
+            var formData = new FormData(form);
+
+            fetch('conmail1.php', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'Accept': 'application/json'
+                }
+            })
+            .then(function(res) {
+                return res.json().catch(function() {
+                    return { status: res.ok ? 'success' : 'error', message: 'Unable to parse server response.' };
+                });
+            })
+            .then(function(data) {
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalBtnHtml;
+                }
+
+                if (data.status === 'success') {
+                    if (container) {
+                        container.innerHTML = '<div id="contact-status" class="alert alert-success" style="background-color: #ecfdf5; border: 1px solid #a7f3d0; color: #065f46; border-radius: 8px; padding: 14px 18px; font-size: 15px; margin-bottom: 20px;"><i class="fas fa-check-circle" style="color: #059669; margin-right: 8px;"></i> <strong>Thank you!</strong> ' + (data.message || 'Your request has been submitted successfully.') + '</div>';
+                    }
+                    form.reset();
+                    if (window.jQuery && typeof window.jQuery.fn.niceSelect === 'function') {
+                        window.jQuery('select').niceSelect('update');
+                    }
+                } else {
+                    if (container) {
+                        container.innerHTML = '<div id="contact-status" class="alert alert-danger" style="background-color: #fef2f2; border: 1px solid #fecaca; color: #991b1b; border-radius: 8px; padding: 14px 18px; font-size: 15px; margin-bottom: 20px;"><i class="fas fa-exclamation-circle" style="color: #dc2626; margin-right: 8px;"></i> <strong>Notice:</strong> ' + (data.message || 'Unable to send request at this time.') + '</div>';
+                    }
+                }
+
+                if (container && container.scrollIntoView) {
+                    container.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }
+            })
+            .catch(function(err) {
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalBtnHtml;
+                }
+                form.submit();
+            });
+        });
+    });
+    </script>
 
 </body>
 

@@ -72,11 +72,53 @@
 
 
 </div></div></div>
+
     <style>
     .button img {
         width: 75%;
     }
+    .soc-cta-box {
+        background: #ffffff;
+        border: 1px solid #d0e7f5;
+        border-radius: 12px;
+        padding: 40px 30px;
+        box-shadow: 0 10px 30px rgba(1, 61, 245, 0.08);
+        text-align: center;
+    }
     </style>
+
+    <!-- =============================================
+         FINAL CTA (Light Blue Section)
+    ============================================= -->
+    <div id="back-col" class="default-padding overflow-hidden"
+        style="background-color: #d7f1fa; background-image: url(assets/img/shape/29.png);">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2">
+                    <div class="soc-cta-box">
+                        <span class="sub-title">Get In Touch</span>
+                        <h2 class="title" style="margin-top: 8px; margin-bottom: 12px;">
+                            Connect With Us
+                        </h2>
+                        <p style="font-size: 15px; line-height: 26px; color: #555555; max-width: 620px; margin: 0 auto 22px;">
+                            Connect with our cybersecurity operations team to evaluate your threat monitoring needs, discuss 24x7 SOC-as-a-Service deployment, and receive a customized defense plan.
+                        </p>
+                        <a href="contact.php" class="btn btn-theme secondary btn-md animation mb-20">
+                            Connect With Us <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                        <div style="font-size: 14.5px; color: #334155; margin-top: 10px;">
+                            <span class="mr-3">
+                                <i class="fas fa-envelope text-primary mr-1"></i> srinivas.c@slnconsulting.co.in
+                            </span>
+                            <span>
+                                <i class="fas fa-phone text-primary mr-1"></i> +91 9940196195
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Start Footer 
     ============================================= -->
