@@ -570,6 +570,7 @@
 
     var bannerBcbuzz = document.getElementById('banner-bcbuzz');
     if (bannerBcbuzz) {
+        bannerBcbuzz.style.cursor = 'pointer';
         bannerBcbuzz.addEventListener('click', function() {
             window.location.href = './soc.php';
         });

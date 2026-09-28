@@ -426,15 +426,15 @@
                     </div>
                 </div>
 
-                <!-- 06: IoT & Embedded Security Testing -->
+                <!-- 06: AI Security Testing -->
                 <div class="col-lg-4 col-md-6 mb-24">
                     <div class="vapt-service-card">
                         <div class="vapt-icon-box">
-                            <i class="fas fa-microchip"></i>
+                            <i class="fas fa-brain"></i>
                         </div>
-                        <h4 style="font-size: 19px; font-weight: 600; margin-bottom: 8px;">IoT &amp; Embedded Security Testing</h4>
+                        <h4 style="font-size: 19px; font-weight: 600; margin-bottom: 8px;">AI Security Testing</h4>
                         <p style="font-size: 14.5px; line-height: 24px; color: #666666; margin-bottom: 0;">
-                            End-to-end device testing covering firmware security analysis, wireless protocols (BLE, MQTT), and cloud management backends.
+                            Specialized security testing for AI systems, applications, and APIs to identify prompt injection, data leakage, model evasion, and algorithmic vulnerabilities.
                         </p>
                     </div>
                 </div>
@@ -858,23 +858,6 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Bridge Callout -->
-            <div class="row mt-10">
-                <div class="col-lg-12">
-                    <div style="background: #e6f3f9; border: 1px solid #d0e7f5; border-radius: 10px; padding: 22px 26px; text-align: center;">
-                        <h4 style="font-size: 18px; font-weight: 600; margin-bottom: 6px; color: #013df5;">
-                            Complete Security Lifecycle with SLN Consulting
-                        </h4>
-                        <p style="font-size: 14.5px; line-height: 24px; color: #555555; max-width: 780px; margin: 0 auto 16px;">
-                            Combining scheduled VAPT audits with continuous SOC monitoring provides a 360-degree security shield: uncovering vulnerabilities before adversaries do while defending your digital assets in real time.
-                        </p>
-                        <a href="soc.php" class="btn btn-theme secondary btn-md animation">
-                            Explore SOC-as-a-Service <i class="fas fa-arrow-right ml-2"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 
@@ -895,7 +878,7 @@
                             Connect with our cybersecurity experts to scope your VAPT assessment requirements, discuss testing schedules, and receive a tailored proposal.
                         </p>
                         <a href="contact.php" class="btn btn-theme secondary btn-md animation mb-20">
-                            Enquire Now <i class="fas fa-arrow-right ml-2"></i>
+                            Connect With Us <i class="fas fa-arrow-right ml-2"></i>
                         </a>
                         <div style="font-size: 14.5px; color: #334155; margin-top: 10px;">
                             <span class="mr-3">
