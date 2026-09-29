@@ -251,15 +251,7 @@
 
 
 
-    <div style="margin-top: 30px;" id="">
-        <div class="container text-center">
-            <blockquote>
-                SLN is the Authorised Distributor of Cambridge University Press and Assessment and<br> Official Training Partner (OTP) of ISC2
-            </blockquote>
 
-        </div>
-
-    </div>
 
 
 

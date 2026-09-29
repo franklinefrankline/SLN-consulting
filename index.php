@@ -82,6 +82,7 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
+        cursor: pointer;
     }
 
     .autoplay-progress {
@@ -206,28 +207,45 @@
         <div class="mtop-1">
             <swiper-container class="mySwiper " pagination="true" pagination-clickable="true" navigation="true"
                 space-between="30" centered-slides="true" autoplay-delay="3500" autoplay-disable-on-interaction="false">
-                                      <swiper-slide>                    <img id="banner1" src="./assets/img/sln-img/slk-banner7.jpg" alt="">                </swiper-slide>  <swiper-slide>
-                    <img id="banner1" src="./assets/img/sln-img/slk-banner11.jpg" alt="">
+
+                <!-- 1. Empowering Minds -->
+                <swiper-slide>
+                    <img id="banner1" src="./assets/img/sln-img/slk-banner1.jpg" alt="Empowering Minds, Elevating Skills, Innovative Solutions.">
                 </swiper-slide>
 
+                <!-- 2. Training & Certification -->
                 <swiper-slide>
-                    <img id="banner1" src="./assets/img/sln-img/slk-banner1.jpg" alt="">
-                </swiper-slide>
-                <swiper-slide>
-                    <img id="banner6" src="./assets/img/sln-img/slk-banner6.jpg" alt="">
-                </swiper-slide>
-                <swiper-slide>
-                    <img id="banner2" src="./assets/img/sln-img/slk-banner2.jpg" alt="">
+                    <img id="banner-training" src="./assets/img/sln-img/slk-banner11.jpg" alt="Training &amp; Certification">
                 </swiper-slide>
 
+                <!-- 3. Certifications (ISC2) -->
                 <swiper-slide>
-                    <img id="banner4" src="./assets/img/sln-img/slk-banner4.jpg" alt="">
+                    <img id="banner6" src="./assets/img/sln-img/slk-banner6.jpg" alt="Certifications (ISC2)">
                 </swiper-slide>
+
+                <!-- 4. Cambridge University -->
                 <swiper-slide>
-                    <img id="banner-cybersecurity-internship" src="assets/img/sln-img/cybersecurity-internship-3-month.png" alt="Cybersecurity Internship">
+                    <img id="banner2" src="./assets/img/sln-img/slk-banner2.jpg" alt="Cambridge University">
                 </swiper-slide>
+
+                <!-- 5. SOC -->
                 <swiper-slide>
-                    <img id="banner5" src="./assets/img/sln-img/slk-banner5.jpg" alt="">
+                    <img id="banner-soc" src="./assets/img/sln-img/slk-banner7.jpg" alt="Security Operation Center - SOC As A Service">
+                </swiper-slide>
+
+                <!-- 6. VAPT -->
+                <swiper-slide>
+                    <img id="banner-vapt" src="./assets/img/sln-img/vapt-banner.jpg" alt="Vulnerability Assessment &amp; Penetration Testing (VAPT)">
+                </swiper-slide>
+
+                <!-- 7. Internship -->
+                <swiper-slide>
+                    <img id="banner-cybersecurity-internship" src="./assets/img/sln-img/cybersecurity-internship-3-month.png" alt="Cybersecurity Internship">
+                </swiper-slide>
+
+                <!-- 8. Skilling Solution -->
+                <swiper-slide>
+                    <img id="banner5" src="./assets/img/sln-img/slk-banner5.jpg" alt="Skilling Solution">
                 </swiper-slide>
 
 
@@ -377,7 +395,7 @@
             <div class="col-lg-12 mb-2">
                 <div class="partner-map text-center">
                     <h4 style="font-size: 24px; color:blue;">Technology Partner—BCBUZZ Technologies</h4><br>
-                    <h4>Campus Internship | VAPT | SOC</h4>
+                    <h4>Campus Internship | VAPT | SOC-As-A-Service</h4>
                 </div>
             </div>
 
@@ -552,39 +570,60 @@
 
     <!-- slider  -->
     <script>
-    document.getElementById('banner1').addEventListener('click', function() {
-        window.location.href = './index.php';
-    });
-
-    document.getElementById('banner2').addEventListener('click', function() {
-        window.location.href = './cambridge.php';
-    });
-
-    var banner3 = document.getElementById('banner3');
-    if (banner3) {
-        banner3.addEventListener('click', function() {
-            window.location.href = './campus.php';
+    var banner1 = document.getElementById('banner1');
+    if (banner1) {
+        banner1.addEventListener('click', function() {
+            window.location.href = './index.php';
         });
     }
 
-    document.getElementById('banner4').addEventListener('click', function() {
-        window.location.href = './it-service.php';
-    });
+    var bannerTraining = document.getElementById('banner-training');
+    if (bannerTraining) {
+        bannerTraining.addEventListener('click', function() {
+            window.location.href = './ecc.php';
+        });
+    }
 
-    document.getElementById('banner5').addEventListener('click', function() {
-        window.location.href = './enterprises.php';
-    });
+    var banner6 = document.getElementById('banner6');
+    if (banner6) {
+        banner6.addEventListener('click', function() {
+            window.location.href = './isc2.php';
+        });
+    }
 
-    document.getElementById('banner6').addEventListener('click', function() {
-        window.location.href = './isc2.php';
-    });
+    var banner2 = document.getElementById('banner2');
+    if (banner2) {
+        banner2.addEventListener('click', function() {
+            window.location.href = './cambridge.php';
+        });
+    }
 
+    var bannerSoc = document.getElementById('banner-soc');
+    if (bannerSoc) {
+        bannerSoc.addEventListener('click', function() {
+            window.location.href = './soc.php';
+        });
+    }
+
+    var bannerVapt = document.getElementById('banner-vapt');
+    if (bannerVapt) {
+        bannerVapt.addEventListener('click', function() {
+            window.location.href = './vapt.php';
+        });
+    }
 
     var bannerInternship = document.getElementById('banner-cybersecurity-internship');
     if (bannerInternship) {
         bannerInternship.style.cursor = 'pointer';
         bannerInternship.addEventListener('click', function() {
             window.location.href = './cybersecurity-internship.php';
+        });
+    }
+
+    var banner5 = document.getElementById('banner5');
+    if (banner5) {
+        banner5.addEventListener('click', function() {
+            window.location.href = './enterprises.php';
         });
     }
     </script>
