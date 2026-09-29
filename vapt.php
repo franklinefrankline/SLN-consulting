@@ -224,11 +224,11 @@
 
         .vapt-cta-box {
             background: #ffffff;
-            border: 1px solid #d0e7f5;
-            border-radius: 12px;
-            padding: 40px 30px;
+            border: 1px solid #bcdbeb;
+            border-radius: 14px;
+            padding: 36px 42px;
             box-shadow: 0 10px 30px rgba(1, 61, 245, 0.08);
-            text-align: center;
+            width: 100%;
         }
 
         @media (max-width: 991px) {
@@ -256,7 +256,6 @@
         <div class="container">
             <div class="row align-center">
                 <div class="about-style-two col-lg-6">
-                    <span class="sub-title">Our Offering</span>
                     <h2 class="title" style="margin-top: 10px; margin-bottom: 16px;">
                         Vulnerability Assessment &amp; Penetration Testing (VAPT)
                     </h2>
@@ -286,64 +285,6 @@
         </div>
     </div>
 
-    <!-- =============================================
-         2. UNDERSTANDING VAPT (White Section)
-    ============================================= -->
-    <div class="about-style-two-area default-padding overflow-hidden">
-        <div class="container">
-            <div class="row align-center">
-                <div class="col-lg-5 about-style-two">
-                    <div class="thumb" style="position: relative; padding-left: 0;">
-                        <img src="assets/img/sln-img/vapt-audit.jpg" alt="VAPT Security Audit and Remediation" class="vapt-audit-img">
-                        <div class="shape">
-                            <img src="assets/img/shape/anim-5.png" alt="Shape">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="about-style-two col-lg-7 pl-40 pl-md-15 pl-xs-15">
-                    <span class="sub-title">Understanding VAPT</span>
-                    <h2 class="title" style="margin-top: 10px; margin-bottom: 16px;">
-                        Proactive Security Validation Before Attackers Exploit
-                    </h2>
-                    <p style="font-size: 15px; line-height: 26px; margin-bottom: 16px; color: #555555;">
-                        VAPT is a comprehensive two-fold evaluation approach that combines broad automated vulnerability scanning with skilled, manual exploitation by cybersecurity specialists.
-                    </p>
-                    
-                    <div class="row mb-15">
-                        <div class="col-md-6 mb-12">
-                            <div style="background: #f8fafc; border-left: 3px solid #013df5; padding: 14px 16px; border-radius: 6px;">
-                                <h4 style="font-size: 17px; font-weight: 600; margin-bottom: 4px; color: var(--color-heading);">
-                                    <i class="fas fa-search mr-2 text-primary"></i> Vulnerability Assessment
-                                </h4>
-                                <p style="font-size: 14px; line-height: 22px; margin-bottom: 0; color: #555555;">
-                                    Systematic scanning across digital assets to detect known flaws, missing patches, and misconfigurations.
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6 mb-12">
-                            <div style="background: #f8fafc; border-left: 3px solid #013df5; padding: 14px 16px; border-radius: 6px;">
-                                <h4 style="font-size: 17px; font-weight: 600; margin-bottom: 4px; color: var(--color-heading);">
-                                    <i class="fas fa-shield-alt mr-2 text-primary"></i> Penetration Testing
-                                </h4>
-                                <p style="font-size: 14px; line-height: 22px; margin-bottom: 0; color: #555555;">
-                                    Authorized simulated attacks safely exploiting weaknesses to eliminate false positives and evaluate real-world impact.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <ul class="vapt-check-list">
-                        <li><i class="fas fa-check-circle"></i> Discover hidden vulnerabilities across internal and public-facing infrastructure</li>
-                        <li><i class="fas fa-check-circle"></i> Validate the effectiveness of firewalls, WAFs, and access control policies</li>
-                        <li><i class="fas fa-check-circle"></i> Receive step-by-step technical remediation guidance and developer support</li>
-                        <li><i class="fas fa-check-circle"></i> Meet mandatory compliance frameworks including OWASP, ISO 27001, SOC 2, and CERT-In</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- =============================================
          3. OUR VAPT SERVICES (Light Blue Section)
@@ -352,11 +293,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 offset-lg-2 text-center mb-40">
-                    <span class="sub-title">Core Service Portfolio</span>
                     <h2 class="title" style="margin-top: 8px;">Our VAPT Services</h2>
-                    <p style="font-size: 15px; line-height: 26px; color: #555555;">
-                        Specialized penetration testing solutions designed to safeguard every layer of your digital infrastructure.
-                    </p>
                 </div>
             </div>
 
@@ -449,11 +386,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 offset-lg-2 text-center mb-40">
-                    <span class="sub-title">Assessment Scope</span>
                     <h2 class="title" style="margin-top: 8px;">Security Assessment Areas</h2>
-                    <p style="font-size: 15px; line-height: 26px; color: #555555;">
-                        We evaluate your complete digital footprint across diverse environments and technologies.
-                    </p>
                 </div>
             </div>
 
@@ -546,11 +479,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 offset-lg-2 text-center mb-40">
-                    <span class="sub-title">Testing Methodology</span>
                     <h2 class="title" style="margin-top: 8px;">Our VAPT Approach</h2>
-                    <p style="font-size: 15px; line-height: 26px; color: #555555;">
-                        A structured six-stage methodology ensuring thorough vulnerability coverage with zero business disruption.
-                    </p>
                 </div>
             </div>
 
@@ -624,96 +553,6 @@
         </div>
     </div>
 
-    <!-- =============================================
-         6. REPORTING & DELIVERABLES (White Section)
-    ============================================= -->
-    <div class="default-padding overflow-hidden">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 offset-lg-2 text-center mb-40">
-                    <span class="sub-title">Deliverables</span>
-                    <h2 class="title" style="margin-top: 8px;">Reporting &amp; Deliverables</h2>
-                    <p style="font-size: 15px; line-height: 26px; color: #555555;">
-                        Clear, structured documentation tailored for both leadership decision-making and technical remediation.
-                    </p>
-                </div>
-            </div>
-
-            <div class="row">
-                <!-- Deliverable 1 -->
-                <div class="col-lg-4 col-md-6 mb-24">
-                    <div class="vapt-deliverable-box">
-                        <h4 style="font-size: 18px; font-weight: 600; margin-bottom: 6px;">
-                            <i class="fas fa-file-alt text-primary mr-2"></i> Executive Summary
-                        </h4>
-                        <p style="font-size: 14px; line-height: 22px; color: #666666; margin-bottom: 0;">
-                            Concise risk posture overview, strategic scorecards, and business impact analysis for senior leadership.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Deliverable 2 -->
-                <div class="col-lg-4 col-md-6 mb-24">
-                    <div class="vapt-deliverable-box">
-                        <h4 style="font-size: 18px; font-weight: 600; margin-bottom: 6px;">
-                            <i class="fas fa-bug text-primary mr-2"></i> Technical Findings
-                        </h4>
-                        <p style="font-size: 14px; line-height: 22px; color: #666666; margin-bottom: 0;">
-                            In-depth vulnerability descriptions, affected endpoints, and standardized CVSS v3.1 risk severity ratings.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Deliverable 3 -->
-                <div class="col-lg-4 col-md-6 mb-24">
-                    <div class="vapt-deliverable-box">
-                        <h4 style="font-size: 18px; font-weight: 600; margin-bottom: 6px;">
-                            <i class="fas fa-camera text-primary mr-2"></i> Proof of Concept &amp; Evidence
-                        </h4>
-                        <p style="font-size: 14px; line-height: 22px; color: #666666; margin-bottom: 0;">
-                            Step-by-step reproduction walkthroughs, sample payloads, and screenshots demonstrating each finding.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Deliverable 4 -->
-                <div class="col-lg-4 col-md-6 mb-24">
-                    <div class="vapt-deliverable-box">
-                        <h4 style="font-size: 18px; font-weight: 600; margin-bottom: 6px;">
-                            <i class="fas fa-tools text-primary mr-2"></i> Remediation Guidance
-                        </h4>
-                        <p style="font-size: 14px; line-height: 22px; color: #666666; margin-bottom: 0;">
-                            Specific configuration recommendations, patch references, and developer-level code fixes to eliminate risks.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Deliverable 5 -->
-                <div class="col-lg-4 col-md-6 mb-24">
-                    <div class="vapt-deliverable-box">
-                        <h4 style="font-size: 18px; font-weight: 600; margin-bottom: 6px;">
-                            <i class="fas fa-certificate text-primary mr-2"></i> Retest &amp; Attestation
-                        </h4>
-                        <p style="font-size: 14px; line-height: 22px; color: #666666; margin-bottom: 0;">
-                            Formal verification of patched vulnerabilities culminating in an updated security attestation report.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Deliverable 6 -->
-                <div class="col-lg-4 col-md-6 mb-24">
-                    <div class="vapt-deliverable-box">
-                        <h4 style="font-size: 18px; font-weight: 600; margin-bottom: 6px;">
-                            <i class="fas fa-clipboard-check text-primary mr-2"></i> Compliance Mapping
-                        </h4>
-                        <p style="font-size: 14px; line-height: 22px; color: #666666; margin-bottom: 0;">
-                            Direct mapping of security findings against OWASP, NIST, ISO 27001, SOC 2, and regulatory frameworks.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- =============================================
          7. WHY VAPT MATTERS (Light Blue Section)
@@ -722,11 +561,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 offset-lg-2 text-center mb-40">
-                    <span class="sub-title">Business Value</span>
                     <h2 class="title" style="margin-top: 8px;">Why VAPT Matters</h2>
-                    <p style="font-size: 15px; line-height: 26px; color: #555555;">
-                        Proactive security assessments deliver measurable benefits that protect your enterprise and customers.
-                    </p>
                 </div>
             </div>
 
@@ -813,11 +648,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 offset-lg-2 text-center mb-40">
-                    <span class="sub-title">Unified Defense Architecture</span>
                     <h2 class="title" style="margin-top: 8px;">How VAPT and SOC Complement Each Other</h2>
-                    <p style="font-size: 15px; line-height: 26px; color: #555555;">
-                        True cyber resilience requires offensive validation to find weaknesses alongside continuous monitoring to respond to live threats.
-                    </p>
                 </div>
             </div>
 
@@ -865,28 +696,30 @@
          9. FINAL CTA (Light Blue Section)
     ============================================= -->
     <div id="back-col" class="default-padding overflow-hidden"
-        style="background-color: #d7f1fa; background-image: url(assets/img/shape/29.png);">
+        style="background-color: #d7f1fa; background-image: url(assets/img/shape/29.png); padding: 70px 0;">
         <div class="container">
             <div class="row">
-                <div class="col-lg-8 offset-lg-2">
+                <div class="col-12">
                     <div class="vapt-cta-box">
-                        <span class="sub-title">Get In Touch</span>
-                        <h2 class="title" style="margin-top: 8px; margin-bottom: 12px;">
-                            Strengthen Your Security Before Attackers Do
-                        </h2>
-                        <p style="font-size: 15px; line-height: 26px; color: #555555; max-width: 620px; margin: 0 auto 22px;">
-                            Connect with our cybersecurity experts to scope your VAPT assessment requirements, discuss testing schedules, and receive a tailored proposal.
-                        </p>
-                        <a href="contact.php" class="btn btn-theme secondary btn-md animation mb-20">
-                            Connect With Us <i class="fas fa-arrow-right ml-2"></i>
-                        </a>
-                        <div style="font-size: 14.5px; color: #334155; margin-top: 10px;">
-                            <span class="mr-3">
-                                <i class="fas fa-envelope text-primary mr-1"></i> srinivas.c@slnconsulting.co.in
-                            </span>
-                            <span>
-                                <i class="fas fa-phone text-primary mr-1"></i> +91 9940196195
-                            </span>
+                        <div class="row align-items-center">
+                            <div class="col-lg-8 col-md-12 mb-20 mb-lg-0">
+                                <h3 style="font-family: var(--font-heading, 'Outfit', sans-serif); font-size: 26px; font-weight: 700; color: var(--color-heading, #0e0e0e); margin-bottom: 12px;">
+                                    Strengthen Your Security Before Attackers Do
+                                </h3>
+                                <div style="display: flex; flex-wrap: wrap; gap: 8px 25px; font-size: 14.5px; color: #334155;">
+                                    <span class="d-inline-block">
+                                        <i class="fas fa-envelope mr-2" style="color: #013df5;"></i> <strong>srinivas.c@slnconsulting.co.in</strong>
+                                    </span>
+                                    <span class="d-inline-block">
+                                        <i class="fas fa-phone mr-2" style="color: #013df5;"></i> <strong>+91 9940196195</strong>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-12 text-lg-right text-center">
+                                <a href="contact.php" class="btn btn-theme secondary btn-md animation" style="padding: 14px 28px; font-size: 15px; font-weight: 600;">
+                                    Reach Us Now <i class="fas fa-arrow-right ml-2"></i>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>

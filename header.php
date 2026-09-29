@@ -95,7 +95,6 @@
                     <li class="dropdown">
                         <a href="gallery.php" class="nav-link" data-toggle="dropdown">Gallery</a>
                     </li>
-                    <li><a href="training-schedule.php" class="nav-link">Training Schedule</a></li>
                     <li><a href="contact.php" class="nav-link">Contact</a></li>
                 </ul>
             </div><!-- /.navbar-collapse -->

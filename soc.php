@@ -51,7 +51,7 @@
     <!-- End Header -->
 
     <div id="back-col" class="about-style-two-area overflow-hidden bg-contain bg-gray default-padding mtop"
-        style="background-image: url(assets/img/shape/29.png);">
+        style="background-image: url(assets/img/shape/29.png); padding-bottom: 0;">
         <div class="container">
             <div class="row align-center">
 
@@ -62,15 +62,6 @@
 						SLN Consulting Services is evolving into a next-generation Cybersecurity SaaS & Services organization.<br><br>						Through our subsidiary BCBUZZ Technologies Pvt. Ltd., the delivery arm of our Security Operations, we specialize in Offensive Security Operations, VAPT (Vulnerability Assessment & Penetration Testing), SOC-as-a-Service, and DPDP/DPDPA Compliance Security Programs.<br><br>						As cyber threats grow and data protection regulations strengthen, we help organizations stay secure, compliant, and future-ready.<br><br>						Our mission is to enable enterprises to continuously monitor, detect, respond to, and prevent advanced threats with a unified ecosystem of:						  <ul class="feature-list-item">						<li>Proactive security testing (VAPT & Red Teaming)</li>						<li>Real-time Managed 50C & Incident Response</li>						<li>DPDP/DPDPA compliance security implementation and audits</li>						<li>Deep threat intelligence & Al-driven automation</li>						<li>Human cyber-expertise for strategic defense</li>						</ul>
 						</p><br>						<p style=" font-size: 19px;  text-align: justify;">						By combining People + Al + Automation, we ensure enterprise-grade data protection, cyber resilience, and regulatory compliance for digital businesses, MSMEs, and large enterprises. <br><br></p>
 					</div>																																		<div class="col-lg-5 about-style-two">                    <div class="thumb">                        <img src="assets/img/sln-img/soc.png" alt="Image Not Found">                        <div class="shape">                            <img src="assets/img/shape/anim-5.png" alt="Shape">                        </div>                    </div>                </div>																							 <h4 class="title secondary sub-heading" style="text-align: center;">    Our Clients <br></h4>				 <div class="about-style-two col-lg-5 offset-lg-1">                   					   <ul class="feature-list-item">						<li>Everything4WD (Australia)</li>							<li>ALS Mortgage Solutions (Australia)</li>							<li>Floorstep.ae (UAE)</li>							<li>BCBUZZ Technologies</li>							<li>EPISODE TECHNOLOGIES</li>							<li>HAPPYLABS</li>							<li>Pingle App (iOS)</li>							<li>Pingle App (Android)</li>						</ul>					</div>																																		 <div class="about-style-two col-lg-5 offset-lg-1">					  <ul class="feature-list-item">						<li>TOSC GROUP</li>						<li>NICHEBY</li>						<li>United Group of Institutions</li>						<li>CYBERXPERTZ</li>						<li>SHEGUARDS</li>						<li>JOZUNA</li>						<li>SCOMODE</li>						<li>KANMALAI.DIGITAL</li>						</ul>                </div>								    <div style="margin-top: 30px;" id="">        <div class="container text-center">            <blockquote>               We recognize that CERT-IN Empanelled Security Assessors, undertake diverse cybersecurity assessments and monitoring projects across multiple verticals. To augment their delivery capacity and improve turnaround time, we propose a strategic outsourcing partnership to handle select VAPT, Red Teaming and SOC operations ensuring quality, confidentiality, and compliance with CERT-IN standards.            </blockquote>        </div>    </div>						<div id="back-col" class="services-details-area overflow-hidden default-padding1">        <div class="container">            <div class="services-details-items">                <div class="row">                                          <h4 class="title secondary sub-heading" style="text-align: center;">Our Core Service Portfolio<br></h4>																	 <div class="col-md-6 col-md-6">						 	<br><h4> 1. SOC-as-a-Service (Managed Detection & Response)</h4>                       <ul class="feature-list-item">                            <li><p>24x7 Managed SOC Operations</p></li>							<li><p>SIEM Deployment & Log Management (Splunk, ELK, Wazuh)</p></li>							<li><p>Threat Intelligence Correlation & Anomaly Detection</p></li>							<li><p>Incident Response, Forensic Analysis, and Threat Hunting</p></li>							<li><p>Customized Dashboards and Compliance Reporting (150 27001, SOC2, DPDP)</p></li>                        </ul>                    </div>										<div class="col-md-6 col-md-6">					<br><h4>  2. Offensive Security & Penetration Testing Services</h4>                       <ul class="feature-list-item">					   	<li><p>Web, Mobile, API, Network, and Cloud VAPT</p></li>						<li><p>loT/OT Security Assessments</p></li>						<li><p>Red Team & Adversary Simulation Exercises</p></li>						<li><p>Exploit Development and Attack Surface Management</p></li>						<li><p>Exploit Development and Attack Surface Management</p></li>						                        </ul>                    </div>                </div>            </div>        </div>    </div>											<div class="row">    <div class="col-xl-5-custom mb-30">        <div class="it-category-item text-center">            <div class="it-category-icon">                <span><img src="assets/img/sln-img/s1.png" style="margin-top:-18px;" alt=""></span>            </div>            <div class="it-category-text">                <h4 class="it-category-title"><strong>Operational <br>Extension</strong></h4>                <p style="font-size: 15px;">Act as your extended technical arm for projects under confidentiality.</p>            </div>        </div>    </div>    <div class="col-xl-5-custom mb-30">        <div class="it-category-item text-center">            <div class="it-category-icon">                <span><img src="assets/img/sln-img/s2.png" style="margin-top:-18px;" alt=""></span>            </div>            <div class="it-category-text">               <h4 class="it-category-title"><strong>Skilled <br>Team</strong></h4>                 <p style="font-size: 15px;">Experienced offensive security professionals with real-world Red Team exposure.</p>            </div>        </div>    </div>    <div class="col-xl-5-custom mb-30">        <div class="it-category-item text-center">            <div class="it-category-icon">                <span><img src="assets/img/sln-img/s3.png" style="margin-top:-18px;" alt=""></span>            </div>            <div class="it-category-text">               <h4 class="it-category-title"><strong>Automation<br> Advantage</strong></h4>                 <p style="font-size: 15px;">Al-powered assessment & reporting engine for faster delivery.</p>            </div>        </div>    </div>    <div class="col-xl-5-custom mb-30">        <div class="it-category-item text-center">            <div class="it-category-icon">                <span><img src="assets/img/sln-img/s4.png" style="margin-top:-18px;" alt=""></span>            </div>            <div class="it-category-text">              <h4 class="it-category-title"><strong>Customizable <br>Models</strong></h4>                 <p style="font-size: 15px;">White-label, per-project, or retainership-based engagement models.</p>            </div>        </div>    </div>    <div class="col-xl-5-custom mb-30">        <div class="it-category-item text-center">            <div class="it-category-icon">                <span><img src="assets/img/sln-img/s5.png" style="margin-top:-18px;" alt=""></span>            </div>            <div class="it-category-text">              <h4 class="it-category-title"><strong>End-to-End Quality Assurance</strong></h4>                <p style="font-size: 15px;">Deliverables aligned with CVSS scoring. OWASP, NIST, and CERT-IN frameworks.</p>            </div>        </div>    </div></div> <h4 class="title secondary sub-heading" style="text-align: center;">Way Forward <br></h4><p>We propose a <strong>Pilot Engagement </strong> -a select VAPT or SOC project executed under your supervision-to evaluate our technical depth, turnaround time, and reporting quality. </p><p>We believe this collaboration will help to scale faster, enhance delivery efficiency, and together strengthen India's <strong> National Cyber Defence Ecosystem. </strong></p>
-    <div style="margin-top: 30px;" id="">
-        <div class="container text-center">
-            <blockquote>
-                For more information and to fix up a discussion time, please send a mail to: srinivas.c@slnconsulting.co.in (or) Call 9940196195.
-            </blockquote>
-        </div>
-    </div>
-
-
 </div></div></div>
 
     <style>
@@ -79,11 +70,11 @@
     }
     .soc-cta-box {
         background: #ffffff;
-        border: 1px solid #d0e7f5;
-        border-radius: 12px;
-        padding: 40px 30px;
+        border: 1px solid #bcdbeb;
+        border-radius: 14px;
+        padding: 36px 42px;
         box-shadow: 0 10px 30px rgba(1, 61, 245, 0.08);
-        text-align: center;
+        width: 100%;
     }
     </style>
 
@@ -91,28 +82,30 @@
          FINAL CTA (Light Blue Section)
     ============================================= -->
     <div id="back-col" class="default-padding overflow-hidden"
-        style="background-color: #d7f1fa; background-image: url(assets/img/shape/29.png);">
+        style="background-color: #d7f1fa; background-image: url(assets/img/shape/29.png); padding: 25px 0 45px 0;">
         <div class="container">
             <div class="row">
-                <div class="col-lg-8 offset-lg-2">
+                <div class="col-12">
                     <div class="soc-cta-box">
-                        <span class="sub-title">Get In Touch</span>
-                        <h2 class="title" style="margin-top: 8px; margin-bottom: 12px;">
-                            Connect With Us
-                        </h2>
-                        <p style="font-size: 15px; line-height: 26px; color: #555555; max-width: 620px; margin: 0 auto 22px;">
-                            Connect with our cybersecurity operations team to evaluate your threat monitoring needs, discuss 24x7 SOC-as-a-Service deployment, and receive a customized defense plan.
-                        </p>
-                        <a href="contact.php" class="btn btn-theme secondary btn-md animation mb-20">
-                            Connect With Us <i class="fas fa-arrow-right ml-2"></i>
-                        </a>
-                        <div style="font-size: 14.5px; color: #334155; margin-top: 10px;">
-                            <span class="mr-3">
-                                <i class="fas fa-envelope text-primary mr-1"></i> srinivas.c@slnconsulting.co.in
-                            </span>
-                            <span>
-                                <i class="fas fa-phone text-primary mr-1"></i> +91 9940196195
-                            </span>
+                        <div class="row align-items-center">
+                            <div class="col-lg-8 col-md-12 mb-20 mb-lg-0">
+                                <h3 style="font-family: var(--font-heading, 'Outfit', sans-serif); font-size: 26px; font-weight: 700; color: var(--color-heading, #0e0e0e); margin-bottom: 12px;">
+                                    Stay Ahead of Emerging Threats
+                                </h3>
+                                <div style="display: flex; flex-wrap: wrap; gap: 8px 25px; font-size: 14.5px; color: #334155;">
+                                    <span class="d-inline-block">
+                                        <i class="fas fa-envelope mr-2" style="color: #013df5;"></i> <strong>srinivas.c@slnconsulting.co.in</strong>
+                                    </span>
+                                    <span class="d-inline-block">
+                                        <i class="fas fa-phone mr-2" style="color: #013df5;"></i> <strong>+91 9940196195</strong>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-12 text-lg-right text-center">
+                                <a href="contact.php" class="btn btn-theme secondary btn-md animation" style="padding: 14px 28px; font-size: 15px; font-weight: 600;">
+                                    Build Your Defense  <i class="fas fa-arrow-right ml-2"></i>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>

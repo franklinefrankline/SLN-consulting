@@ -532,6 +532,15 @@
             line-height: 24px;
         }
 
+        .cip-contact-banner {
+            background: #ffffff;
+            border: 1px solid #bcdbeb;
+            border-radius: 14px;
+            padding: 36px 42px;
+            box-shadow: 0 10px 30px rgba(1, 61, 245, 0.08);
+            width: 100%;
+        }
+
         /* Responsive */
         @media (max-width: 991px) {
             .cip-hero { padding: 110px 0 50px; }
@@ -595,14 +604,6 @@
                     </p>
                     <div class="cip-hero-quote">
                         From Academic Learning to Industry-Ready Practice
-                    </div>
-                    <div class="cip-hero-actions">
-                        <a href="contact.php" class="btn btn-theme secondary btn-md animation">
-                            Discuss Institutional Partnership <i class="fas fa-arrow-right ml-2"></i>
-                        </a>
-                        <a href="#program-structure" class="btn btn-md" style="background: #ffffff; color: #013df5; border: 1px solid #013df5; font-weight: 600;">
-                            View Program Structure
-                        </a>
                     </div>
                 </div>
 
@@ -799,7 +800,6 @@
 
                     <!-- Right: Specialization Pathways Across 5 Families -->
                     <div class="col-lg-7 cip-pathways-col-content">
-                        <span class="cip-eyebrow">Practical Industry Training</span>
                         <h3 class="cip-heading" style="font-size: 26px; margin-bottom: 10px;">Seven Specialization Pathways Across Five Practice Families</h3>
                         <p style="font-size: 14.5px; line-height: 24px; color: #666666; margin-bottom: 14px;">
                             Students learn cybersecurity through practical, task-oriented scenarios organized into one selected pathway:
@@ -864,55 +864,35 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <!-- =============================================
-         12. INSTITUTIONAL ENGAGEMENT & CTA
-    ============================================= -->
-    <section class="cip-section bg-light-blue">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-7 mb-20">
-                    <span class="cip-eyebrow">Partnership</span>
-                    <h2 class="cip-heading">Cohort-Based Institutional Engagement</h2>
-
-                    <div class="cip-engagement-list">
-                        <div class="cip-engagement-item">
-                            <span class="cip-engagement-num">01</span>
-                            <div class="cip-engagement-name">Program scope &amp; pathway selection</div>
-                        </div>
-                        <div class="cip-engagement-item">
-                            <span class="cip-engagement-num">02</span>
-                            <div class="cip-engagement-name">Cohort size &amp; enrollment planning</div>
-                        </div>
-                        <div class="cip-engagement-item">
-                            <span class="cip-engagement-num">03</span>
-                            <div class="cip-engagement-name">Academic calendar integration</div>
-                        </div>
-                        <div class="cip-engagement-item">
-                            <span class="cip-engagement-num">04</span>
-                            <div class="cip-engagement-name">Delivery schedule &amp; mentoring terms</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Contact & Proposal Box -->
-                <div class="col-lg-5 mb-20">
-                    <div class="cip-contact-card">
-                        <div class="mb-3">
-                            <i class="fas fa-handshake fa-2x" style="color: #013df5;"></i>
-                        </div>
-                        <h4>Collaborate With SLN Consulting</h4>
-                        <p>
-                            Reach out to discuss institutional cohort requirements, customized schedules, and program deployment for your campus.
-                        </p>
-                        <a href="contact.php" class="btn btn-theme secondary btn-md animation btn-block mb-3">
-                            Request Institutional Proposal <i class="fas fa-arrow-right ml-2"></i>
-                        </a>
-                        <div class="border-top pt-3" style="border-color: #d0e7f2 !important; font-size: 14.5px; line-height: 26px; color: #334155;">
-                            <div><i class="fas fa-envelope mr-2" style="color: #013df5;"></i> srinivas.c@slnconsulting.co.in</div>
-                            <div class="mt-1"><i class="fas fa-phone mr-2" style="color: #013df5;"></i> +91 9940196195</div>
+            <!-- Contact & Institutional Collaboration Banner -->
+            <div class="row mt-35">
+                <div class="col-12">
+                    <div class="cip-contact-banner">
+                        <div class="row align-items-center">
+                            <div class="col-lg-8 col-md-12 mb-20 mb-lg-0">
+                                <div class="d-flex align-items-center mb-3">
+                                    <div style="width: 48px; height: 48px; background: #d7f1fa; border-radius: 10px; display: inline-flex; align-items: center; justify-content: center; margin-right: 16px; flex-shrink: 0;">
+                                        <i class="fas fa-handshake fa-lg" style="color: #013df5;"></i>
+                                    </div>
+                                    <h3 style="font-family: var(--font-heading, 'Outfit', sans-serif); font-size: 26px; font-weight: 700; color: var(--color-heading, #0e0e0e); margin: 0;">
+                                        Collaborate With SLN Consulting
+                                    </h3>
+                                </div>
+                                <div style="display: flex; flex-wrap: wrap; gap: 8px 25px; font-size: 14.5px; color: #334155;">
+                                    <span class="d-inline-block">
+                                        <i class="fas fa-envelope mr-2" style="color: #013df5;"></i> <strong>srinivas.c@slnconsulting.co.in</strong>
+                                    </span>
+                                    <span class="d-inline-block">
+                                        <i class="fas fa-phone mr-2" style="color: #013df5;"></i> <strong>+91 9940196195</strong>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-12 text-lg-right text-center">
+                                <a href="contact.php" class="btn btn-theme secondary btn-md animation" style="padding: 14px 28px; font-size: 15px; font-weight: 600;">
+                                    For Institutional Training and Proposal <i class="fas fa-arrow-right ml-2"></i>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>

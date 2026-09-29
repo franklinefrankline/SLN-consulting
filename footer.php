@@ -117,7 +117,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-6">
-                    <p>Copyright © 2024 SLN. All Rights Reserved.</p>
+                    <p>Copyright © 2023 SLN. All Rights Reserved.</p>
                 </div>
                 <!-- <div class="col-lg-6 text-end">
                         <ul>

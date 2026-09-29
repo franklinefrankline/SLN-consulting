@@ -376,8 +376,8 @@
 
             <div class="col-lg-12 mb-2">
                 <div class="partner-map text-center">
-                    <h4 style="font-size: 24px; color:blue;">BCBUZZ Technologies &mdash; Technical Partner</h4><br>
-                    <h4>Internship | VAPT | SOC</h4>
+                    <h4 style="font-size: 24px; color:blue;">Technology Partner—BCBUZZ Technologies</h4><br>
+                    <h4>Campus Internship | VAPT | SOC</h4>
                 </div>
             </div>
 
