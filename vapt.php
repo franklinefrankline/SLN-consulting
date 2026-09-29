@@ -265,11 +265,51 @@
                     <p style="font-size: 15px; line-height: 26px; color: #555555; margin-bottom: 24px;">
                         SLN Consulting delivers industry-aligned VAPT services combining automated scanning with skilled manual penetration testing. We uncover real-world risks, eliminate false positives, and provide actionable technical remediation roadmaps to ensure your applications, networks, and cloud infrastructure remain resilient and compliant.
                     </p>
-                    <div style="display: flex; flex-wrap: wrap; gap: 14px; align-items: center;">
-                        <a href="contact.php" class="btn btn-theme secondary btn-md animation">Enquire Now <i class="fas fa-arrow-right ml-2"></i></a>
-                        <a href="#vapt-services" class="btn btn-md" style="background: #ffffff; color: #013df5; border: 1px solid #013df5; font-weight: 600;">
-                            Explore Services
-                        </a>
+                    <div class="row mt-20">
+                        <div class="col-sm-6 mb-20">
+                            <div style="display: flex; align-items: flex-start; gap: 10px;">
+                                <div style="width: 32px; height: 32px; border-radius: 6px; background: #ffffff; border: 1px solid #c8e4f5; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #013df5; margin-top: 2px;">
+                                    <i class="fas fa-shield-alt" style="font-size: 14px;"></i>
+                                </div>
+                                <div>
+                                    <h5 style="font-size: 14.5px; font-weight: 700; color: #0e0e0e; margin-bottom: 2px;">Automated &amp; Manual Audits</h5>
+                                    <p style="font-size: 13px; line-height: 18px; color: #64748b; margin-bottom: 0;">In-depth threat simulation &amp; scanning</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 mb-20">
+                            <div style="display: flex; align-items: flex-start; gap: 10px;">
+                                <div style="width: 32px; height: 32px; border-radius: 6px; background: #ffffff; border: 1px solid #c8e4f5; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #013df5; margin-top: 2px;">
+                                    <i class="fas fa-check-double" style="font-size: 14px;"></i>
+                                </div>
+                                <div>
+                                    <h5 style="font-size: 14.5px; font-weight: 700; color: #0e0e0e; margin-bottom: 2px;">Zero False Positives</h5>
+                                    <p style="font-size: 13px; line-height: 18px; color: #64748b; margin-bottom: 0;">Evidence-backed vulnerability validation</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 mb-20">
+                            <div style="display: flex; align-items: flex-start; gap: 10px;">
+                                <div style="width: 32px; height: 32px; border-radius: 6px; background: #ffffff; border: 1px solid #c8e4f5; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #013df5; margin-top: 2px;">
+                                    <i class="fas fa-certificate" style="font-size: 14px;"></i>
+                                </div>
+                                <div>
+                                    <h5 style="font-size: 14.5px; font-weight: 700; color: #0e0e0e; margin-bottom: 2px;">Standards Aligned</h5>
+                                    <p style="font-size: 13px; line-height: 18px; color: #64748b; margin-bottom: 0;">OWASP, NIST &amp; regulatory mapping</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 mb-20">
+                            <div style="display: flex; align-items: flex-start; gap: 10px;">
+                                <div style="width: 32px; height: 32px; border-radius: 6px; background: #ffffff; border: 1px solid #c8e4f5; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #013df5; margin-top: 2px;">
+                                    <i class="fas fa-tools" style="font-size: 14px;"></i>
+                                </div>
+                                <div>
+                                    <h5 style="font-size: 14.5px; font-weight: 700; color: #0e0e0e; margin-bottom: 2px;">Actionable Fixes</h5>
+                                    <p style="font-size: 13px; line-height: 18px; color: #64748b; margin-bottom: 0;">Developer-friendly remediation roadmaps</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
