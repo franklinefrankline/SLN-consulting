@@ -265,48 +265,48 @@
                     <p style="font-size: 15px; line-height: 26px; color: #555555; margin-bottom: 24px;">
                         SLN Consulting delivers industry-aligned VAPT services combining automated scanning with skilled manual penetration testing. We uncover real-world risks, eliminate false positives, and provide actionable technical remediation roadmaps to ensure your applications, networks, and cloud infrastructure remain resilient and compliant.
                     </p>
-                    <div class="row mt-20">
-                        <div class="col-sm-6 mb-20">
-                            <div style="display: flex; align-items: flex-start; gap: 10px;">
-                                <div style="width: 32px; height: 32px; border-radius: 6px; background: #ffffff; border: 1px solid #c8e4f5; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #013df5; margin-top: 2px;">
-                                    <i class="fas fa-shield-alt" style="font-size: 14px;"></i>
+                    <div class="row mt-25">
+                        <div class="col-sm-6 mb-15">
+                            <div style="background: #ffffff; border: 1px solid #bcdbeb; border-radius: 10px; padding: 14px 16px; display: flex; align-items: center; gap: 12px; height: 100%; box-shadow: 0 2px 8px rgba(1, 61, 245, 0.04);">
+                                <div style="width: 38px; height: 38px; border-radius: 8px; background: #d7f1fa; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #013df5;">
+                                    <i class="fas fa-shield-alt" style="font-size: 16px;"></i>
                                 </div>
                                 <div>
-                                    <h5 style="font-size: 14.5px; font-weight: 700; color: #0e0e0e; margin-bottom: 2px;">Automated &amp; Manual Audits</h5>
-                                    <p style="font-size: 13px; line-height: 18px; color: #64748b; margin-bottom: 0;">In-depth threat simulation &amp; scanning</p>
+                                    <h5 style="font-family: var(--font-heading, 'Outfit', sans-serif); font-size: 14.5px; font-weight: 700; color: #0e0e0e; margin: 0 0 2px 0; line-height: 1.3;">Automated &amp; Manual Audits</h5>
+                                    <p style="font-family: var(--font-default, 'Outfit', sans-serif); font-size: 12.5px; color: #64748b; margin: 0; line-height: 1.3;">In-depth threat simulation</p>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-6 mb-20">
-                            <div style="display: flex; align-items: flex-start; gap: 10px;">
-                                <div style="width: 32px; height: 32px; border-radius: 6px; background: #ffffff; border: 1px solid #c8e4f5; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #013df5; margin-top: 2px;">
-                                    <i class="fas fa-check-double" style="font-size: 14px;"></i>
+                        <div class="col-sm-6 mb-15">
+                            <div style="background: #ffffff; border: 1px solid #bcdbeb; border-radius: 10px; padding: 14px 16px; display: flex; align-items: center; gap: 12px; height: 100%; box-shadow: 0 2px 8px rgba(1, 61, 245, 0.04);">
+                                <div style="width: 38px; height: 38px; border-radius: 8px; background: #d7f1fa; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #013df5;">
+                                    <i class="fas fa-check-double" style="font-size: 16px;"></i>
                                 </div>
                                 <div>
-                                    <h5 style="font-size: 14.5px; font-weight: 700; color: #0e0e0e; margin-bottom: 2px;">Zero False Positives</h5>
-                                    <p style="font-size: 13px; line-height: 18px; color: #64748b; margin-bottom: 0;">Evidence-backed vulnerability validation</p>
+                                    <h5 style="font-family: var(--font-heading, 'Outfit', sans-serif); font-size: 14.5px; font-weight: 700; color: #0e0e0e; margin: 0 0 2px 0; line-height: 1.3;">Zero False Positives</h5>
+                                    <p style="font-family: var(--font-default, 'Outfit', sans-serif); font-size: 12.5px; color: #64748b; margin: 0; line-height: 1.3;">Evidence-backed validation</p>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-6 mb-20">
-                            <div style="display: flex; align-items: flex-start; gap: 10px;">
-                                <div style="width: 32px; height: 32px; border-radius: 6px; background: #ffffff; border: 1px solid #c8e4f5; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #013df5; margin-top: 2px;">
-                                    <i class="fas fa-certificate" style="font-size: 14px;"></i>
+                        <div class="col-sm-6 mb-15">
+                            <div style="background: #ffffff; border: 1px solid #bcdbeb; border-radius: 10px; padding: 14px 16px; display: flex; align-items: center; gap: 12px; height: 100%; box-shadow: 0 2px 8px rgba(1, 61, 245, 0.04);">
+                                <div style="width: 38px; height: 38px; border-radius: 8px; background: #d7f1fa; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #013df5;">
+                                    <i class="fas fa-clipboard-check" style="font-size: 16px;"></i>
                                 </div>
                                 <div>
-                                    <h5 style="font-size: 14.5px; font-weight: 700; color: #0e0e0e; margin-bottom: 2px;">Standards Aligned</h5>
-                                    <p style="font-size: 13px; line-height: 18px; color: #64748b; margin-bottom: 0;">OWASP, NIST &amp; regulatory mapping</p>
+                                    <h5 style="font-family: var(--font-heading, 'Outfit', sans-serif); font-size: 14.5px; font-weight: 700; color: #0e0e0e; margin: 0 0 2px 0; line-height: 1.3;">Standards &amp; Compliance</h5>
+                                    <p style="font-family: var(--font-default, 'Outfit', sans-serif); font-size: 12.5px; color: #64748b; margin: 0; line-height: 1.3;">OWASP, NIST &amp; ISO mapped</p>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-6 mb-20">
-                            <div style="display: flex; align-items: flex-start; gap: 10px;">
-                                <div style="width: 32px; height: 32px; border-radius: 6px; background: #ffffff; border: 1px solid #c8e4f5; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #013df5; margin-top: 2px;">
-                                    <i class="fas fa-tools" style="font-size: 14px;"></i>
+                        <div class="col-sm-6 mb-15">
+                            <div style="background: #ffffff; border: 1px solid #bcdbeb; border-radius: 10px; padding: 14px 16px; display: flex; align-items: center; gap: 12px; height: 100%; box-shadow: 0 2px 8px rgba(1, 61, 245, 0.04);">
+                                <div style="width: 38px; height: 38px; border-radius: 8px; background: #d7f1fa; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #013df5;">
+                                    <i class="fas fa-tools" style="font-size: 16px;"></i>
                                 </div>
                                 <div>
-                                    <h5 style="font-size: 14.5px; font-weight: 700; color: #0e0e0e; margin-bottom: 2px;">Actionable Fixes</h5>
-                                    <p style="font-size: 13px; line-height: 18px; color: #64748b; margin-bottom: 0;">Developer-friendly remediation roadmaps</p>
+                                    <h5 style="font-family: var(--font-heading, 'Outfit', sans-serif); font-size: 14.5px; font-weight: 700; color: #0e0e0e; margin: 0 0 2px 0; line-height: 1.3;">Actionable Fixes</h5>
+                                    <p style="font-family: var(--font-default, 'Outfit', sans-serif); font-size: 12.5px; color: #64748b; margin: 0; line-height: 1.3;">Clear remediation roadmaps</p>
                                 </div>
                             </div>
                         </div>
