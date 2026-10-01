@@ -1,87 +1,472 @@
-/* ----------------------------------
-
-Template Name: Consua - Consulting Business Template
-Author: validtheme
-Description:
-Version: 1.0
-
-Main Font    : Outfit
-Main Color   : #DF0A0A
-
--------------------------------------
-
-[Typography]
-
-Body copy:    15px 'Outfit', sans-serif
-Header:     36px 'Outfit', sans-serif
-Input, textarea:  16px 'Outfit', sans-serif
-Sidebar heading:  20px 'Outfit', sans-serif
-
->>> TABLE OF CONTENTS:
-=======================
-        
-    01. Template default css
-        - Animations
-        - General
-        - Section Title
-        - Video Button
-        - Typography
-        - Tables
-        - Forms
-        - Buttons
-        - Pagination
-        - Colors
-    02. Preloader
-    03. Topbar
-	    - Topbar Style One
-        - Topbar Style Two
-    04 Navbar
-        - Navbar Default
-        - Navbar Transparent
-        - Navbar Sticky
-        - Navbar Box
-    05. Banner
-        - Banner Fade
-        - Banner Slide
-        - Banner Zoom
-    06. About Us
-	    - About Style One
-        - About Style Two
-    07. Services
-        - Tab Version
-        - Grid Version
-        - Services Single
-    08. Features
-    09. Work Process
-    10. Why Choose Us
-    11. Fun Factor
-    12. Pricing Table
-    12. Partner World Wide
-    13. Team
-        - Grid Version
-        - Carousel Version
-        - Team Details
-    14. Testimonials
-		- Single Slider
-        - Center Slider
-    15. Projects
-		- Grid Version
-        - Carousel Version
-        - Project Details
-    16. Blog
-        - Standard
-        - Left Sidebar
-        - Right Sidebar
-        - Single
-    17. Request Call Back
-    18. FAQ
-    19. Error 404
-    20. Footer
-    21. PHP Contact Form
-    22. Others
-
-*/
-
-/*
-** Write you custom css below
-*/
+/* ----------------------------------
+
+Template Name: Consua - Consulting Business Template
+Author: validtheme
+Description:
+Version: 1.0
+
+Main Font    : Outfit
+Main Color   : #DF0A0A
+
+-------------------------------------
+
+[Typography]
+
+Body copy:    15px 'Outfit', sans-serif
+Header:     36px 'Outfit', sans-serif
+Input, textarea:  16px 'Outfit', sans-serif
+Sidebar heading:  20px 'Outfit', sans-serif
+
+------------------------------------- */
+
+/* ============================================================== 
+   # SLN Consulting - Enquiry & Contact Forms Alignment & Layout
+============================================================== */
+
+/* Section Container & Spacing (eliminates huge header white gap & removes 8% mtop issue) */
+#back-col.contact-style-one-area {
+    margin-top: 0;
+    padding-top: 130px;
+    padding-bottom: 80px;
+    position: relative;
+    background-color: #d7f1fa;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+@media (max-width: 991px) {
+    #back-col.contact-style-one-area {
+        padding-top: 110px;
+        padding-bottom: 60px;
+    }
+}
+
+@media (max-width: 768px) {
+    #back-col.contact-style-one-area {
+        padding-top: 95px;
+        padding-bottom: 50px;
+    }
+}
+
+/* Background shape illustration: kept fully contained inside section */
+#back-col.contact-style-one-area .contact-shape {
+    position: absolute;
+    right: 20px;
+    bottom: 0;
+    max-width: 250px;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.6;
+}
+
+#back-col.contact-style-one-area .contact-shape img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+@media (max-width: 1200px) {
+    #back-col.contact-style-one-area .contact-shape {
+        max-width: 180px;
+        opacity: 0.4;
+    }
+}
+
+@media (max-width: 991px) {
+    #back-col.contact-style-one-area .contact-shape {
+        display: none;
+    }
+}
+
+/* -------------------------------------------------------------
+   1. /contact.php Two-Column Responsive Layout
+------------------------------------------------------------- */
+.contact-desktop-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+    max-width: 1160px;
+    margin: 0 auto;
+    width: 100%;
+    position: relative;
+    z-index: 1;
+}
+
+@media (max-width: 1199px) {
+    .contact-desktop-grid {
+        gap: 40px;
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 991px) {
+    .contact-desktop-grid {
+        grid-template-columns: 1fr;
+        gap: 45px;
+        max-width: 680px;
+    }
+}
+
+@media (max-width: 768px) {
+    .contact-desktop-grid {
+        gap: 35px;
+        max-width: 100%;
+    }
+}
+
+/* Left Column: Corporate Office */
+.contact-office-col .contact-style-one-info {
+    width: 100%;
+}
+
+.contact-office-col .contact-style-one-info h2 {
+    font-size: 36px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 25px;
+    line-height: 1.2;
+}
+
+.contact-office-col .contact-style-one-info ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.contact-office-col .contact-style-one-info li {
+    display: flex;
+    align-items: center;
+    margin-top: 28px;
+}
+
+.contact-office-col .contact-style-one-info li:first-child {
+    margin-top: 0;
+}
+
+.contact-office-col .contact-style-one-info li .icon {
+    flex-shrink: 0;
+}
+
+.contact-office-col .contact-style-one-info li .icon i {
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+    border-radius: 50%;
+    background: #1b0ee4;
+    color: #ffffff;
+    font-size: 24px;
+    margin-right: 20px;
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+.contact-office-col .contact-style-one-info li:hover .icon i {
+    transform: scale(1.05);
+}
+
+.contact-office-col .contact-style-one-info li .info .title {
+    font-size: 19px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 4px;
+}
+
+.contact-office-col .contact-style-one-info li .info p,
+.contact-office-col .contact-style-one-info li .info a {
+    font-size: 16px;
+    color: #4b5563;
+    margin: 0;
+    text-decoration: none;
+    transition: color 0.2s ease;
+    display: block;
+}
+
+.contact-office-col .contact-style-one-info li .info a:hover {
+    color: #013df5;
+}
+
+@media (max-width: 768px) {
+    .contact-office-col .contact-style-one-info h2 {
+        font-size: 28px;
+        margin-bottom: 20px;
+    }
+    .contact-office-col .contact-style-one-info li {
+        margin-top: 20px;
+    }
+    .contact-office-col .contact-style-one-info li .icon i {
+        width: 50px;
+        height: 50px;
+        line-height: 50px;
+        font-size: 20px;
+        margin-right: 15px;
+    }
+    .contact-office-col .contact-style-one-info li .info .title {
+        font-size: 17px;
+    }
+}
+
+/* -------------------------------------------------------------
+   2. /form.php Centered Single Card Layout
+------------------------------------------------------------- */
+.form-single-card-wrapper {
+    max-width: 740px;
+    margin: 0 auto;
+    width: 100%;
+    position: relative;
+    z-index: 1;
+}
+
+@media (max-width: 768px) {
+    .form-single-card-wrapper {
+        max-width: 100%;
+    }
+}
+
+/* -------------------------------------------------------------
+   3. Form Card Styling (White Card, Shadow, Padding)
+------------------------------------------------------------- */
+.contact-form-style-one {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 45px 50px;
+    box-shadow: 0 15px 45px -10px rgba(109, 117, 143, 0.22);
+    border: 1px solid rgba(226, 232, 240, 0.8);
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    box-sizing: border-box;
+    overflow: visible;
+}
+
+@media (max-width: 768px) {
+    .contact-form-style-one {
+        padding: 35px 24px;
+        border-radius: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .contact-form-style-one {
+        padding: 26px 18px;
+    }
+}
+
+/* Form Heading */
+.contact-form-style-one .heading {
+    font-size: 32px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-top: 0;
+    margin-bottom: 25px;
+    line-height: 1.25;
+}
+
+@media (max-width: 768px) {
+    .contact-form-style-one .heading {
+        font-size: 26px;
+        margin-bottom: 20px;
+    }
+}
+
+/* -------------------------------------------------------------
+   4. Form Field Alignment & Uniformity
+------------------------------------------------------------- */
+.contact-form-style-one form .row {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.contact-form-style-one form .row > [class*="col-"] {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.contact-form-style-one .form-group {
+    margin-bottom: 20px;
+    position: relative;
+    width: 100%;
+}
+
+/* Input & Native Select Fields */
+.contact-form-style-one input.form-control,
+.contact-form-style-one select.form-control {
+    width: 100%;
+    height: 50px;
+    padding: 12px 0;
+    border: none;
+    border-bottom: 2px solid #d6d6d6;
+    border-radius: 0;
+    background: transparent;
+    font-size: 16px;
+    color: #1f2937;
+    box-shadow: none;
+    box-sizing: border-box;
+    transition: border-color 0.25s ease;
+}
+
+.contact-form-style-one input.form-control::placeholder {
+    color: #718096;
+    opacity: 1;
+    font-size: 15px;
+}
+
+.contact-form-style-one input.form-control:focus,
+.contact-form-style-one select.form-control:focus {
+    border-bottom-color: #013df5;
+    outline: none;
+    box-shadow: none;
+    background: transparent;
+}
+
+/* Time Input Specifics */
+.contact-form-style-one input[type="time"].form-control {
+    height: 48px;
+    padding: 8px 0;
+    font-size: 16px;
+    color: #1f2937;
+}
+
+.contact-form-style-one .time-label {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    color: #4b5563;
+    margin-bottom: 4px;
+}
+
+/* Nice Select Plugin Styling (Matching Input Underline) */
+.contact-form-style-one .nice-select {
+    width: 100% !important;
+    float: none !important;
+    height: 50px !important;
+    line-height: 48px !important;
+    padding-left: 0 !important;
+    padding-right: 25px !important;
+    border: none !important;
+    border-bottom: 2px solid #d6d6d6 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    font-size: 16px !important;
+    color: #1f2937 !important;
+    box-shadow: none !important;
+    margin-bottom: 0 !important;
+    box-sizing: border-box !important;
+    transition: border-color 0.25s ease !important;
+}
+
+.contact-form-style-one .nice-select:hover {
+    border-bottom-color: #a0aec0 !important;
+}
+
+.contact-form-style-one .nice-select:focus,
+.contact-form-style-one .nice-select.open {
+    border-bottom-color: #013df5 !important;
+    box-shadow: none !important;
+}
+
+.contact-form-style-one .nice-select .current {
+    font-size: 16px;
+    color: #1f2937;
+}
+
+.contact-form-style-one .nice-select::after {
+    right: 6px !important;
+    border-bottom: 2px solid #4b5563 !important;
+    border-right: 2px solid #4b5563 !important;
+}
+
+.contact-form-style-one .nice-select .list {
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+    border: 1px solid #e2e8f0;
+    margin-top: 4px;
+    background: #ffffff;
+    max-height: 250px;
+    overflow-y: auto;
+}
+
+.contact-form-style-one .nice-select .option {
+    padding-left: 16px;
+    padding-right: 16px;
+    font-size: 15px;
+    line-height: 40px;
+    min-height: 40px;
+}
+
+.contact-form-style-one .nice-select .option:hover,
+.contact-form-style-one .nice-select .option.focus,
+.contact-form-style-one .nice-select .option.selected.focus {
+    background-color: #f1f5f9;
+    color: #013df5;
+}
+
+/* Textarea Comments */
+.contact-form-style-one textarea.form-control {
+    width: 100%;
+    min-height: 120px;
+    padding: 14px 0;
+    border: none;
+    border-bottom: 2px solid #d6d6d6;
+    border-radius: 0;
+    background: transparent;
+    font-size: 16px;
+    color: #1f2937;
+    box-shadow: none;
+    resize: vertical;
+    box-sizing: border-box;
+    line-height: 1.5;
+    transition: border-color 0.25s ease;
+}
+
+.contact-form-style-one textarea.form-control::placeholder {
+    color: #718096;
+    opacity: 1;
+    font-size: 15px;
+}
+
+.contact-form-style-one textarea.form-control:focus {
+    border-bottom-color: #013df5;
+    outline: none;
+    box-shadow: none;
+    background: transparent;
+}
+
+/* Submit Button */
+.contact-form-style-one button[type="submit"] {
+    display: inline-block;
+    background: var(--bg-gradient-secondary-btn, linear-gradient(100deg, #1b0ee4 0%, #013df5 100%));
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    padding: 14px 48px;
+    font-size: 17px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(1, 61, 245, 0.25);
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+.contact-form-style-one button[type="submit"]:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(1, 61, 245, 0.35);
+    color: #ffffff;
+}
+
+.contact-form-style-one button[type="submit"]:active {
+    transform: translateY(0);
+}
+
+@media (max-width: 480px) {
+    .contact-form-style-one button[type="submit"] {
+        width: 100%;
+        padding: 14px 20px;
+    }
+}

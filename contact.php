@@ -46,32 +46,25 @@
     <!-- Header 
     ============================================= -->
     <?php include 'header.php'; ?>
-    <style>
-   
-    </style>
     <!-- End Header -->
 
 
     <!-- Start Contact Us 
     ============================================= -->
-    <div id="back-col" class="contact-style-one-area overflow-hidden default-padding mtop">
+    <div id="back-col" class="contact-style-one-area overflow-hidden">
 
         <div class="contact-shape">
             <img src="assets/img/shape/37.png" alt="Image Not Found">
         </div>
 
         <div class="container">
-            <div class="row ">
+            <div class="contact-desktop-grid">
 
-                <div class="contact-stye-one col-lg-5 mb-md-50 mb-xs-20">
-
+                <div class="contact-office-col">
                     <div class="contact-style-one-info">
                         <h2>Corporate Office</h2>
-                        <!-- <p>
-                            Plan upon yet way get cold spot its week. Almost do am or limits hearts. Resolve parties but why she shewing.
-                        </p> -->
                         <ul>
-                            <li class="wow fadeInUp" data-wow-delay="300ms">
+                            <li>
                                 <div class="icon">
                                     <i class="fas fa-map-marker-alt"></i>
                                 </div>
@@ -80,17 +73,16 @@
                                     <p> Chennai-600042, India</p>
                                 </div>
                             </li>
-                            <li class="wow fadeInUp">
+                            <li>
                                 <div class="icon">
                                     <i class="fas fa-phone-alt"></i>
                                 </div>
-                                <div class="content">
+                                <div class="info">
                                     <h5 class="title">Mobile</h5>
-                                    <a href="#">+91 9940196195</a>
+                                    <a href="tel:+919940196195">+91 9940196195</a>
                                 </div>
                             </li>
-
-                            <li class="wow fadeInUp" data-wow-delay="500ms">
+                            <li>
                                 <div class="icon">
                                     <i class="fas fa-envelope-open-text"></i>
                                 </div>
@@ -103,9 +95,8 @@
                     </div>
                 </div>
 
-                <div class="contact-stye-one col-lg-7 pl-60 pl-md-15 pl-xs-15">
+                <div class="contact-form-col">
                     <div class="contact-form-style-one">
-                        <!-- <h5 class="sub-title">Have Questions?</h5> -->
                         <h2 class="heading">Send us a Message</h2>
                         <!-- Form Submission Status Banner -->
                         <div id="contact-status-container">
@@ -132,23 +123,25 @@
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="form-group">
-                                        <input class="form-control"  name="Fname" placeholder="Organisation Name *" type="text" required>
+                                        <input class="form-control" name="Fname" placeholder="Organisation Name *" type="text" required>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="form-group">
-                                        <input class="form-control"  name="Subject" placeholder="Desigination *" type="text" required>
+                                        <input class="form-control" name="Subject" placeholder="Desigination *" type="text" required>
                                     </div>
                                 </div>
                             </div>
-                            <div class="">
+                            <div class="row">
                                 <div class="col-lg-12">
                                     <div class="form-group">
-                                        <input class="form-control"  name="Email" placeholder="Email *" type="email" required>
+                                        <input class="form-control" name="Email" placeholder="Email *" type="email" required>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="row">
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <input class="form-control" name="Number" placeholder="Phone *" type="text" required>
@@ -175,7 +168,7 @@
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="form-group comments">
-                                        <textarea class="form-control"  name="Message" placeholder="Please describe your requirement"></textarea>
+                                        <textarea class="form-control" name="Message" placeholder="Please describe your requirement"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -186,12 +179,9 @@
                                     </button>
                                 </div>
                             </div>
-                            <!-- Alert Message -->
                         </form>
                     </div>
                 </div>
-
-
 
             </div>
         </div>

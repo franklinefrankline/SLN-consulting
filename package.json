@@ -1,0 +1,10 @@
+{
+  "name": "sln-consulting",
+  "version": "1.0.0",
+  "description": "SLN Consulting Website",
+  "type": "module",
+  "scripts": {
+    "start": "node dev-server.mjs",
+    "dev": "node dev-server.mjs"
+  }
+}
