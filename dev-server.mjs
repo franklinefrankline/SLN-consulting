@@ -12,6 +12,36 @@ let PORT = process.env.PORT || 3000;
 const ROOT_DIR = __dirname;
 const DEV_CSRF_TOKEN = 'sln_csrf_dev_token_4b9e28f11a8c903';
 
+// Automatically load .env or .env.local if present locally
+function loadDotEnv() {
+  const envFiles = [
+    path.join(ROOT_DIR, '.env'),
+    path.join(ROOT_DIR, '.env.local'),
+    path.join(path.dirname(ROOT_DIR), '.env')
+  ];
+  for (const f of envFiles) {
+    if (fs.existsSync(f)) {
+      try {
+        const lines = fs.readFileSync(f, 'utf8').split('\n');
+        for (let line of lines) {
+          line = line.trim();
+          if (!line || line.startsWith('#')) continue;
+          const eqIdx = line.indexOf('=');
+          if (eqIdx !== -1) {
+            const key = line.slice(0, eqIdx).trim();
+            let val = line.slice(eqIdx + 1).trim();
+            val = val.replace(/^["']|["']$/g, '');
+            if (!process.env[key] && val) {
+              process.env[key] = val;
+            }
+          }
+        }
+      } catch (e) {}
+    }
+  }
+}
+loadDotEnv();
+
 const SECURITY_HEADERS = {
   'X-Content-Type-Options': 'nosniff',
   'X-Frame-Options': 'SAMEORIGIN',
@@ -470,12 +500,56 @@ ${cleanAppt ? `<p><strong>Right Time to Call:</strong> ${cleanAppt}</p>` : ''}
 <p><strong>Service:</strong> ${serviceName}</p>
 <p><strong>Requirement:</strong> ${cleanMessage || '<em>No additional details provided.</em>'}</p>`;
 
+      // 1. Resend API support (if RESEND_API_KEY is configured)
+      const resendKey = process.env.RESEND_API_KEY;
+      if (resendKey && !resendKey.includes('your_api_key_here')) {
+        try {
+          const resendPayload = {
+            from: process.env.MAIL_FROM || 'SLN Consulting <onboarding@resend.dev>',
+            to: recipients.split(',').map(s => s.trim()).filter(Boolean),
+            subject: emailSubject,
+            html: htmlBody,
+            reply_to: cleanEmail
+          };
+          const res = await fetch('https://api.resend.com/emails', {
+            method: 'POST',
+            headers: {
+              'Authorization': `Bearer ${resendKey}`,
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(resendPayload)
+          });
+          const resJson = await res.json().catch(() => ({}));
+          if (res.ok && resJson.id) {
+            console.log(`[SLN Resend Success] Enquiry email successfully dispatched via Resend (ID: ${resJson.id}) to ${recipients}`);
+            return respondSuccess('Your enquiry has been submitted successfully.');
+          } else {
+            console.error('[SLN Resend Error]', resJson);
+            return respondError('Unable to send your enquiry. Please try again later.', 500);
+          }
+        } catch (err) {
+          console.error('[SLN Resend Network Error]', err.message);
+          return respondError('Unable to send your enquiry. Please try again later.', 500);
+        }
+      }
+
+      // 2. Authenticated SMTP support
       const missingSmtp = [];
       if (!smtpHost) missingSmtp.push('SMTP_HOST');
       if (!smtpUser) missingSmtp.push('SMTP_USER');
       if (!smtpPass) missingSmtp.push('SMTP_PASS');
 
       if (missingSmtp.length > 0) {
+        if (process.env.DEV_SIMULATE_EMAIL === 'true') {
+          console.log('\n==================================================');
+          console.log('[SLN Local Dev Simulation] Simulated Email Dispatch:');
+          console.log(`To: ${recipients}`);
+          console.log(`Subject: ${emailSubject}`);
+          console.log(`Visitor: ${cleanName} <${cleanEmail}> | Phone: ${cleanNumber}`);
+          console.log(`Service: ${serviceName}`);
+          console.log('==================================================\n');
+          return respondSuccess('Your enquiry has been submitted successfully.');
+        }
         console.error(`[SLN SMTP Error: SMTP credentials missing] Missing required server environment variables: ${missingSmtp.join(', ')}.`);
         return respondError('Unable to send your enquiry. Please try again later.', 500);
       }
