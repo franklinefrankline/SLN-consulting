@@ -44,27 +44,69 @@ function sln_start_session() {
 function sln_get_csrf_token() {
     sln_start_session();
     if (empty($_SESSION['sln_csrf_token']) || !is_string($_SESSION['sln_csrf_token'])) {
-        try {
-            $_SESSION['sln_csrf_token'] = bin2hex(random_bytes(32));
-        } catch (\Exception $e) {
-            $_SESSION['sln_csrf_token'] = bin2hex(openssl_random_pseudo_bytes(32));
+        // Reuse cookie token if valid 64-char hex string
+        if (!empty($_COOKIE['sln_csrf_token']) && is_string($_COOKIE['sln_csrf_token']) && preg_match('/^[a-f0-9]{64}$/i', $_COOKIE['sln_csrf_token'])) {
+            $_SESSION['sln_csrf_token'] = $_COOKIE['sln_csrf_token'];
+        } else {
+            try {
+                $_SESSION['sln_csrf_token'] = bin2hex(random_bytes(32));
+            } catch (\Exception $e) {
+                $_SESSION['sln_csrf_token'] = bin2hex(openssl_random_pseudo_bytes(32));
+            }
         }
+    }
+    
+    // Set double-submit cookie for stateless/serverless Lambda environments (Vercel)
+    if (!headers_sent() && empty($_COOKIE['sln_csrf_token'])) {
+        $isHttps = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
+            || (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https');
+        @setcookie('sln_csrf_token', $_SESSION['sln_csrf_token'], [
+            'expires'  => time() + 7200,
+            'path'     => '/',
+            'httponly' => true,
+            'samesite' => 'Lax',
+            'secure'   => $isHttps,
+        ]);
     }
     return $_SESSION['sln_csrf_token'];
 }
 
 function sln_verify_csrf_token($token) {
-    sln_start_session();
-    if (empty($_SESSION['sln_csrf_token']) || !is_string($_SESSION['sln_csrf_token'])) {
-        return false;
-    }
     if (empty($token) || !is_string($token)) {
         return false;
     }
-    return hash_equals($_SESSION['sln_csrf_token'], $token);
+    sln_start_session();
+    
+    // 1. Primary check: session-stored token
+    if (!empty($_SESSION['sln_csrf_token']) && hash_equals($_SESSION['sln_csrf_token'], $token)) {
+        return true;
+    }
+    // 2. Serverless fallback: double-submit cookie check (protects stateless multi-instance environments like Vercel Lambda)
+    if (!empty($_COOKIE['sln_csrf_token']) && hash_equals($_COOKIE['sln_csrf_token'], $token)) {
+        return true;
+    }
+    return false;
 }
 
-// 4. Honeypot Bot Trap Check
+// 4. Client IP Resolver (Safe for reverse proxies like Vercel / Cloudflare)
+function sln_get_client_ip() {
+    if (!empty($_SERVER['HTTP_CF_CONNECTING_IP']) && filter_var($_SERVER['HTTP_CF_CONNECTING_IP'], FILTER_VALIDATE_IP)) {
+        return $_SERVER['HTTP_CF_CONNECTING_IP'];
+    }
+    if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+        $ips = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']);
+        $candidate = trim($ips[0]);
+        if (filter_var($candidate, FILTER_VALIDATE_IP)) {
+            return $candidate;
+        }
+    }
+    if (!empty($_SERVER['HTTP_X_REAL_IP']) && filter_var($_SERVER['HTTP_X_REAL_IP'], FILTER_VALIDATE_IP)) {
+        return $_SERVER['HTTP_X_REAL_IP'];
+    }
+    return $_SERVER['REMOTE_ADDR'] ?? '127.0.0.1';
+}
+
+// 5. Honeypot Bot Trap Check
 function sln_is_honeypot_triggered() {
     if (!empty($_POST['website_url'])) {
         return true;
@@ -72,9 +114,9 @@ function sln_is_honeypot_triggered() {
     return false;
 }
 
-// 5. Rate Limiting (File-based token bucket per IP)
+// 6. Rate Limiting (File-based token bucket per IP)
 function sln_check_rate_limit($maxAttempts = 5, $windowSeconds = 300) {
-    $ip = $_SERVER['REMOTE_ADDR'] ?? '127.0.0.1';
+    $ip = sln_get_client_ip();
     // Clean IP for file naming
     $ipHash = md5($ip);
     $tmpDir = sys_get_temp_dir();
