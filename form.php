@@ -1,3 +1,11 @@
+<?php
+require_once __DIR__ . '/security.php';
+sln_send_security_headers();
+sln_start_session();
+$csrfToken = sln_get_csrf_token();
+$formData = $_SESSION['sln_form_data'] ?? [];
+unset($_SESSION['sln_form_data']);
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -65,38 +73,43 @@
                         <?php endif; ?>
                     </div>
                     <form action="conmail1.php" method="POST">
+                        <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($csrfToken, ENT_QUOTES, 'UTF-8'); ?>">
+                        <div style="position: absolute; left: -9999px; top: -9999px; opacity: 0; pointer-events: none;" aria-hidden="true">
+                            <label for="sln_website_url">Website</label>
+                            <input type="text" id="sln_website_url" name="website_url" tabindex="-1" autocomplete="off" value="">
+                        </div>
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="form-group">
-                                    <input class="form-control" name="Name" placeholder="Name *" type="text" required>
+                                    <input class="form-control" name="Name" value="<?php echo htmlspecialchars($formData['Name'] ?? '', ENT_QUOTES, 'UTF-8'); ?>" placeholder="Name *" type="text" required maxlength="100">
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="form-group">
-                                    <input class="form-control" name="Fname" placeholder="Organisation Name *" type="text" required>
+                                    <input class="form-control" name="Fname" value="<?php echo htmlspecialchars($formData['Fname'] ?? '', ENT_QUOTES, 'UTF-8'); ?>" placeholder="Organisation Name *" type="text" required maxlength="150">
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="form-group">
-                                    <input class="form-control" name="Subject" placeholder="Desigination *" type="text" required>
+                                    <input class="form-control" name="Subject" value="<?php echo htmlspecialchars($formData['Subject'] ?? '', ENT_QUOTES, 'UTF-8'); ?>" placeholder="Designation *" type="text" required maxlength="100">
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="form-group">
-                                    <input class="form-control" name="Email" placeholder="Email *" type="email" required>
+                                    <input class="form-control" name="Email" value="<?php echo htmlspecialchars($formData['Email'] ?? '', ENT_QUOTES, 'UTF-8'); ?>" placeholder="Email *" type="email" required maxlength="254">
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="form-group">
-                                    <input class="form-control" name="Number" placeholder="Phone *" type="text" required>
+                                    <input class="form-control" name="Number" value="<?php echo htmlspecialchars($formData['Number'] ?? '', ENT_QUOTES, 'UTF-8'); ?>" placeholder="Phone *" type="text" required maxlength="20">
                                 </div>
                             </div>
                         </div>
@@ -104,23 +117,23 @@
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <small class="time-label">Right time to call <span style="color:red;">*</span></small>
-                                    <input class="form-control" name="appt" placeholder="Right time to call" type="time" required>
+                                    <input class="form-control" name="appt" value="<?php echo htmlspecialchars($formData['appt'] ?? '', ENT_QUOTES, 'UTF-8'); ?>" placeholder="Right time to call" type="time" required>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="form-group">
-                                    <select class="form-control" name="Services" required>
-                                        <option value="">Select Service *</option>
-                                        <option value="soc">SOC As A Service</option>
-                                        <option value="vapt">VAPT</option>
-                                        <option value="cybersecurity_internship">Cybersecurity Internship</option>
-                                        <option value="skilling">Skilling</option>
-                                        <option value="cambridge">Cambridge</option>
-                                        <option value="nure">ISC2</option>
-                                        <option value="ec">EC-Council</option>
-                                        <option value="it_services">IT Services</option>
+                                    <select class="form-control" name="Services">
+                                        <option value="">Select Service (Optional)</option>
+                                        <option value="soc" <?php echo (($formData['Services'] ?? '') === 'soc') ? 'selected' : ''; ?>>SOC As A Service</option>
+                                        <option value="vapt" <?php echo (($formData['Services'] ?? '') === 'vapt') ? 'selected' : ''; ?>>VAPT</option>
+                                        <option value="cybersecurity_internship" <?php echo (($formData['Services'] ?? '') === 'cybersecurity_internship') ? 'selected' : ''; ?>>Cybersecurity Internship</option>
+                                        <option value="skilling" <?php echo (($formData['Services'] ?? '') === 'skilling') ? 'selected' : ''; ?>>Skilling</option>
+                                        <option value="cambridge" <?php echo (($formData['Services'] ?? '') === 'cambridge') ? 'selected' : ''; ?>>Cambridge Learning</option>
+                                        <option value="nure" <?php echo (($formData['Services'] ?? '') === 'nure') ? 'selected' : ''; ?>>ISC2</option>
+                                        <option value="ec" <?php echo (($formData['Services'] ?? '') === 'ec') ? 'selected' : ''; ?>>EC-Council</option>
+                                        <option value="it_services" <?php echo (($formData['Services'] ?? '') === 'it_services') ? 'selected' : ''; ?>>IT Services</option>
                                     </select>
                                 </div>
                             </div>
@@ -128,7 +141,7 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="form-group comments">
-                                    <textarea class="form-control" name="Message" placeholder="Please describe your requirements"></textarea>
+                                    <textarea class="form-control" name="Message" placeholder="Please describe your requirements" maxlength="3000"><?php echo htmlspecialchars($formData['Message'] ?? '', ENT_QUOTES, 'UTF-8'); ?></textarea>
                                 </div>
                             </div>
                         </div>
@@ -175,17 +188,107 @@
     <script src="assets/js/validnavs.js"></script>
     <script src="assets/js/main.js"></script>
 
+    <!-- Secure Callback Form Validation & Asynchronous Submission Handler -->
     <script>
     document.addEventListener('DOMContentLoaded', function() {
         var form = document.querySelector('form[action="conmail1.php"]');
         if (!form) return;
 
+        var container = document.getElementById('contact-status-container');
+
+        function showStatus(type, msg) {
+            if (!container) return;
+            var isSuccess = (type === 'success');
+            var bg = isSuccess ? '#ecfdf5' : '#fef2f2';
+            var border = isSuccess ? '#a7f3d0' : '#fecaca';
+            var text = isSuccess ? '#065f46' : '#991b1b';
+            var icon = isSuccess ? 'fa-check-circle' : 'fa-exclamation-circle';
+            var iconColor = isSuccess ? '#059669' : '#dc2626';
+            var label = isSuccess ? 'Thank you!' : 'Notice:';
+
+            container.innerHTML = '<div id="contact-status" class="alert ' + (isSuccess ? 'alert-success' : 'alert-danger') + '" style="background-color: ' + bg + '; border: 1px solid ' + border + '; color: ' + text + '; border-radius: 8px; padding: 14px 18px; font-size: 15px; margin-bottom: 20px;">' +
+                '<i class="fas ' + icon + '" style="color: ' + iconColor + '; margin-right: 8px;"></i> ' +
+                '<strong>' + label + '</strong> ' + msg +
+                '</div>';
+            if (container.scrollIntoView) {
+                container.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+        }
+
         form.addEventListener('submit', function(e) {
             e.preventDefault();
 
+            var nameInput = form.querySelector('input[name="Name"]');
+            var fnameInput = form.querySelector('input[name="Fname"]');
+            var subjectInput = form.querySelector('input[name="Subject"]');
+            var emailInput = form.querySelector('input[name="Email"]');
+            var numberInput = form.querySelector('input[name="Number"]');
+            var apptInput = form.querySelector('input[name="appt"]');
+            var servicesInput = form.querySelector('select[name="Services"]');
+            var messageInput = form.querySelector('textarea[name="Message"]');
+
+            var nameVal = (nameInput ? nameInput.value : '').trim();
+            var fnameVal = (fnameInput ? fnameInput.value : '').trim();
+            var subjectVal = (subjectInput ? subjectInput.value : '').trim();
+            var emailVal = (emailInput ? emailInput.value : '').trim();
+            var numberVal = (numberInput ? numberInput.value : '').trim();
+            var apptVal = (apptInput ? apptInput.value : '').trim();
+            var servicesVal = (servicesInput ? servicesInput.value : '').trim();
+            var messageVal = (messageInput ? messageInput.value : '').trim();
+
+            // Client-side Validation: Name
+            if (nameVal.length < 2 || nameVal.length > 100 || !/[a-zA-Z]/.test(nameVal) || !/^[a-zA-Z\s.'-]{2,100}$/.test(nameVal)) {
+                showStatus('error', 'Please enter a valid full name (letters and spaces only, 2-100 characters).');
+                if (nameInput) nameInput.focus();
+                return;
+            }
+
+            // Client-side Validation: Organisation
+            if (fnameVal.length < 2 || fnameVal.length > 150 || !/[a-zA-Z0-9]/.test(fnameVal) || !/^[a-zA-Z0-9\s.',&()\/#-]{2,150}$/.test(fnameVal)) {
+                showStatus('error', 'Please enter a valid organisation name (2-150 characters).');
+                if (fnameInput) fnameInput.focus();
+                return;
+            }
+
+            // Client-side Validation: Designation
+            if (subjectVal.length < 2 || subjectVal.length > 100 || !/[a-zA-Z]/.test(subjectVal) || !/^[a-zA-Z0-9\s.',&\-\/()]{2,100}$/.test(subjectVal)) {
+                showStatus('error', 'Please enter a valid designation / job title (must contain letters, 2-100 characters).');
+                if (subjectInput) subjectInput.focus();
+                return;
+            }
+
+            // Client-side Validation: Email
+            var emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            if (emailVal.length < 6 || emailVal.length > 254 || !emailPattern.test(emailVal) || emailVal.indexOf('..') !== -1 || (emailVal.match(/@/g) || []).length !== 1) {
+                showStatus('error', 'Please provide a valid email address (e.g. name@domain.com).');
+                if (emailInput) emailInput.focus();
+                return;
+            }
+
+            // Client-side Validation: Phone
+            var digitsOnly = numberVal.replace(/\D/g, '');
+            if (!/^\+?[0-9\s\-()]{7,20}$/.test(numberVal) || digitsOnly.length < 7 || digitsOnly.length > 15) {
+                showStatus('error', 'Please provide a valid phone number (between 7 and 15 digits).');
+                if (numberInput) numberInput.focus();
+                return;
+            }
+
+            // Client-side Validation: Preferred Call Time
+            if (!apptVal || apptVal.length < 2 || apptVal.length > 30) {
+                showStatus('error', 'Please specify a preferred time for a callback.');
+                if (apptInput) apptInput.focus();
+                return;
+            }
+
+            // Client-side Validation: Message length
+            if (messageVal.length > 3000) {
+                showStatus('error', 'Requirement details cannot exceed 3,000 characters.');
+                if (messageInput) messageInput.focus();
+                return;
+            }
+
             var submitBtn = form.querySelector('button[type="submit"]');
             var originalBtnHtml = submitBtn ? submitBtn.innerHTML : 'Submit';
-            var container = document.getElementById('contact-status-container');
 
             if (submitBtn) {
                 submitBtn.disabled = true;
@@ -204,7 +307,7 @@
             })
             .then(function(res) {
                 return res.json().catch(function() {
-                    return { status: res.ok ? 'success' : 'error', message: 'Unable to parse server response.' };
+                    return { success: false, status: 'error', message: 'Unable to parse server response.' };
                 });
             })
             .then(function(data) {
@@ -213,22 +316,14 @@
                     submitBtn.innerHTML = originalBtnHtml;
                 }
 
-                if (data.status === 'success') {
-                    if (container) {
-                        container.innerHTML = '<div id="contact-status" class="alert alert-success" style="background-color: #ecfdf5; border: 1px solid #a7f3d0; color: #065f46; border-radius: 8px; padding: 14px 18px; font-size: 15px; margin-bottom: 20px;"><i class="fas fa-check-circle" style="color: #059669; margin-right: 8px;"></i> <strong>Thank you!</strong> ' + (data.message || 'Your request has been submitted successfully.') + '</div>';
-                    }
+                if (data && (data.success === true || (data.status === 'success' && data.success !== false))) {
+                    showStatus('success', data.message || 'Your request has been submitted successfully. We will call you at your preferred time.');
                     form.reset();
                     if (window.jQuery && typeof window.jQuery.fn.niceSelect === 'function') {
                         window.jQuery('select').niceSelect('update');
                     }
                 } else {
-                    if (container) {
-                        container.innerHTML = '<div id="contact-status" class="alert alert-danger" style="background-color: #fef2f2; border: 1px solid #fecaca; color: #991b1b; border-radius: 8px; padding: 14px 18px; font-size: 15px; margin-bottom: 20px;"><i class="fas fa-exclamation-circle" style="color: #dc2626; margin-right: 8px;"></i> <strong>Notice:</strong> ' + (data.message || 'Unable to send request at this time.') + '</div>';
-                    }
-                }
-
-                if (container && container.scrollIntoView) {
-                    container.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    showStatus('error', (data && data.message) ? data.message : 'Unable to send request at this time.');
                 }
             })
             .catch(function(err) {
@@ -236,7 +331,7 @@
                     submitBtn.disabled = false;
                     submitBtn.innerHTML = originalBtnHtml;
                 }
-                form.submit();
+                showStatus('error', 'Connection error. Please try submitting again.');
             });
         });
     });

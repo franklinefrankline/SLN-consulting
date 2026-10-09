@@ -1,0 +1,50 @@
+# ==============================================================================
+# SLN Consulting - Production Security & Routing Configuration (.htaccess)
+# ==============================================================================
+
+# 1. Disable Directory Browsing
+Options -Indexes -MultiViews
+
+# 2. Hide Server Signature
+ServerSignature Off
+
+# 3. Prevent Access to Hidden / Sensitive Files & Internal Scripts
+<IfModule mod_authz_core.c>
+    <FilesMatch "(^\..*|\.env.*|\.git.*|\.zip$|\.mjs$|\.json$|\.log$|\.md$|\.sql$|\.bak$|^mailer\.php$|^security\.php$)">
+        Require all denied
+    </FilesMatch>
+</IfModule>
+<IfModule !mod_authz_core.c>
+    <FilesMatch "(^\..*|\.env.*|\.git.*|\.zip$|\.mjs$|\.json$|\.log$|\.md$|\.sql$|\.bak$|^mailer\.php$|^security\.php$)">
+        Order allow,deny
+        Deny from all
+    </FilesMatch>
+</IfModule>
+
+# 4. Security Headers
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+    Header always set Content-Security-Policy "default-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; script-src 'self' 'unsafe-inline' https://code.jquery.com https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com; font-src 'self' https://cdnjs.cloudflare.com https://fonts.gstatic.com; frame-ancestors 'self';"
+</IfModule>
+
+# 5. Friendly URL Rewrites
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+
+    # Rewrite extensionless URLs to .php files if they exist
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME}.php -f
+    RewriteRule ^([^\.]+)$ $1.php [NC,L]
+
+    # Rewrite extensionless URLs to .html files if they exist
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME}.html -f
+    RewriteRule ^([^\.]+)$ $1.html [NC,L]
+</IfModule>
+
+# 6. Custom 404 Error Page
+ErrorDocument 404 /404.html

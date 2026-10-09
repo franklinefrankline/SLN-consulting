@@ -288,11 +288,13 @@ function sln_send_via_smtp(array $config, array $recipients, $subject, $htmlBody
     $secure = strtolower($config['secure'] ?? 'tls');
 
     $timeout = 15;
-    $protocol = ($secure === 'ssl' || $port === 465) ? 'ssl://' : '';
+    $protocol = ($secure === 'ssl' || ($port === 465 && $secure !== 'tls')) ? 'ssl://' : '';
     
     $socket = @stream_socket_client($protocol . $host . ':' . $port, $errno, $errstr, $timeout);
     if (!$socket) {
-        return ['success' => false, 'error' => "Cannot connect to SMTP server ({$host}:{$port}): {$errstr}"];
+        $logMsg = "[SLN SMTP Error: connection refused] Cannot connect to SMTP server ({$protocol}{$host}:{$port}) [Errno {$errno}]: {$errstr}";
+        error_log($logMsg);
+        return ['success' => false, 'error' => $logMsg];
     }
 
     stream_set_timeout($socket, $timeout);
@@ -322,7 +324,9 @@ function sln_send_via_smtp(array $config, array $recipients, $subject, $htmlBody
     $greet = $readResponse();
     if (substr(trim($greet), 0, 3) !== '220') {
         fclose($socket);
-        return ['success' => false, 'error' => "SMTP greeting failed: {$greet}"];
+        $logMsg = "[SLN SMTP Error: SMTP server rejected the message] SMTP greeting failed: " . trim($greet);
+        error_log($logMsg);
+        return ['success' => false, 'error' => $logMsg];
     }
 
     // 2. EHLO
@@ -330,11 +334,14 @@ function sln_send_via_smtp(array $config, array $recipients, $subject, $htmlBody
     $ehlo = $sendCommand("EHLO {$helloHost}", 250);
     if (!$ehlo['ok']) {
         fclose($socket);
-        return ['success' => false, 'error' => $ehlo['error']];
+        $logMsg = "[SLN SMTP Error: SMTP server rejected the message] EHLO rejected: " . $ehlo['error'];
+        error_log($logMsg);
+        return ['success' => false, 'error' => $logMsg];
     }
 
     // 3. STARTTLS
-    if ($secure === 'tls' || ($port === 587 && $protocol === '')) {
+    $needsStarttls = ($protocol === '') && ($secure === 'tls' || $secure === 'starttls' || $port === 587);
+    if ($needsStarttls) {
         $starttls = $sendCommand("STARTTLS", 220);
         if ($starttls['ok']) {
             $cryptoMethod = STREAM_CRYPTO_METHOD_TLS_CLIENT | STREAM_CRYPTO_METHOD_TLSv1_2_CLIENT;
@@ -343,14 +350,23 @@ function sln_send_via_smtp(array $config, array $recipients, $subject, $htmlBody
             }
             if (!@stream_socket_enable_crypto($socket, true, $cryptoMethod)) {
                 fclose($socket);
-                return ['success' => false, 'error' => "Failed to establish TLS encryption with SMTP server."];
+                $logMsg = "[SLN SMTP Error: TLS/SSL failure] Failed to establish TLS encryption with SMTP server ({$host}:{$port}). Check server OpenSSL configuration and TLS certificates.";
+                error_log($logMsg);
+                return ['success' => false, 'error' => $logMsg];
             }
             // Repeat EHLO after TLS
             $ehlo2 = $sendCommand("EHLO {$helloHost}", 250);
             if (!$ehlo2['ok']) {
                 fclose($socket);
-                return ['success' => false, 'error' => $ehlo2['error']];
+                $logMsg = "[SLN SMTP Error: TLS/SSL failure] EHLO after STARTTLS failed: " . $ehlo2['error'];
+                error_log($logMsg);
+                return ['success' => false, 'error' => $logMsg];
             }
+        } else {
+            fclose($socket);
+            $logMsg = "[SLN SMTP Error: TLS/SSL failure] STARTTLS rejected by SMTP server: " . $starttls['error'];
+            error_log($logMsg);
+            return ['success' => false, 'error' => $logMsg];
         }
     }
 
@@ -358,19 +374,25 @@ function sln_send_via_smtp(array $config, array $recipients, $subject, $htmlBody
     $auth = $sendCommand("AUTH LOGIN", 334);
     if (!$auth['ok']) {
         fclose($socket);
-        return ['success' => false, 'error' => $auth['error']];
+        $logMsg = "[SLN SMTP Error: SMTP authentication failed] AUTH LOGIN command rejected: " . $auth['error'];
+        error_log($logMsg);
+        return ['success' => false, 'error' => $logMsg];
     }
 
     $authUser = $sendCommand(base64_encode($user), 334);
     if (!$authUser['ok']) {
         fclose($socket);
-        return ['success' => false, 'error' => "SMTP username rejected: " . $authUser['error']];
+        $logMsg = "[SLN SMTP Error: SMTP authentication failed] SMTP username rejected: " . $authUser['error'];
+        error_log($logMsg);
+        return ['success' => false, 'error' => $logMsg];
     }
 
     $authPass = $sendCommand(base64_encode($pass), 235);
     if (!$authPass['ok']) {
         fclose($socket);
-        return ['success' => false, 'error' => "SMTP authentication failed: " . $authPass['error']];
+        $logMsg = "[SLN SMTP Error: SMTP authentication failed] SMTP password/credentials rejected: " . $authPass['error'];
+        error_log($logMsg);
+        return ['success' => false, 'error' => $logMsg];
     }
 
     // 5. MAIL FROM
@@ -381,25 +403,39 @@ function sln_send_via_smtp(array $config, array $recipients, $subject, $htmlBody
     $mailFrom = $sendCommand("MAIL FROM:<{$cleanFrom}>", 250);
     if (!$mailFrom['ok']) {
         fclose($socket);
-        return ['success' => false, 'error' => $mailFrom['error']];
+        $logMsg = "[SLN SMTP Error: invalid sender] MAIL FROM:<{$cleanFrom}> rejected by server: " . $mailFrom['error'];
+        error_log($logMsg);
+        return ['success' => false, 'error' => $logMsg];
     }
 
     // 6. RCPT TO
+    $acceptedRcptCount = 0;
     foreach ($recipients as $toEmail) {
         $toEmail = trim($toEmail);
         if (empty($toEmail)) continue;
         $rcpt = $sendCommand("RCPT TO:<{$toEmail}>", 250);
         if (!$rcpt['ok']) {
             fclose($socket);
-            return ['success' => false, 'error' => "Recipient {$toEmail} rejected: " . $rcpt['error']];
+            $logMsg = "[SLN SMTP Error: invalid recipient] Recipient <{$toEmail}> rejected by server: " . $rcpt['error'];
+            error_log($logMsg);
+            return ['success' => false, 'error' => $logMsg];
         }
+        $acceptedRcptCount++;
+    }
+    if ($acceptedRcptCount === 0) {
+        fclose($socket);
+        $logMsg = "[SLN SMTP Error: invalid recipient] No valid recipients provided.";
+        error_log($logMsg);
+        return ['success' => false, 'error' => $logMsg];
     }
 
     // 7. DATA
     $data = $sendCommand("DATA", 354);
     if (!$data['ok']) {
         fclose($socket);
-        return ['success' => false, 'error' => $data['error']];
+        $logMsg = "[SLN SMTP Error: SMTP server rejected the message] DATA command rejected: " . $data['error'];
+        error_log($logMsg);
+        return ['success' => false, 'error' => $logMsg];
     }
 
     // 8. Headers & Body
@@ -421,14 +457,65 @@ function sln_send_via_smtp(array $config, array $recipients, $subject, $htmlBody
     $dataRes = $readResponse();
     if (substr(trim($dataRes), 0, 3) !== '250') {
         fclose($socket);
-        return ['success' => false, 'error' => "Failed to deliver message data: {$dataRes}"];
+        $logMsg = "[SLN SMTP Error: SMTP server rejected the message] Message data rejected by server: " . trim($dataRes);
+        error_log($logMsg);
+        return ['success' => false, 'error' => $logMsg];
     }
 
     // 9. QUIT
     fputs($socket, "QUIT\r\n");
     fclose($socket);
 
+    error_log("[SLN SMTP Success] Email successfully accepted by SMTP server for delivery to: " . implode(', ', $recipients));
     return ['success' => true];
+}
+
+/**
+ * Dedicated SMTP Enquiry Dispatcher
+ *
+ * Exclusively uses the existing pure-PHP custom SMTP transport (sln_send_via_smtp).
+ * Loads SMTP configuration from environment variables via sln_get_env().
+ */
+function sln_send_enquiry_smtp($subject, $htmlContent, $replyToEmail, $replyToName = '') {
+    // Sanitize subject and reply-to to prevent header injection
+    $subject      = preg_replace('/[\r\n\t\x00-\x1f]/', '', $subject);
+    $replyToEmail = preg_replace('/[\r\n\t\x00-\x1f]/', '', trim($replyToEmail));
+    $replyToName  = preg_replace('/[\r\n\t\x00-\x1f]/', '', trim($replyToName));
+
+    // Default admin recipients
+    $recipientsRaw = sln_get_env('RECIPIENT_EMAIL', 'srinivas.c@slnconsulting.co.in,schakravarthy@hotmail.com');
+    $recipients = array_filter(array_map('trim', explode(',', $recipientsRaw)));
+
+    $defaultFrom = sln_get_env('SMTP_FROM', sln_get_env('MAIL_FROM', 'SLN Consulting <notifications@slnconsulting.co.in>'));
+
+    $smtpHost = sln_get_env('SMTP_HOST');
+    $smtpUser = sln_get_env('SMTP_USER');
+    $smtpPass = sln_get_env('SMTP_PASS');
+
+    $missingCredentials = [];
+    if (empty($smtpHost)) $missingCredentials[] = 'SMTP_HOST';
+    if (empty($smtpUser)) $missingCredentials[] = 'SMTP_USER';
+    if (empty($smtpPass)) $missingCredentials[] = 'SMTP_PASS';
+
+    if (!empty($missingCredentials)) {
+        $logMsg = "[SLN SMTP Error: SMTP credentials missing] Cannot dispatch enquiry via SMTP. Missing or empty server environment variables: " . implode(', ', $missingCredentials) . ".";
+        error_log($logMsg);
+        return [
+            'success' => false,
+            'error'   => $logMsg
+        ];
+    }
+
+    $smtpConfig = [
+        'host'   => $smtpHost,
+        'port'   => sln_get_env('SMTP_PORT', '587'),
+        'user'   => $smtpUser,
+        'pass'   => $smtpPass,
+        'from'   => $defaultFrom,
+        'secure' => sln_get_env('SMTP_SECURE', 'tls')
+    ];
+
+    return sln_send_via_smtp($smtpConfig, $recipients, $subject, $htmlContent, $replyToEmail, $replyToName);
 }
 
 /**
@@ -439,58 +526,69 @@ function sln_send_via_smtp(array $config, array $recipients, $subject, $htmlBody
  */
 function sln_send_email($subject, $htmlContent, $replyToEmail, $replyToName = '') {
     // Sanitize subject and reply-to to prevent header injection
-    $subject      = str_replace(["\r", "\n"], '', $subject);
-    $replyToEmail = str_replace(["\r", "\n"], '', trim($replyToEmail));
-    $replyToName  = str_replace(["\r", "\n"], '', trim($replyToName));
+    $subject      = preg_replace('/[\r\n\t\x00-\x1f]/', '', $subject);
+    $replyToEmail = preg_replace('/[\r\n\t\x00-\x1f]/', '', trim($replyToEmail));
+    $replyToName  = preg_replace('/[\r\n\t\x00-\x1f]/', '', trim($replyToName));
 
     // Default recipients as requested
     $recipientsRaw = sln_get_env('RECIPIENT_EMAIL', 'srinivas.c@slnconsulting.co.in,schakravarthy@hotmail.com');
     $recipients = array_filter(array_map('trim', explode(',', $recipientsRaw)));
 
-    $defaultFrom = sln_get_env('MAIL_FROM', 'SLN Consulting <notifications@slnconsulting.co.in>');
+    $defaultFrom = sln_get_env('SMTP_FROM', sln_get_env('MAIL_FROM', 'SLN Consulting <notifications@slnconsulting.co.in>'));
 
-    // 1. Resend API (Recommended for Vercel)
+    // 1. Authenticated SMTP (Direct pure-PHP custom SMTP transport)
+    $smtpHost = sln_get_env('SMTP_HOST');
+    $smtpUser = sln_get_env('SMTP_USER');
+    $smtpPass = sln_get_env('SMTP_PASS');
+    $smtpPort = sln_get_env('SMTP_PORT', '587');
+    $smtpSecure = sln_get_env('SMTP_SECURE', 'tls');
+
+    $missingSmtp = [];
+    if (empty($smtpHost)) $missingSmtp[] = 'SMTP_HOST';
+    if (empty($smtpUser)) $missingSmtp[] = 'SMTP_USER';
+    if (empty($smtpPass)) $missingSmtp[] = 'SMTP_PASS';
+
+    if (empty($missingSmtp)) {
+        $smtpConfig = [
+            'host'   => $smtpHost,
+            'port'   => $smtpPort,
+            'user'   => $smtpUser,
+            'pass'   => $smtpPass,
+            'from'   => $defaultFrom,
+            'secure' => $smtpSecure
+        ];
+        return sln_send_via_smtp($smtpConfig, $recipients, $subject, $htmlContent, $replyToEmail, $replyToName);
+    } else {
+        $missingList = implode(', ', $missingSmtp);
+        $logMsg = "[SLN SMTP Error: SMTP credentials missing] Cannot dispatch email via SMTP. The following required server environment variables are missing or empty: {$missingList}. (Configured: host=" . ($smtpHost ? 'SET' : 'MISSING') . ", user=" . ($smtpUser ? 'SET' : 'MISSING') . ", pass=" . ($smtpPass ? 'SET' : 'MISSING') . ", port={$smtpPort}, secure={$smtpSecure}).";
+        error_log($logMsg);
+    }
+
+    // 2. Resend API
     $resendKey = sln_get_env('RESEND_API_KEY');
     if (!empty($resendKey)) {
         $from = $defaultFrom;
-        // Resend free tier without custom domain uses onboarding@resend.dev
         if ($from === 'SLN Consulting <notifications@slnconsulting.co.in>' && !sln_get_env('MAIL_FROM')) {
             $from = 'SLN Consulting <onboarding@resend.dev>';
         }
         return sln_send_via_resend($resendKey, $from, $recipients, $subject, $htmlContent, $replyToEmail);
     }
 
-    // 2. SendGrid API
+    // 3. SendGrid API
     $sendgridKey = sln_get_env('SENDGRID_API_KEY');
     if (!empty($sendgridKey)) {
         return sln_send_via_sendgrid($sendgridKey, $defaultFrom, $recipients, $subject, $htmlContent, $replyToEmail);
     }
 
-    // 3. Brevo API
+    // 4. Brevo API
     $brevoKey = sln_get_env('BREVO_API_KEY');
     if (!empty($brevoKey)) {
         return sln_send_via_brevo($brevoKey, $defaultFrom, $recipients, $subject, $htmlContent, $replyToEmail);
     }
 
-    // 4. Authenticated SMTP
-    $smtpHost = sln_get_env('SMTP_HOST');
-    $smtpUser = sln_get_env('SMTP_USER');
-    $smtpPass = sln_get_env('SMTP_PASS');
-    if (!empty($smtpHost) && !empty($smtpUser) && !empty($smtpPass)) {
-        $smtpConfig = [
-            'host'   => $smtpHost,
-            'port'   => sln_get_env('SMTP_PORT', '587'),
-            'user'   => $smtpUser,
-            'pass'   => $smtpPass,
-            'from'   => sln_get_env('SMTP_FROM', $defaultFrom),
-            'secure' => sln_get_env('SMTP_SECURE', 'tls')
-        ];
-        return sln_send_via_smtp($smtpConfig, $recipients, $subject, $htmlContent, $replyToEmail, $replyToName);
-    }
-
     // 5. No mail provider configured
     return [
         'success' => false,
-        'error'   => 'Email service configuration is pending. Please set RESEND_API_KEY or SMTP credentials in your environment variables. In the meantime, please contact us directly at srinivas.c@slnconsulting.co.in or +91 9940196195.'
+        'error'   => "[SLN SMTP Error: SMTP credentials missing] Server environment variables are missing or empty: " . implode(', ', $missingSmtp) . ". Email cannot be delivered."
     ];
 }
