@@ -114,20 +114,16 @@
 
     .mySwiper .swiper-slide {
         width: 100%;
-        aspect-ratio: 1349 / 579;
-        max-height: 600px;
+        height: auto;
         display: flex;
         justify-content: center;
         align-items: center;
         background-color: #ffffff !important;
-        overflow: hidden;
     }
 
     .mySwiper .swiper-slide img {
         width: 100%;
-        height: 100%;
-        object-fit: cover;
-        object-position: top center;
+        height: auto;
         display: block;
         cursor: pointer;
     }
@@ -147,6 +143,9 @@
         justify-content: center;
         cursor: pointer;
         outline: none;
+        top: 50%;
+        transform: translateY(-50%);
+        margin-top: 0;
     }
 
     .mySwiper .swiper-button-prev {
@@ -596,6 +595,10 @@
 
         var swiperOptions = {
             loop: true,
+            autoHeight: true,
+            updateOnImagesReady: true,
+            observer: true,
+            observeParents: true,
             speed: prefersReducedMotion ? 0 : 800,
             grabCursor: true,
             keyboard: {
@@ -708,6 +711,15 @@
         } else {
             initHeroSwiper();
         }
+
+        window.addEventListener('load', function() {
+            if (window.slnHeroSwiper) {
+                if (typeof window.slnHeroSwiper.updateAutoHeight === 'function') {
+                    window.slnHeroSwiper.updateAutoHeight(300);
+                }
+                window.slnHeroSwiper.update();
+            }
+        });
 
         // Delegated Banner Click Navigation (works reliably with cloned slides in loop mode)
         var swiperContainer = document.querySelector('.mySwiper');
