@@ -72,10 +72,10 @@
         background-color: #ffffff;
     }
 
-    /* On desktop (>=1024px), navbar is fixed/absolute (~100px height), so provide top clearance */
+    /* On desktop (>=1024px), navbar is fixed/absolute (~108px height), so provide clean top clearance */
     @media screen and (min-width: 1024px) {
         .slider {
-            padding-top: 100px;
+            padding-top: 110px;
         }
     }
 
@@ -116,7 +116,7 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
-        object-position: center;
+        object-position: top center;
         display: block;
         cursor: pointer;
     }
