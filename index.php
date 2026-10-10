@@ -616,9 +616,10 @@
 
         if (!prefersReducedMotion) {
             swiperOptions.autoplay = {
-                delay: 4500, // 4.5 seconds per slide (Requirement: 4-5 seconds)
+                delay: 4000, // Exactly 4 seconds per slide
                 disableOnInteraction: false,
-                pauseOnMouseEnter: true
+                pauseOnMouseEnter: false,
+                waitForTransition: true
             };
         } else {
             swiperOptions.autoplay = false;
@@ -630,13 +631,25 @@
                 return;
             }
 
-            // Prevent multiple initializations
+            // Prevent multiple timers or duplicate initializations
             if (window.slnHeroSwiper && typeof window.slnHeroSwiper.destroy === 'function') {
                 window.slnHeroSwiper.destroy(true, true);
             }
 
             var heroSwiper = new Swiper('.mySwiper', swiperOptions);
             window.slnHeroSwiper = heroSwiper;
+
+            // Explicitly start autoplay if enabled
+            if (!prefersReducedMotion && heroSwiper.autoplay) {
+                heroSwiper.autoplay.start();
+            }
+
+            // Ensure autoplay continues smoothly after manual clicks or slide changes
+            heroSwiper.on('slideChangeTransitionEnd', function() {
+                if (!prefersReducedMotion && heroSwiper.autoplay && !heroSwiper.autoplay.running) {
+                    heroSwiper.autoplay.start();
+                }
+            });
 
             // Handle tab visibility changes (pause when hidden, resume when visible)
             document.addEventListener('visibilitychange', function() {
@@ -646,6 +659,13 @@
                         heroSwiper.autoplay.stop();
                     }
                 } else if (!prefersReducedMotion) {
+                    heroSwiper.autoplay.start();
+                }
+            });
+
+            // Resume autoplay on window focus
+            window.addEventListener('focus', function() {
+                if (!prefersReducedMotion && heroSwiper && heroSwiper.autoplay && !heroSwiper.autoplay.running) {
                     heroSwiper.autoplay.start();
                 }
             });
