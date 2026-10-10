@@ -7,10 +7,16 @@
   "routes": [
     {
       "src": "/assets/(.*)",
+      "headers": {
+        "cache-control": "public, max-age=2592000, immutable"
+      },
       "dest": "/assets/$1"
     },
     {
       "src": "/style.css",
+      "headers": {
+        "cache-control": "public, max-age=86400"
+      },
       "dest": "/style.css"
     },
     {

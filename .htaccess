@@ -30,7 +30,21 @@ ServerSignature Off
     Header always set Content-Security-Policy "default-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; script-src 'self' 'unsafe-inline' https://code.jquery.com https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com; font-src 'self' https://cdnjs.cloudflare.com https://fonts.gstatic.com; frame-ancestors 'self';"
 </IfModule>
 
-# 5. Friendly URL Rewrites
+# 5. Reverse Proxy Configuration (when running Apache / Plesk as a Reverse Proxy)
+<IfModule mod_proxy.c>
+    # Prevent open proxy forwarding
+    ProxyRequests Off
+    # Preserve original client Host header
+    ProxyPreserveHost On
+
+    # Harmonize forwarded protocol headers
+    <IfModule mod_headers.c>
+        RequestHeader set X-Forwarded-Proto "https" env=HTTPS
+        RequestHeader set X-Forwarded-Port "443" env=HTTPS
+    </IfModule>
+</IfModule>
+
+# 6. Friendly URL Rewrites
 <IfModule mod_rewrite.c>
     RewriteEngine On
     RewriteBase /

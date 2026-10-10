@@ -23,11 +23,120 @@ function sln_send_security_headers() {
     header("Content-Security-Policy: default-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; script-src 'self' 'unsafe-inline' https://code.jquery.com https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com; font-src 'self' https://cdnjs.cloudflare.com https://fonts.gstatic.com; frame-ancestors 'self';");
 }
 
+// 2. Protocol and Reverse Proxy Detection
+function sln_is_trusted_proxy($ip) {
+    if (empty($ip)) return false;
+
+    // 1. Vercel serverless platform environment check
+    if (!empty($_SERVER['VERCEL']) || !empty(getenv('VERCEL')) || !empty($_SERVER['VERCEL_ENV']) || !empty($_SERVER['VERCEL_URL'])) {
+        return true;
+    }
+
+    // 2. Loopback addresses
+    if ($ip === '127.0.0.1' || $ip === '::1' || $ip === 'localhost') {
+        return true;
+    }
+
+    // 3. Environment-defined trusted proxies list
+    $envProxies = getenv('TRUSTED_PROXIES') ?: ($_SERVER['TRUSTED_PROXIES'] ?? '');
+    if (!empty($envProxies)) {
+        $list = array_map('trim', explode(',', $envProxies));
+        foreach ($list as $item) {
+            if ($item === '*' || $ip === $item || sln_ip_in_range($ip, $item)) {
+                return true;
+            }
+        }
+    }
+
+    // 4. Standard private / internal subnets (RFC 1918, RFC 4193, Link-Local)
+    $privateRanges = [
+        '10.0.0.0/8',
+        '172.16.0.0/12',
+        '192.168.0.0/16',
+        '169.254.0.0/16',
+        '100.64.0.0/10',
+        'fc00::/7',
+        'fe80::/10'
+    ];
+    foreach ($privateRanges as $range) {
+        if (sln_ip_in_range($ip, $range)) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+function sln_ip_in_range($ip, $range) {
+    if (empty($ip) || empty($range)) return false;
+    $range = trim($range);
+    if ($range === '*' || $ip === $range) return true;
+
+    if (strpos($range, '/') === false) {
+        return $ip === $range;
+    }
+
+    list($subnet, $bits) = explode('/', $range, 2);
+    $bits = (int)$bits;
+
+    // IPv4 check
+    if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) && filter_var($subnet, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
+        if ($bits < 0 || $bits > 32) return false;
+        $ipVal = ip2long($ip);
+        $subnetVal = ip2long($subnet);
+        if ($ipVal === false || $subnetVal === false) return false;
+        $mask = $bits === 0 ? 0 : (~0 << (32 - $bits));
+        return ($ipVal & $mask) === ($subnetVal & $mask);
+    }
+
+    // IPv6 check
+    if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6) && filter_var($subnet, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) {
+        if ($bits < 0 || $bits > 128) return false;
+        $ipBin = inet_pton($ip);
+        $subnetBin = inet_pton($subnet);
+        if ($ipBin === false || $subnetBin === false) return false;
+        
+        $bytes = (int)($bits / 8);
+        $remBits = $bits % 8;
+        if (substr($ipBin, 0, $bytes) !== substr($subnetBin, 0, $bytes)) {
+            return false;
+        }
+        if ($remBits > 0) {
+            $mask = chr((0xFF << (8 - $remBits)) & 0xFF);
+            return (ord($ipBin[$bytes]) & ord($mask)) === (ord($subnetBin[$bytes]) & ord($mask));
+        }
+        return true;
+    }
+
+    return false;
+}
+
+function sln_is_https() {
+    if (!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) !== 'off') {
+        return true;
+    }
+    if (!empty($_SERVER['SERVER_PORT']) && (int)$_SERVER['SERVER_PORT'] === 443) {
+        return true;
+    }
+    $remoteAddr = $_SERVER['REMOTE_ADDR'] ?? '127.0.0.1';
+    if (sln_is_trusted_proxy($remoteAddr)) {
+        if (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && strtolower($_SERVER['HTTP_X_FORWARDED_PROTO']) === 'https') {
+            return true;
+        }
+        if (!empty($_SERVER['HTTP_X_FORWARDED_SSL']) && strtolower($_SERVER['HTTP_X_FORWARDED_SSL']) === 'on') {
+            return true;
+        }
+        if (!empty($_SERVER['HTTP_X_FORWARDED_PORT']) && (int)$_SERVER['HTTP_X_FORWARDED_PORT'] === 443) {
+            return true;
+        }
+    }
+    return false;
+}
+
 // 2. Initialize Secure Session
 function sln_start_session() {
     if (session_status() === PHP_SESSION_NONE) {
-        $isHttps = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
-            || (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https');
+        $isHttps = sln_is_https();
 
         @ini_set('session.cookie_httponly', '1');
         @ini_set('session.use_only_cookies', '1');
@@ -58,8 +167,7 @@ function sln_get_csrf_token() {
     
     // Set double-submit cookie for stateless/serverless Lambda environments (Vercel)
     if (!headers_sent() && empty($_COOKIE['sln_csrf_token'])) {
-        $isHttps = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
-            || (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https');
+        $isHttps = sln_is_https();
         @setcookie('sln_csrf_token', $_SESSION['sln_csrf_token'], [
             'expires'  => time() + 7200,
             'path'     => '/',
@@ -88,22 +196,38 @@ function sln_verify_csrf_token($token) {
     return false;
 }
 
-// 4. Client IP Resolver (Safe for reverse proxies like Vercel / Cloudflare)
+// 4. Secure Client IP Resolver (Safe for reverse proxies like Vercel / Cloudflare / Nginx)
 function sln_get_client_ip() {
+    $remoteAddr = $_SERVER['REMOTE_ADDR'] ?? '127.0.0.1';
+
+    // Anti-Spoofing: If direct connecting peer is NOT a trusted proxy,
+    // NEVER trust forwarded headers to prevent rate limit bypass attacks.
+    if (!sln_is_trusted_proxy($remoteAddr)) {
+        return filter_var($remoteAddr, FILTER_VALIDATE_IP) ? $remoteAddr : '127.0.0.1';
+    }
+
+    // 1. Cloudflare connecting IP header
     if (!empty($_SERVER['HTTP_CF_CONNECTING_IP']) && filter_var($_SERVER['HTTP_CF_CONNECTING_IP'], FILTER_VALIDATE_IP)) {
         return $_SERVER['HTTP_CF_CONNECTING_IP'];
     }
+
+    // 2. X-Forwarded-For chain: extract leftmost valid client IP
     if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
         $ips = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']);
-        $candidate = trim($ips[0]);
-        if (filter_var($candidate, FILTER_VALIDATE_IP)) {
-            return $candidate;
+        foreach ($ips as $candidate) {
+            $candidate = trim($candidate);
+            if (filter_var($candidate, FILTER_VALIDATE_IP)) {
+                return $candidate;
+            }
         }
     }
+
+    // 3. X-Real-IP
     if (!empty($_SERVER['HTTP_X_REAL_IP']) && filter_var($_SERVER['HTTP_X_REAL_IP'], FILTER_VALIDATE_IP)) {
         return $_SERVER['HTTP_X_REAL_IP'];
     }
-    return $_SERVER['REMOTE_ADDR'] ?? '127.0.0.1';
+
+    return filter_var($remoteAddr, FILTER_VALIDATE_IP) ? $remoteAddr : '127.0.0.1';
 }
 
 // 5. Honeypot Bot Trap Check

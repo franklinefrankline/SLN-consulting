@@ -63,128 +63,116 @@
         cursor: pointer;
     }
 
-    swiper-container {
+    .slider, .mySwiper, .swiper, swiper-container {
         width: 100%;
         height: 100%;
+        position: relative;
+        overflow: hidden;
     }
 
-    swiper-slide {
+    .swiper-slide, swiper-slide {
         text-align: center;
         font-size: 18px;
         background-color: #fff !important;
         display: flex;
         justify-content: center;
         align-items: center;
+        overflow: hidden;
     }
 
-    swiper-slide img {
+    .swiper-slide img, swiper-slide img {
         display: block;
         width: 100%;
-        height: 100%;
+        height: 100vh;
         object-fit: cover;
         cursor: pointer;
     }
 
-    .autoplay-progress {
-        position: absolute;
-        right: 16px;
-        bottom: 16px;
+    /* Swiper Navigation & Pagination Controls */
+    .mySwiper .swiper-button-prev,
+    .mySwiper .swiper-button-next {
+        color: #ffffff;
+        background: rgba(0, 0, 0, 0.4);
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        transition: all 0.3s ease;
         z-index: 10;
-        width: 48px;
-        height: 48px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+    }
+
+    .mySwiper .swiper-button-prev:after,
+    .mySwiper .swiper-button-next:after {
+        font-size: 18px;
         font-weight: bold;
-        color: var(--swiper-theme-color);
     }
 
-    .autoplay-progress svg {
-        --progress: 0;
-        position: absolute;
-        left: 0;
-        top: 0px;
+    .mySwiper .swiper-button-prev:hover,
+    .mySwiper .swiper-button-next:hover {
+        background: #013df5;
+    }
+
+    .mySwiper .swiper-pagination {
+        bottom: 14px !important;
         z-index: 10;
-        width: 100%;
-        height: 100%;
-        stroke-width: 4px;
-        stroke: var(--swiper-theme-color);
-        fill: none;
-        stroke-dashoffset: calc(125.6px * (1 - var(--progress)));
-        stroke-dasharray: 125.6;
-        transform: rotate(-90deg);
     }
 
-    .mySwiper {
-        width: 100%;
-        height: 100%;
+    .mySwiper .swiper-pagination-bullet {
+        width: 12px;
+        height: 12px;
+        background: #ffffff;
+        opacity: 0.75;
+        margin: 0 5px !important;
+        transition: all 0.3s ease;
     }
 
-    .swiper-slide img {
-        width: 100%;
-        height: auto;
+    .mySwiper .swiper-pagination-bullet-active {
+        background: #013df5 !important;
+        opacity: 1 !important;
+        width: 28px !important;
+        border-radius: 6px !important;
     }
-
-    .autoplay-progress {
-        position: absolute;
-        bottom: 10px;
-        left: 50%;
-        transform: translateX(-50%);
-        display: flex;
-        align-items: center;
-    }
-
-    .autoplay-progress svg {
-        width: 48px;
-        height: 48px;
-    }
-
-    .autoplay-progress span {
-        margin-left: 10px;
-        font-size: 16px;
-    }
-
-    swiper-slide img {
-        height: 100vh;
-    }
-
-    @media screen and (max-width: 1300px) {}
-
-
 
     @media screen and (max-width: 1024px) {
-        swiper-slide img {
+        .swiper-slide img, swiper-slide img {
             height: 73vh;
         }
     }
 
     @media screen and (max-width: 768px) {
-        swiper-slide img {
+        .swiper-slide img, swiper-slide img {
             height: 38vh;
         }
-
-
-
+        .mySwiper .swiper-button-prev,
+        .mySwiper .swiper-button-next {
+            width: 32px;
+            height: 32px;
+        }
+        .mySwiper .swiper-button-prev:after,
+        .mySwiper .swiper-button-next:after {
+            font-size: 13px;
+        }
     }
 
     @media screen and (max-width: 820px) {
-        swiper-slide img {
+        .swiper-slide img, swiper-slide img {
             height: 35vh;
         }
     }
 
     @media only screen and (max-width: 600px) {
-        swiper-slide img {
+        .swiper-slide img, swiper-slide img {
             display: block;
             width: 100%;
-            height: 100%;
+            height: 24vh;
             object-fit: cover;
         }
+    }
 
-        swiper-slide img {
-            height: 24vh;
+    @media (prefers-reduced-motion: reduce) {
+        .mySwiper .swiper-slide,
+        .mySwiper .swiper-wrapper {
+            transition-duration: 0ms !important;
         }
-
     }
     </style>
 
@@ -205,58 +193,56 @@
 
     <div class="slider">
         <div class="mtop-1">
-            <swiper-container class="mySwiper " pagination="true" pagination-clickable="true" navigation="true"
-                space-between="30" centered-slides="true" autoplay-delay="3500" autoplay-disable-on-interaction="false">
+            <div class="swiper mySwiper" id="slnHeroCarousel" aria-label="SLN Consulting Banner Carousel">
+                <div class="swiper-wrapper">
+                    <!-- 1. Empowering Minds -->
+                    <div class="swiper-slide">
+                        <img id="banner1" src="./assets/img/sln-img/slk-banner1.jpg" alt="Empowering Minds, Elevating Skills, Innovative Solutions." data-href="./index.php">
+                    </div>
 
-                <!-- 1. Empowering Minds -->
-                <swiper-slide>
-                    <img id="banner1" src="./assets/img/sln-img/slk-banner1.jpg" alt="Empowering Minds, Elevating Skills, Innovative Solutions.">
-                </swiper-slide>
+                    <!-- 2. Training & Certification -->
+                    <div class="swiper-slide">
+                        <img id="banner-training" src="./assets/img/sln-img/slk-banner11.jpg" alt="Training &amp; Certification" data-href="./ecc.php">
+                    </div>
 
-                <!-- 2. Training & Certification -->
-                <swiper-slide>
-                    <img id="banner-training" src="./assets/img/sln-img/slk-banner11.jpg" alt="Training &amp; Certification">
-                </swiper-slide>
+                    <!-- 3. Certifications (ISC2) -->
+                    <div class="swiper-slide">
+                        <img id="banner6" src="./assets/img/sln-img/slk-banner6.jpg" alt="Certifications (ISC2)" data-href="./isc2.php">
+                    </div>
 
-                <!-- 3. Certifications (ISC2) -->
-                <swiper-slide>
-                    <img id="banner6" src="./assets/img/sln-img/slk-banner6.jpg" alt="Certifications (ISC2)">
-                </swiper-slide>
+                    <!-- 4. Cambridge University -->
+                    <div class="swiper-slide">
+                        <img id="banner2" src="./assets/img/sln-img/slk-banner2.jpg" alt="Cambridge University" data-href="./cambridge.php">
+                    </div>
 
-                <!-- 4. Cambridge University -->
-                <swiper-slide>
-                    <img id="banner2" src="./assets/img/sln-img/slk-banner2.jpg" alt="Cambridge University">
-                </swiper-slide>
+                    <!-- 5. SOC -->
+                    <div class="swiper-slide">
+                        <img id="banner-soc" src="./assets/img/sln-img/slk-banner7.jpg" alt="Security Operation Center - SOC As A Service" data-href="./soc.php">
+                    </div>
 
-                <!-- 5. SOC -->
-                <swiper-slide>
-                    <img id="banner-soc" src="./assets/img/sln-img/slk-banner7.jpg" alt="Security Operation Center - SOC As A Service">
-                </swiper-slide>
+                    <!-- 6. VAPT -->
+                    <div class="swiper-slide">
+                        <img id="banner-vapt" src="./assets/img/sln-img/vapt-banner.jpg" alt="Vulnerability Assessment &amp; Penetration Testing (VAPT)" data-href="./vapt.php">
+                    </div>
 
-                <!-- 6. VAPT -->
-                <swiper-slide>
-                    <img id="banner-vapt" src="./assets/img/sln-img/vapt-banner.jpg" alt="Vulnerability Assessment &amp; Penetration Testing (VAPT)">
-                </swiper-slide>
+                    <!-- 7. Internship -->
+                    <div class="swiper-slide">
+                        <img id="banner-cybersecurity-internship" src="./assets/img/sln-img/cybersecurity-internship-3-month.png" alt="Cybersecurity Internship" data-href="./cybersecurity-internship.php">
+                    </div>
 
-                <!-- 7. Internship -->
-                <swiper-slide>
-                    <img id="banner-cybersecurity-internship" src="./assets/img/sln-img/cybersecurity-internship-3-month.png" alt="Cybersecurity Internship">
-                </swiper-slide>
-
-                <!-- 8. Skilling Solution -->
-                <swiper-slide>
-                    <img id="banner5" src="./assets/img/sln-img/slk-banner5.jpg" alt="Skilling Solution">
-                </swiper-slide>
-
-
-                <div class="autoplay-progress" slot="container-end">
-                    <svg viewBox="0 0 48 48">
-                        <circle cx="24" cy="24" r="20"></circle>
-                    </svg>
-                    <span></span>
+                    <!-- 8. Skilling Solution -->
+                    <div class="swiper-slide">
+                        <img id="banner5" src="./assets/img/sln-img/slk-banner5.jpg" alt="Skilling Solution" data-href="./enterprises.php">
+                    </div>
                 </div>
-            </swiper-container>
 
+                <!-- Swiper Navigation Controls -->
+                <div class="swiper-button-prev" aria-label="Previous slide"></div>
+                <div class="swiper-button-next" aria-label="Next slide"></div>
+
+                <!-- Swiper Pagination -->
+                <div class="swiper-pagination"></div>
+            </div>
         </div>
 
     </div>
@@ -505,42 +491,6 @@
 
 
 
-    <!-- Swiper JS -->
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js"></script>
-
-    <!-- Initialize Swiper -->
-    <script>
-    const swiper = new Swiper('.mySwiper', {
-        spaceBetween: 30,
-        centeredSlides: true,
-        autoplay: {
-            delay: 3000,
-            disableOnInteraction: false,
-        },
-        pagination: {
-            el: '.swiper-pagination',
-            clickable: true,
-        },
-        navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
-        },
-        breakpoints: {
-            320: {
-                slidesPerView: 1,
-                spaceBetween: 10,
-            },
-            480: {
-                slidesPerView: 1,
-                spaceBetween: 20,
-            },
-            640: {
-                slidesPerView: 1,
-                spaceBetween: 30,
-            }
-        }
-    });
-    </script>
 
 
 
@@ -568,64 +518,142 @@
     <script src="assets/js/validnavs.js"></script>
     <script src="assets/js/main.js"></script>
 
-    <!-- slider  -->
+    <!-- Hero Banner Swiper Carousel Initialization -->
     <script>
-    var banner1 = document.getElementById('banner1');
-    if (banner1) {
-        banner1.addEventListener('click', function() {
-            window.location.href = './index.php';
-        });
-    }
+    (function() {
+        var prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    var bannerTraining = document.getElementById('banner-training');
-    if (bannerTraining) {
-        bannerTraining.addEventListener('click', function() {
-            window.location.href = './ecc.php';
-        });
-    }
+        var swiperOptions = {
+            loop: true,
+            speed: prefersReducedMotion ? 0 : 800,
+            grabCursor: true,
+            keyboard: {
+                enabled: true
+            },
+            pagination: {
+                el: '.mySwiper .swiper-pagination',
+                clickable: true
+            },
+            navigation: {
+                nextEl: '.mySwiper .swiper-button-next',
+                prevEl: '.mySwiper .swiper-button-prev'
+            },
+            breakpoints: {
+                320: {
+                    slidesPerView: 1,
+                    spaceBetween: 0
+                },
+                768: {
+                    slidesPerView: 1,
+                    spaceBetween: 0
+                },
+                1024: {
+                    slidesPerView: 1,
+                    spaceBetween: 0
+                }
+            }
+        };
 
-    var banner6 = document.getElementById('banner6');
-    if (banner6) {
-        banner6.addEventListener('click', function() {
-            window.location.href = './isc2.php';
-        });
-    }
+        if (!prefersReducedMotion) {
+            swiperOptions.autoplay = {
+                delay: 4500, // 4.5 seconds per slide (Requirement: 4-5 seconds)
+                disableOnInteraction: false,
+                pauseOnMouseEnter: true
+            };
+        } else {
+            swiperOptions.autoplay = false;
+        }
 
-    var banner2 = document.getElementById('banner2');
-    if (banner2) {
-        banner2.addEventListener('click', function() {
-            window.location.href = './cambridge.php';
-        });
-    }
+        function initHeroSwiper() {
+            if (typeof Swiper === 'undefined') {
+                setTimeout(initHeroSwiper, 50);
+                return;
+            }
 
-    var bannerSoc = document.getElementById('banner-soc');
-    if (bannerSoc) {
-        bannerSoc.addEventListener('click', function() {
-            window.location.href = './soc.php';
-        });
-    }
+            // Prevent multiple initializations
+            if (window.slnHeroSwiper && typeof window.slnHeroSwiper.destroy === 'function') {
+                window.slnHeroSwiper.destroy(true, true);
+            }
 
-    var bannerVapt = document.getElementById('banner-vapt');
-    if (bannerVapt) {
-        bannerVapt.addEventListener('click', function() {
-            window.location.href = './vapt.php';
-        });
-    }
+            var heroSwiper = new Swiper('.mySwiper', swiperOptions);
+            window.slnHeroSwiper = heroSwiper;
 
-    var bannerInternship = document.getElementById('banner-cybersecurity-internship');
-    if (bannerInternship) {
-        bannerInternship.style.cursor = 'pointer';
-        bannerInternship.addEventListener('click', function() {
-            window.location.href = './cybersecurity-internship.php';
-        });
-    }
+            // Handle tab visibility changes (pause when hidden, resume when visible)
+            document.addEventListener('visibilitychange', function() {
+                if (!heroSwiper || !heroSwiper.autoplay) return;
+                if (document.hidden) {
+                    if (heroSwiper.autoplay.running) {
+                        heroSwiper.autoplay.stop();
+                    }
+                } else if (!prefersReducedMotion) {
+                    heroSwiper.autoplay.start();
+                }
+            });
 
-    var banner5 = document.getElementById('banner5');
-    if (banner5) {
-        banner5.addEventListener('click', function() {
-            window.location.href = './enterprises.php';
-        });
-    }
+            // Reduced motion media query change listener
+            if (window.matchMedia) {
+                var motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+                if (motionQuery.addEventListener) {
+                    motionQuery.addEventListener('change', function(e) {
+                        prefersReducedMotion = e.matches;
+                        if (e.matches) {
+                            if (heroSwiper.autoplay && heroSwiper.autoplay.running) {
+                                heroSwiper.autoplay.stop();
+                            }
+                            heroSwiper.params.speed = 0;
+                        } else {
+                            heroSwiper.params.speed = 800;
+                            if (heroSwiper.autoplay) {
+                                heroSwiper.autoplay.start();
+                            }
+                        }
+                    });
+                }
+            }
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initHeroSwiper);
+        } else {
+            initHeroSwiper();
+        }
+
+        // Delegated Banner Click Navigation (works reliably with cloned slides in loop mode)
+        var swiperContainer = document.querySelector('.mySwiper');
+        if (swiperContainer) {
+            swiperContainer.addEventListener('click', function(e) {
+                // Ignore clicks on navigation buttons or pagination bullets
+                if (e.target.closest('.swiper-button-prev') || e.target.closest('.swiper-button-next') || e.target.closest('.swiper-pagination')) {
+                    return;
+                }
+
+                var slide = e.target.closest('.swiper-slide');
+                if (!slide) return;
+
+                var img = slide.querySelector('img');
+                if (!img) return;
+
+                var targetHref = img.getAttribute('data-href');
+                if (!targetHref) {
+                    var idMap = {
+                        'banner1': './index.php',
+                        'banner-training': './ecc.php',
+                        'banner6': './isc2.php',
+                        'banner2': './cambridge.php',
+                        'banner-soc': './soc.php',
+                        'banner-vapt': './vapt.php',
+                        'banner-cybersecurity-internship': './cybersecurity-internship.php',
+                        'banner5': './enterprises.php'
+                    };
+                    targetHref = idMap[img.id];
+                }
+
+                if (targetHref) {
+                    window.location.href = targetHref;
+                }
+            });
+        }
+    })();
     </script>
 </body>
 

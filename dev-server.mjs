@@ -374,8 +374,44 @@ function sendViaSmtpSocket({ host, port, user, pass, from, to, subject, html, re
   });
 }
 
+// Trusted Reverse Proxy Client IP resolution
+function isTrustedProxy(ip) {
+  if (!ip) return false;
+  const clean = ip.replace(/^::ffff:/, '');
+  if (clean === '127.0.0.1' || clean === '::1' || clean === 'localhost') return true;
+  if (process.env.TRUST_PROXY === 'true' || process.env.TRUST_PROXY === '1') return true;
+  if (process.env.TRUSTED_PROXIES) {
+    const list = process.env.TRUSTED_PROXIES.split(',').map(s => s.trim());
+    if (list.includes('*') || list.includes(clean)) return true;
+  }
+  // Standard private / local subnets (RFC 1918)
+  if (clean.startsWith('10.') || clean.startsWith('192.168.') || /^172\.(1[6-9]|2[0-9]|3[0-1])\./.test(clean)) return true;
+  return false;
+}
+
+function resolveClientIp(req) {
+  const socketIp = (req.socket.remoteAddress || '127.0.0.1').replace(/^::ffff:/, '');
+  if (!isTrustedProxy(socketIp)) {
+    return socketIp;
+  }
+  if (req.headers['cf-connecting-ip']) {
+    return req.headers['cf-connecting-ip'].trim();
+  }
+  if (req.headers['x-forwarded-for']) {
+    const ips = req.headers['x-forwarded-for'].split(',');
+    for (let candidate of ips) {
+      candidate = candidate.trim().replace(/^::ffff:/, '');
+      if (candidate) return candidate;
+    }
+  }
+  if (req.headers['x-real-ip']) {
+    return req.headers['x-real-ip'].trim().replace(/^::ffff:/, '');
+  }
+  return socketIp;
+}
+
 const server = http.createServer((req, res) => {
-  const clientIp = req.socket.remoteAddress || '127.0.0.1';
+  const clientIp = resolveClientIp(req);
   const parsedUrl = new URL(req.url, `http://${req.headers.host || 'localhost:' + PORT}`);
   let pathname = decodeURIComponent(parsedUrl.pathname);
 
