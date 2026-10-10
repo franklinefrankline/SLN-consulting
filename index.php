@@ -63,52 +63,129 @@
         cursor: pointer;
     }
 
-    .slider, .mySwiper, .swiper, swiper-container {
+    .slider {
         width: 100%;
-        height: 100%;
+        position: relative;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #ffffff;
+    }
+
+    /* On desktop (>=1024px), navbar is fixed/absolute (~100px height), so provide top clearance */
+    @media screen and (min-width: 1024px) {
+        .slider {
+            padding-top: 100px;
+        }
+    }
+
+    /* On tablet/mobile (<1024px), navbar is relative in document flow, so no top padding needed */
+    @media screen and (max-width: 1023px) {
+        .slider {
+            padding-top: 0;
+        }
+    }
+
+    .slider .mtop-1 {
+        margin-top: 0 !important;
+    }
+
+    .mySwiper, .swiper {
+        width: 100%;
         position: relative;
         overflow: hidden;
     }
 
-    .swiper-slide, swiper-slide {
-        text-align: center;
-        font-size: 18px;
-        background-color: #fff !important;
+    .mySwiper .swiper-wrapper {
+        width: 100%;
+        height: auto;
+    }
+
+    .mySwiper .swiper-slide {
+        width: 100%;
+        aspect-ratio: 1349 / 579;
+        max-height: 600px;
         display: flex;
         justify-content: center;
         align-items: center;
+        background-color: #ffffff !important;
         overflow: hidden;
     }
 
-    .swiper-slide img, swiper-slide img {
-        display: block;
+    .mySwiper .swiper-slide img {
         width: 100%;
-        height: 100vh;
+        height: 100%;
         object-fit: cover;
+        object-position: center;
+        display: block;
         cursor: pointer;
     }
 
-    /* Swiper Navigation & Pagination Controls */
+    /* Swiper Navigation Chevron Controls */
     .mySwiper .swiper-button-prev,
     .mySwiper .swiper-button-next {
-        color: #ffffff;
-        background: rgba(0, 0, 0, 0.4);
+        color: #ffffff !important;
+        background: rgba(0, 0, 0, 0.45);
         width: 44px;
         height: 44px;
         border-radius: 50%;
         transition: all 0.3s ease;
         z-index: 10;
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        outline: none;
     }
 
-    .mySwiper .swiper-button-prev:after,
+    .mySwiper .swiper-button-prev {
+        left: 20px;
+        right: auto;
+    }
+
+    .mySwiper .swiper-button-next {
+        right: 20px;
+        left: auto;
+    }
+
+    /* Left chevron symbol (‹) replacing 'prev' */
+    .mySwiper .swiper-button-prev:after {
+        content: '‹' !important;
+        font-family: Arial, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+        font-size: 32px !important;
+        line-height: 1 !important;
+        font-weight: 300 !important;
+        color: #ffffff !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        width: 100% !important;
+        height: 100% !important;
+        margin-top: -3px;
+        text-indent: -1px;
+    }
+
+    /* Right chevron symbol (›) replacing 'next' */
     .mySwiper .swiper-button-next:after {
-        font-size: 18px;
-        font-weight: bold;
+        content: '›' !important;
+        font-family: Arial, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+        font-size: 32px !important;
+        line-height: 1 !important;
+        font-weight: 300 !important;
+        color: #ffffff !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        width: 100% !important;
+        height: 100% !important;
+        margin-top: -3px;
+        text-indent: 1px;
     }
 
     .mySwiper .swiper-button-prev:hover,
     .mySwiper .swiper-button-next:hover {
         background: #013df5;
+        color: #ffffff !important;
     }
 
     .mySwiper .swiper-pagination {
@@ -132,39 +209,26 @@
         border-radius: 6px !important;
     }
 
-    @media screen and (max-width: 1024px) {
-        .swiper-slide img, swiper-slide img {
-            height: 73vh;
-        }
-    }
-
     @media screen and (max-width: 768px) {
-        .swiper-slide img, swiper-slide img {
-            height: 38vh;
-        }
         .mySwiper .swiper-button-prev,
         .mySwiper .swiper-button-next {
             width: 32px;
             height: 32px;
         }
+        .mySwiper .swiper-button-prev {
+            left: 10px;
+        }
+        .mySwiper .swiper-button-next {
+            right: 10px;
+        }
         .mySwiper .swiper-button-prev:after,
         .mySwiper .swiper-button-next:after {
-            font-size: 13px;
+            font-size: 24px !important;
+            margin-top: -2px;
         }
-    }
-
-    @media screen and (max-width: 820px) {
-        .swiper-slide img, swiper-slide img {
-            height: 35vh;
-        }
-    }
-
-    @media only screen and (max-width: 600px) {
-        .swiper-slide img, swiper-slide img {
-            display: block;
-            width: 100%;
-            height: 24vh;
-            object-fit: cover;
+        #back-col.about-style-one-area.default-padding-5 {
+            padding-top: 40px;
+            padding-bottom: 40px;
         }
     }
 
@@ -186,10 +250,6 @@
     ============================================= -->
     <?php include 'header.php'; ?>
     <!-- End Header -->
-
-
-    <br>
-
 
     <div class="slider">
         <div class="mtop-1">
@@ -237,8 +297,8 @@
                 </div>
 
                 <!-- Swiper Navigation Controls -->
-                <div class="swiper-button-prev" aria-label="Previous slide"></div>
-                <div class="swiper-button-next" aria-label="Next slide"></div>
+                <div class="swiper-button-prev" aria-label="Previous slide" role="button" tabindex="0"></div>
+                <div class="swiper-button-next" aria-label="Next slide" role="button" tabindex="0"></div>
 
                 <!-- Swiper Pagination -->
                 <div class="swiper-pagination"></div>
