@@ -63,6 +63,17 @@
         cursor: pointer;
     }
 
+    html, body {
+        overflow-x: hidden;
+    }
+
+    @media screen and (max-width: 1023px) {
+        .width-ph {
+            max-width: 100% !important;
+            width: 100% !important;
+        }
+    }
+
     .slider {
         width: 100%;
         position: relative;
