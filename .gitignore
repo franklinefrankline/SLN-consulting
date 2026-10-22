@@ -31,3 +31,8 @@ data/*.json
 *-response.html
 inspect-gform*.mjs
 investigate-gforms*.mjs
+
+# Composer
+composer.json
+composer.lock
+

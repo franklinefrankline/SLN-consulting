@@ -1,0 +1,25 @@
+# Dependency & Composer files (Vercel uses pre-compiled Lambda PHP runtime)
+composer.json
+composer.lock
+vendor/
+
+# Large files and archives
+assets.zip
+
+# Server configs and CLI diagnostics not needed on Vercel
+nginx-reverse-proxy.conf
+sln-smtp-config.example.php
+test-smtp-connection.php
+
+# Local dev server & test suites
+dev-server.mjs
+test-*.mjs
+inspect-*.mjs
+investigate-*.mjs
+view-enquiries.mjs
+*-response.html
+
+# Data & logs
+data/*.csv
+data/*.json
+*.log

@@ -1,8 +1,0 @@
-{
-  "name": "sln/sln-consulting",
-  "description": "SLN Consulting Website",
-  "type": "project",
-  "require": {
-    "phpmailer/phpmailer": "^6.9"
-  }
-}

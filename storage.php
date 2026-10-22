@@ -7,7 +7,12 @@
  */
 
 function sln_get_storage_dir() {
-    $dir = __DIR__ . '/data';
+    // Vercel serverless functions have a read-only filesystem outside /tmp
+    if (!empty($_SERVER['VERCEL']) || !empty(getenv('VERCEL')) || !empty($_SERVER['VERCEL_ENV']) || !empty($_SERVER['VERCEL_URL'])) {
+        $dir = sys_get_temp_dir() . '/sln_data';
+    } else {
+        $dir = __DIR__ . '/data';
+    }
     if (!is_dir($dir)) {
         @mkdir($dir, 0755, true);
         $htaccess = $dir . '/.htaccess';
