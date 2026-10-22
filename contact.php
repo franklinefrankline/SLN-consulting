@@ -100,15 +100,6 @@ unset($_SESSION['sln_form_data']);
                                     <a href="mailto:srinivas.c@slnconsulting.co.in">srinivas.c@slnconsulting.co.in</a>
                                 </div>
                             </li>
-                            <li>
-                                <div class="icon">
-                                    <i class="fas fa-file-alt"></i>
-                                </div>
-                                <div class="info">
-                                    <h5 class="title">General Contact Form</h5>
-                                    <a href="<?php echo htmlspecialchars(sln_get_form2_url(), ENT_QUOTES, 'UTF-8'); ?>" target="_blank" rel="noopener noreferrer">General Contact Form <i class="fas fa-external-link-alt" style="font-size: 11px; margin-left: 4px;"></i></a>
-                                </div>
-                            </li>
                         </ul>
                     </div>
                 </div>
