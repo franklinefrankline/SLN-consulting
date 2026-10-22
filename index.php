@@ -128,74 +128,113 @@
         cursor: pointer;
     }
 
-    /* Swiper Navigation Chevron Controls */
+    /* Slide-specific sizing for Images 6 & 7 ONLY (Slides 1-5 and 8 remain 100% full width) */
+    .mySwiper .swiper-slide.slide-compact {
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        text-align: center !important;
+        background-color: #ffffff !important;
+        overflow: hidden;
+    }
+
+    .mySwiper .swiper-slide.slide-compact img,
+    .mySwiper .swiper-slide img.slider-image-compact,
+    .mySwiper .swiper-slide #banner-vapt,
+    .mySwiper .swiper-slide #banner-cybersecurity-internship {
+        width: 76.2% !important;
+        max-width: 76.2% !important;
+        height: auto !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        display: block !important;
+        object-fit: contain;
+    }
+
+    /* Swiper Navigation Circular Chevron Controls */
     .mySwiper .swiper-button-prev,
     .mySwiper .swiper-button-next {
-        color: #ffffff !important;
-        background: rgba(0, 0, 0, 0.45);
-        width: 44px;
-        height: 44px;
-        border-radius: 50%;
-        transition: all 0.3s ease;
-        z-index: 10;
+        position: absolute;
+        top: 50% !important;
+        transform: translateY(-50%) !important;
+        width: 48px !important;
+        height: 48px !important;
+        background: #ffffff !important;
+        color: #013df5 !important;
+        border: 1.5px solid rgba(1, 61, 245, 0.25) !important;
+        border-radius: 50% !important;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.22), 0 2px 6px rgba(1, 61, 245, 0.12) !important;
+        z-index: 30 !important;
         display: flex !important;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        outline: none;
-        top: 50%;
-        transform: translateY(-50%);
-        margin-top: 0;
+        align-items: center !important;
+        justify-content: center !important;
+        cursor: pointer !important;
+        pointer-events: auto !important;
+        outline: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    }
+
+    /* Suppress default Swiper pseudo-element text */
+    .mySwiper .swiper-button-prev:after,
+    .mySwiper .swiper-button-next:after {
+        display: none !important;
+        content: '' !important;
+    }
+
+    /* Chevron icon inside button */
+    .mySwiper .swiper-button-prev i,
+    .mySwiper .swiper-button-next i {
+        font-size: 18px !important;
+        color: #013df5 !important;
+        line-height: 1 !important;
+        display: block !important;
+        pointer-events: none !important;
+        transition: color 0.25s ease, transform 0.25s ease !important;
+    }
+
+    /* Optical center adjustment for chevron glyphs */
+    .mySwiper .swiper-button-prev i {
+        transform: translateX(-1px);
+    }
+
+    .mySwiper .swiper-button-next i {
+        transform: translateX(1px);
     }
 
     .mySwiper .swiper-button-prev {
-        left: 20px;
-        right: auto;
+        left: 24px !important;
+        right: auto !important;
     }
 
     .mySwiper .swiper-button-next {
-        right: 20px;
-        left: auto;
+        right: 24px !important;
+        left: auto !important;
     }
 
-    /* Left chevron symbol (‹) replacing 'prev' */
-    .mySwiper .swiper-button-prev:after {
-        content: '‹' !important;
-        font-family: Arial, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
-        font-size: 32px !important;
-        line-height: 1 !important;
-        font-weight: 300 !important;
-        color: #ffffff !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        width: 100% !important;
-        height: 100% !important;
-        margin-top: -3px;
-        text-indent: -1px;
-    }
-
-    /* Right chevron symbol (›) replacing 'next' */
-    .mySwiper .swiper-button-next:after {
-        content: '›' !important;
-        font-family: Arial, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
-        font-size: 32px !important;
-        line-height: 1 !important;
-        font-weight: 300 !important;
-        color: #ffffff !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        width: 100% !important;
-        height: 100% !important;
-        margin-top: -3px;
-        text-indent: 1px;
-    }
-
+    /* Hover and focus states with website theme blue */
     .mySwiper .swiper-button-prev:hover,
-    .mySwiper .swiper-button-next:hover {
-        background: #013df5;
+    .mySwiper .swiper-button-next:hover,
+    .mySwiper .swiper-button-prev:focus-visible,
+    .mySwiper .swiper-button-next:focus-visible {
+        background: #013df5 !important;
         color: #ffffff !important;
+        border-color: #013df5 !important;
+        box-shadow: 0 6px 22px rgba(1, 61, 245, 0.45), 0 2px 8px rgba(0, 0, 0, 0.2) !important;
+        transform: translateY(-50%) scale(1.08) !important;
+    }
+
+    .mySwiper .swiper-button-prev:hover i,
+    .mySwiper .swiper-button-next:hover i,
+    .mySwiper .swiper-button-prev:focus-visible i,
+    .mySwiper .swiper-button-next:focus-visible i {
+        color: #ffffff !important;
+    }
+
+    .mySwiper .swiper-button-prev:active,
+    .mySwiper .swiper-button-next:active {
+        transform: translateY(-50%) scale(0.96) !important;
     }
 
     .mySwiper .swiper-pagination {
@@ -219,22 +258,39 @@
         border-radius: 6px !important;
     }
 
-    @media screen and (max-width: 768px) {
+    @media screen and (max-width: 1023px) {
         .mySwiper .swiper-button-prev,
         .mySwiper .swiper-button-next {
-            width: 32px;
-            height: 32px;
+            width: 42px !important;
+            height: 42px !important;
         }
         .mySwiper .swiper-button-prev {
-            left: 10px;
+            left: 16px !important;
         }
         .mySwiper .swiper-button-next {
-            right: 10px;
+            right: 16px !important;
         }
-        .mySwiper .swiper-button-prev:after,
-        .mySwiper .swiper-button-next:after {
-            font-size: 24px !important;
-            margin-top: -2px;
+        .mySwiper .swiper-button-prev i,
+        .mySwiper .swiper-button-next i {
+            font-size: 16px !important;
+        }
+    }
+
+    @media screen and (max-width: 767px) {
+        .mySwiper .swiper-button-prev,
+        .mySwiper .swiper-button-next {
+            width: 36px !important;
+            height: 36px !important;
+        }
+        .mySwiper .swiper-button-prev {
+            left: 8px !important;
+        }
+        .mySwiper .swiper-button-next {
+            right: 8px !important;
+        }
+        .mySwiper .swiper-button-prev i,
+        .mySwiper .swiper-button-next i {
+            font-size: 14px !important;
         }
         #back-col.about-style-one-area.default-padding-5 {
             padding-top: 40px;
@@ -291,13 +347,13 @@
                     </div>
 
                     <!-- 6. VAPT -->
-                    <div class="swiper-slide">
-                        <img id="banner-vapt" src="./assets/img/sln-img/vapt-banner.jpg" alt="Vulnerability Assessment &amp; Penetration Testing (VAPT)" data-href="./vapt.php">
+                    <div class="swiper-slide slide-compact slide-vapt">
+                        <img id="banner-vapt" class="slider-image-compact" src="./assets/img/sln-img/vapt-banner.jpg" alt="Vulnerability Assessment &amp; Penetration Testing (VAPT)" data-href="./vapt.php">
                     </div>
 
                     <!-- 7. Internship -->
-                    <div class="swiper-slide">
-                        <img id="banner-cybersecurity-internship" src="./assets/img/sln-img/cybersecurity-internship-3-month.png" alt="Cybersecurity Internship" data-href="./cybersecurity-internship.php">
+                    <div class="swiper-slide slide-compact slide-internship">
+                        <img id="banner-cybersecurity-internship" class="slider-image-compact" src="./assets/img/sln-img/cybersecurity-internship-3-month.png" alt="Cybersecurity Internship" data-href="./cybersecurity-internship.php">
                     </div>
 
                     <!-- 8. Skilling Solution -->
@@ -306,9 +362,13 @@
                     </div>
                 </div>
 
-                <!-- Swiper Navigation Controls -->
-                <div class="swiper-button-prev" aria-label="Previous slide" role="button" tabindex="0"></div>
-                <div class="swiper-button-next" aria-label="Next slide" role="button" tabindex="0"></div>
+                <!-- Swiper Navigation Controls (Circular Left & Right Arrow Buttons) -->
+                <button type="button" class="swiper-button-prev" id="heroSliderPrev" aria-label="Previous slide">
+                    <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+                </button>
+                <button type="button" class="swiper-button-next" id="heroSliderNext" aria-label="Next slide">
+                    <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+                </button>
 
                 <!-- Swiper Pagination -->
                 <div class="swiper-pagination"></div>
@@ -652,6 +712,32 @@
 
             var heroSwiper = new Swiper('.mySwiper', swiperOptions);
             window.slnHeroSwiper = heroSwiper;
+
+            // Direct button listeners for instant, robust navigation and wrapping
+            var prevBtn = document.getElementById('heroSliderPrev') || document.querySelector('.mySwiper .swiper-button-prev');
+            var nextBtn = document.getElementById('heroSliderNext') || document.querySelector('.mySwiper .swiper-button-next');
+
+            if (prevBtn) {
+                prevBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    heroSwiper.slidePrev();
+                    if (!prefersReducedMotion && heroSwiper.autoplay && !heroSwiper.autoplay.running) {
+                        heroSwiper.autoplay.start();
+                    }
+                });
+            }
+
+            if (nextBtn) {
+                nextBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    heroSwiper.slideNext();
+                    if (!prefersReducedMotion && heroSwiper.autoplay && !heroSwiper.autoplay.running) {
+                        heroSwiper.autoplay.start();
+                    }
+                });
+            }
 
             // Explicitly start autoplay if enabled
             if (!prefersReducedMotion && heroSwiper.autoplay) {
