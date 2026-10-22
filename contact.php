@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/security.php';
+require_once __DIR__ . '/forms-config.php';
 sln_send_security_headers();
 sln_start_session();
 $csrfToken = sln_get_csrf_token();
@@ -97,6 +98,15 @@ unset($_SESSION['sln_form_data']);
                                 <div class="info">
                                     <h5 class="title">Email Id</h5>
                                     <a href="mailto:srinivas.c@slnconsulting.co.in">srinivas.c@slnconsulting.co.in</a>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="icon">
+                                    <i class="fas fa-file-alt"></i>
+                                </div>
+                                <div class="info">
+                                    <h5 class="title">General Contact Form</h5>
+                                    <a href="<?php echo htmlspecialchars(sln_get_form2_url(), ENT_QUOTES, 'UTF-8'); ?>" target="_blank" rel="noopener noreferrer">General Contact Form <i class="fas fa-external-link-alt" style="font-size: 11px; margin-left: 4px;"></i></a>
                                 </div>
                             </li>
                         </ul>
@@ -236,6 +246,32 @@ unset($_SESSION['sln_form_data']);
         if (!form) return;
 
         var container = document.getElementById('contact-status-container');
+        var inputs = form.querySelectorAll('input, select, textarea');
+
+        function clearFieldErrors() {
+            inputs.forEach(function(el) {
+                el.style.borderColor = '';
+                el.style.boxShadow = '';
+            });
+        }
+
+        inputs.forEach(function(el) {
+            el.addEventListener('input', function() {
+                el.style.borderColor = '';
+                el.style.boxShadow = '';
+            });
+            el.addEventListener('change', function() {
+                el.style.borderColor = '';
+                el.style.boxShadow = '';
+            });
+        });
+
+        function markInvalid(inputEl) {
+            if (!inputEl) return;
+            inputEl.style.borderColor = '#dc2626';
+            inputEl.style.boxShadow = '0 0 0 3px rgba(220, 38, 38, 0.15)';
+            inputEl.focus();
+        }
 
         function showStatus(type, msg) {
             if (!container) return;
@@ -245,7 +281,7 @@ unset($_SESSION['sln_form_data']);
             var text = isSuccess ? '#065f46' : '#991b1b';
             var icon = isSuccess ? 'fa-check-circle' : 'fa-exclamation-circle';
             var iconColor = isSuccess ? '#059669' : '#dc2626';
-            var label = isSuccess ? 'Thank you!' : 'Notice:';
+            var label = isSuccess ? 'Success!' : 'Notice:';
 
             container.innerHTML = '<div id="contact-status" class="alert ' + (isSuccess ? 'alert-success' : 'alert-danger') + '" style="background-color: ' + bg + '; border: 1px solid ' + border + '; color: ' + text + '; border-radius: 8px; padding: 14px 18px; font-size: 15px; margin-bottom: 20px;">' +
                 '<i class="fas ' + icon + '" style="color: ' + iconColor + '; margin-right: 8px;"></i> ' +
@@ -258,6 +294,7 @@ unset($_SESSION['sln_form_data']);
 
         form.addEventListener('submit', function(e) {
             e.preventDefault();
+            clearFieldErrors();
 
             var nameInput = form.querySelector('input[name="Name"]');
             var fnameInput = form.querySelector('input[name="Fname"]');
@@ -275,78 +312,95 @@ unset($_SESSION['sln_form_data']);
             var servicesVal = (servicesInput ? servicesInput.value : '').trim();
             var messageVal = (messageInput ? messageInput.value : '').trim();
 
-            // Client-side Validation: Name
-            if (nameVal.length < 2 || nameVal.length > 100 || !/[a-zA-Z]/.test(nameVal) || !/^[a-zA-Z\s.'-]{2,100}$/.test(nameVal)) {
+            // Client-side Validation: Name (required, reject blank/whitespace)
+            if (!nameVal || nameVal.length < 2 || nameVal.length > 100 || !/[a-zA-Z]/.test(nameVal) || !/^[a-zA-Z\s.'-]{2,100}$/.test(nameVal)) {
                 showStatus('error', 'Please enter a valid full name (letters and spaces only, 2-100 characters).');
-                if (nameInput) nameInput.focus();
+                markInvalid(nameInput);
                 return;
             }
 
-            // Client-side Validation: Organisation
-            if (fnameVal.length < 2 || fnameVal.length > 150 || !/[a-zA-Z0-9]/.test(fnameVal) || !/^[a-zA-Z0-9\s.',&()\/#-]{2,150}$/.test(fnameVal)) {
+            // Client-side Validation: Organisation (required, reject blank, standard corporate chars)
+            if (!fnameVal || fnameVal.length < 2 || fnameVal.length > 150 || !/[a-zA-Z0-9]/.test(fnameVal) || !/^[a-zA-Z0-9\s.',&()\/#-]{2,150}$/.test(fnameVal)) {
                 showStatus('error', 'Please enter a valid organisation name (2-150 characters).');
-                if (fnameInput) fnameInput.focus();
+                markInvalid(fnameInput);
                 return;
             }
 
-            // Client-side Validation: Designation
-            if (subjectVal.length < 2 || subjectVal.length > 100 || !/[a-zA-Z]/.test(subjectVal) || !/^[a-zA-Z0-9\s.',&\-\/()]{2,100}$/.test(subjectVal)) {
+            // Client-side Validation: Designation (required, must contain letters)
+            if (!subjectVal || subjectVal.length < 2 || subjectVal.length > 100 || !/[a-zA-Z]/.test(subjectVal) || !/^[a-zA-Z0-9\s.',&\-\/()]{2,100}$/.test(subjectVal)) {
                 showStatus('error', 'Please enter a valid designation / job title (must contain letters, 2-100 characters).');
-                if (subjectInput) subjectInput.focus();
+                markInvalid(subjectInput);
                 return;
             }
 
-            // Client-side Validation: Email
+            // Client-side Validation: Email (required, valid format)
             var emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-            if (emailVal.length < 6 || emailVal.length > 254 || !emailPattern.test(emailVal) || emailVal.indexOf('..') !== -1 || (emailVal.match(/@/g) || []).length !== 1) {
+            if (!emailVal || emailVal.length < 6 || emailVal.length > 254 || !emailPattern.test(emailVal) || emailVal.indexOf('..') !== -1 || (emailVal.match(/@/g) || []).length !== 1) {
                 showStatus('error', 'Please provide a valid email address (e.g. name@domain.com).');
-                if (emailInput) emailInput.focus();
+                markInvalid(emailInput);
                 return;
             }
 
-            // Client-side Validation: Phone
+            // Client-side Validation: Phone (required, valid digits & country-code symbols)
             var digitsOnly = numberVal.replace(/\D/g, '');
-            if (!/^\+?[0-9\s\-()]{7,20}$/.test(numberVal) || digitsOnly.length < 7 || digitsOnly.length > 15) {
+            if (!numberVal || !/^\+?[0-9\s\-()]{7,20}$/.test(numberVal) || digitsOnly.length < 7 || digitsOnly.length > 15) {
                 showStatus('error', 'Please provide a valid phone number (between 7 and 15 digits).');
-                if (numberInput) numberInput.focus();
+                markInvalid(numberInput);
                 return;
             }
 
-            // Client-side Validation: Service
+            // Client-side Validation: Service (required in Contact form)
             if (!servicesVal) {
                 showStatus('error', 'Please select a service from the dropdown list.');
-                if (servicesInput) servicesInput.focus();
+                markInvalid(servicesInput);
                 return;
             }
 
             // Client-side Validation: Message length
             if (messageVal.length > 3000) {
                 showStatus('error', 'Requirement details cannot exceed 3,000 characters.');
-                if (messageInput) messageInput.focus();
+                markInvalid(messageInput);
                 return;
             }
 
             var submitBtn = form.querySelector('button[type="submit"]');
             var originalBtnHtml = submitBtn ? submitBtn.innerHTML : 'Submit';
 
+            // Prevent duplicate clicks while request is in progress
             if (submitBtn) {
                 submitBtn.disabled = true;
-                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin" style="margin-right: 8px;"></i> Sending...';
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin" style="margin-right: 8px;"></i> Submitting...';
             }
 
             var formData = new FormData(form);
+            var urlParams = new URLSearchParams();
+            formData.forEach(function(val, key) {
+                urlParams.append(key, val);
+            });
 
+            var controller = (typeof AbortController !== 'undefined') ? new AbortController() : null;
+            var timeoutId = null;
+            if (controller) {
+                timeoutId = setTimeout(function() {
+                    controller.abort();
+                }, 15000);
+            }
+
+            // Asynchronously dispatch to backend on the same page
             fetch('conmail.php', {
                 method: 'POST',
-                body: formData,
+                body: urlParams,
+                signal: controller ? controller.signal : undefined,
                 headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
                     'X-Requested-With': 'XMLHttpRequest',
                     'Accept': 'application/json'
                 }
             })
             .then(function(res) {
+                if (timeoutId) clearTimeout(timeoutId);
                 return res.json().catch(function() {
-                    return { success: false, status: 'error', message: 'Unable to parse server response.' };
+                    return { success: false, status: 'error', message: 'Unable to submit your enquiry right now. Your details have not been confirmed as saved. Please try again.' };
                 });
             })
             .then(function(data) {
@@ -356,21 +410,30 @@ unset($_SESSION['sln_form_data']);
                 }
 
                 if (data && (data.success === true || (data.status === 'success' && data.success !== false))) {
-                    showStatus('success', data.message || 'Your message has been sent successfully. We will get in touch with you shortly.');
+                    // Success: Display required message on the same page
+                    showStatus('success', 'Your enquiry has been submitted successfully! Thank you for contacting SLN Consulting. Our team will get back to you soon.');
+                    // Clear fields only after successful server-side processing
                     form.reset();
+                    clearFieldErrors();
                     if (window.jQuery && typeof window.jQuery.fn.niceSelect === 'function') {
                         window.jQuery('select').niceSelect('update');
                     }
                 } else {
-                    showStatus('error', (data && data.message) ? data.message : 'Unable to send message at this time.');
+                    // Failure: Preserve entered values and show designated error
+                    var failureMsg = (data && data.message && data.message !== 'Unable to parse server response.') 
+                        ? data.message 
+                        : 'Unable to submit your enquiry right now. Your details have not been confirmed as saved. Please try again.';
+                    showStatus('error', failureMsg);
                 }
             })
             .catch(function(err) {
+                if (timeoutId) clearTimeout(timeoutId);
                 if (submitBtn) {
                     submitBtn.disabled = false;
                     submitBtn.innerHTML = originalBtnHtml;
                 }
-                showStatus('error', 'Connection error. Please try submitting again.');
+                // Failure / Timeout / Network error: Preserve entered values
+                showStatus('error', 'Unable to submit your enquiry right now. Your details have not been confirmed as saved. Please try again.');
             });
         });
     });

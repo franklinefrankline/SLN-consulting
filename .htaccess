@@ -10,12 +10,12 @@ ServerSignature Off
 
 # 3. Prevent Access to Hidden / Sensitive Files & Internal Scripts
 <IfModule mod_authz_core.c>
-    <FilesMatch "(^\..*|\.env.*|\.git.*|\.zip$|\.mjs$|\.json$|\.log$|\.md$|\.sql$|\.bak$|^mailer\.php$|^security\.php$)">
+    <FilesMatch "(^\..*|\.env.*|\.git.*|\.zip$|\.mjs$|\.json$|\.lock$|\.log$|\.md$|\.sql$|\.bak$|^mailer\.php$|^security\.php$|.*smtp.*\.php$)">
         Require all denied
     </FilesMatch>
 </IfModule>
 <IfModule !mod_authz_core.c>
-    <FilesMatch "(^\..*|\.env.*|\.git.*|\.zip$|\.mjs$|\.json$|\.log$|\.md$|\.sql$|\.bak$|^mailer\.php$|^security\.php$)">
+    <FilesMatch "(^\..*|\.env.*|\.git.*|\.zip$|\.mjs$|\.json$|\.lock$|\.log$|\.md$|\.sql$|\.bak$|^mailer\.php$|^security\.php$|.*smtp.*\.php$)">
         Order allow,deny
         Deny from all
     </FilesMatch>

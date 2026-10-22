@@ -14,10 +14,20 @@ node_modules/
 .DS_Store
 Thumbs.db
 
-# Environment variables
+# Environment variables & local secrets
 .env
 .env.local
 .env.*.local
+sln-smtp-config.php
 
 # Backups
 *.bak
+
+# Enquiry data & sensitive submissions
+data/*.csv
+data/*.json
+
+# Temporary debug dumps & investigation scrap
+*-response.html
+inspect-gform*.mjs
+investigate-gforms*.mjs

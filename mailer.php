@@ -1,25 +1,82 @@
 <?php
 /**
- * SLN Consulting - Secure Email Transport Helper
+ * SLN Consulting - Secure Email Transport Helper with PHPMailer & Authenticated SMTP
  * 
- * Compatible with Vercel Serverless (PHP runtime) and local PHP development.
  * Supports:
- *  1. Resend REST API (Recommended for Vercel)
- *  2. SendGrid REST API
- *  3. Brevo (Sendinblue) REST API
- *  4. Authenticated SMTP (TLS/SSL socket client without Composer dependencies)
+ *  1. PHPMailer with Authenticated SMTP (TLS/SSL) - Primary Transport
+ *  2. Pure PHP Authenticated SMTP Socket Fallback (if PHPMailer is absent)
+ *  3. Resend REST API (HTTPS fallback)
+ *  4. SendGrid REST API (HTTPS fallback)
+ *  5. Brevo REST API (HTTPS fallback)
  *
- * Keeps all credentials in environment variables.
- * Prevents raw PHP warnings and header injection.
+ * Security & Reliability Features:
+ * - Credentials stored in server environment variables or protected config outside webroot
+ * - Placeholders safely detected without false success or exposure
+ * - Header injection and CRLF sanitization
+ * - Sensitive credential redaction from system error logs
+ * - Visitor email assigned to Reply-To, never as authenticated SMTP sender
+ * - Enquiries routed to srinivas.c@slnconsulting.co.in
  */
 
-// Load .env or .env.local if present (useful for local development)
-function sln_load_dotenv($dir = null) {
+// 1. Autoload PHPMailer
+$autoloadCandidates = [
+    __DIR__ . '/vendor/autoload.php',
+    dirname(__DIR__) . '/vendor/autoload.php',
+    __DIR__ . '/vendor/phpmailer/phpmailer/src/PHPMailer.php'
+];
+
+foreach ($autoloadCandidates as $candidate) {
+    if (file_exists($candidate)) {
+        require_once $candidate;
+        break;
+    }
+}
+
+// 2. Load Configuration from Protected Sources (Outside Webroot or Local Environment)
+$GLOBALS['sln_custom_config'] = [];
+
+function sln_load_configuration($dir = null) {
     $dir = $dir ?: __DIR__;
-    $files = [$dir . '/.env', $dir . '/.env.local'];
-    foreach ($files as $file) {
-        if (file_exists($file) && is_readable($file)) {
-            $lines = file($file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    $parentDir = dirname($dir);
+
+    // List of candidate configuration paths (outside public webroot prioritized)
+    $candidateFiles = [
+        $parentDir . '/sln-smtp-config.php',
+        $parentDir . '/.env',
+        $parentDir . '/.env.local',
+        $dir . '/sln-smtp-config.php',
+        $dir . '/.env',
+        $dir . '/.env.local'
+    ];
+
+    foreach ($candidateFiles as $file) {
+        if (!file_exists($file) || !is_readable($file)) {
+            continue;
+        }
+
+        // Dedicated PHP config file returning an associative array
+        if (substr($file, -4) === '.php') {
+            try {
+                $phpConfig = include $file;
+                if (is_array($phpConfig)) {
+                    foreach ($phpConfig as $key => $val) {
+                        $key = trim((string)$key);
+                        $val = trim((string)$val);
+                        $GLOBALS['sln_custom_config'][$key] = $val;
+                        if (!array_key_exists($key, $_ENV) && getenv($key) === false) {
+                            putenv("{$key}={$val}");
+                            $_ENV[$key] = $val;
+                            $_SERVER[$key] = $val;
+                        }
+                    }
+                }
+            } catch (\Throwable $e) {}
+            continue;
+        }
+
+        // Standard .env file
+        $lines = @file($file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+        if ($lines) {
             foreach ($lines as $line) {
                 $line = trim($line);
                 if ($line === '' || $line[0] === '#') continue;
@@ -27,6 +84,7 @@ function sln_load_dotenv($dir = null) {
                     list($key, $val) = explode('=', $line, 2);
                     $key = trim($key);
                     $val = trim($val, " \t\n\r\0\x0B\"'");
+                    $GLOBALS['sln_custom_config'][$key] = $val;
                     if (!array_key_exists($key, $_ENV) && getenv($key) === false) {
                         putenv("{$key}={$val}");
                         $_ENV[$key] = $val;
@@ -37,12 +95,16 @@ function sln_load_dotenv($dir = null) {
         }
     }
 }
-sln_load_dotenv();
+
+sln_load_configuration();
 
 /**
- * Retrieve configuration value from environment.
+ * Retrieve configuration value from environment or custom loaded config.
  */
 function sln_get_env($key, $default = null) {
+    if (isset($GLOBALS['sln_custom_config'][$key]) && $GLOBALS['sln_custom_config'][$key] !== '') {
+        return $GLOBALS['sln_custom_config'][$key];
+    }
     if (isset($_ENV[$key]) && $_ENV[$key] !== '') {
         return $_ENV[$key];
     }
@@ -57,11 +119,19 @@ function sln_get_env($key, $default = null) {
 }
 
 /**
+ * Check if a configuration string is a placeholder or unconfigured.
+ */
+function sln_is_placeholder($val) {
+    if ($val === null || $val === false) return true;
+    $val = trim((string)$val);
+    if ($val === '') return true;
+    if (preg_match('/^(YOUR_|REPLACE_|CHANGEME|<your|placeholder)/i', $val)) return true;
+    if ($val === 'YOUR_SMTP_PASSWORD_HERE' || $val === 'YOUR_PLESK_MAILBOX_PASSWORD' || $val === 'YOUR_SMTP_HOST_HERE') return true;
+    return false;
+}
+
+/**
  * Resilient HTTP POST JSON client
- * Supports:
- * 1. Native PHP cURL extension (standard on Vercel Linux PHP runtime)
- * 2. PHP stream wrappers with openssl (file_get_contents)
- * 3. CLI curl fallback (Windows & Linux command line)
  */
 function sln_http_post_json($url, array $headers, $payloadJson) {
     // 1. Native cURL extension
@@ -139,7 +209,7 @@ function sln_http_post_json($url, array $headers, $payloadJson) {
         }
     }
 
-    return ['code' => 0, 'body' => '', 'error' => 'No HTTP transport (cURL extension, HTTPS stream wrapper, or CLI cURL) available.'];
+    return ['code' => 0, 'body' => '', 'error' => 'No HTTP transport available.'];
 }
 
 /**
@@ -277,15 +347,131 @@ function sln_send_via_brevo($apiKey, $from, array $recipients, $subject, $htmlBo
 }
 
 /**
- * Send email via Authenticated SMTP Socket (Pure PHP, zero external dependencies).
+ * Send email via PHPMailer with Authenticated SMTP.
+ *
+ * Implements:
+ * - PHPMailer object with full TLS/SSL/SMTPS negotiation
+ * - Authenticated SLN mailbox as the From sender
+ * - Visitor email assigned as Reply-To
+ * - Enquiry directed to srinivas.c@slnconsulting.co.in
+ * - Credential and password protection in logs
+ */
+function sln_send_via_phpmailer(array $config, array $recipients, $subject, $htmlBody, $replyTo = '', $replyToName = '') {
+    // Autoload PHPMailer classes if not already declared
+    if (!class_exists('\PHPMailer\PHPMailer\PHPMailer')) {
+        $vendorPaths = [
+            __DIR__ . '/vendor/autoload.php',
+            dirname(__DIR__) . '/vendor/autoload.php',
+            __DIR__ . '/vendor/phpmailer/phpmailer/src/PHPMailer.php'
+        ];
+        foreach ($vendorPaths as $p) {
+            if (file_exists($p)) {
+                require_once $p;
+                break;
+            }
+        }
+    }
+
+    if (!class_exists('\PHPMailer\PHPMailer\PHPMailer')) {
+        $logMsg = "[SLN PHPMailer Error] PHPMailer class is not loaded. Please verify vendor/autoload.php.";
+        error_log($logMsg);
+        return ['success' => false, 'error' => $logMsg];
+    }
+
+    $mail = new \PHPMailer\PHPMailer\PHPMailer(true);
+
+    try {
+        // 1. SMTP Server Settings
+        $mail->isSMTP();
+        $mail->Host       = $config['host'];
+        $mail->SMTPAuth   = true;
+        $mail->Username   = $config['user'];
+        $mail->Password   = $config['pass'];
+        $mail->Timeout    = 15;
+        $mail->CharSet    = 'UTF-8';
+
+        // 2. Encryption and Port
+        $port   = (int)($config['port'] ?? 465);
+        $secure = strtolower((string)($config['secure'] ?? 'ssl'));
+
+        if ($secure === 'ssl' || $secure === 'true' || $secure === '1' || $port === 465) {
+            $mail->SMTPSecure = \PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_SMTPS;
+            $mail->Port       = 465;
+        } elseif ($secure === 'tls' || $port === 587) {
+            $mail->SMTPSecure = \PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_STARTTLS;
+            $mail->Port       = $port ?: 587;
+        } else {
+            $mail->SMTPSecure = false;
+            $mail->SMTPAutoTLS = false;
+            $mail->Port       = $port ?: 25;
+        }
+
+        // 3. Sender Identity (Authenticated SLN mailbox - Requirement 4)
+        $fromEmail = $config['user'];
+        $fromName  = 'SLN Consulting';
+        if (!empty($config['from']) && preg_match('/^(.*?)\s*<([^>]+)>$/', $config['from'], $m)) {
+            $fromName  = trim($m[1], " '\"");
+            $fromEmail = trim($m[2]);
+        } elseif (!empty($config['from']) && filter_var($config['from'], FILTER_VALIDATE_EMAIL)) {
+            $fromEmail = $config['from'];
+        }
+        $mail->setFrom($fromEmail, $fromName);
+
+        // 4. Reply-To (Visitor's submitted email and name - Requirement 5)
+        if (!empty($replyTo) && filter_var($replyTo, FILTER_VALIDATE_EMAIL)) {
+            $mail->addReplyTo($replyTo, $replyToName ?: $replyTo);
+        }
+
+        // 5. Recipients (Requirement 3: send to srinivas.c@slnconsulting.co.in)
+        $validRecipients = [];
+        foreach ($recipients as $toEmail) {
+            $toEmail = trim($toEmail);
+            if (!empty($toEmail) && filter_var($toEmail, FILTER_VALIDATE_EMAIL)) {
+                $validRecipients[] = $toEmail;
+            }
+        }
+        if (empty($validRecipients)) {
+            $validRecipients[] = 'srinivas.c@slnconsulting.co.in';
+        }
+        foreach (array_unique($validRecipients) as $toEmail) {
+            $mail->addAddress($toEmail);
+        }
+
+        // 6. Content
+        $mail->isHTML(true);
+        $mail->Subject = $subject;
+        $mail->Body    = $htmlBody;
+        $mail->AltBody = strip_tags(str_replace(['<br>', '<br/>', '<br />', '</p>'], "\n", $htmlBody));
+
+        // 7. Dispatch
+        $mail->send();
+
+        error_log("[SLN SMTP Success] PHPMailer successfully accepted enquiry for delivery to: " . implode(', ', $validRecipients));
+        return ['success' => true];
+    } catch (\PHPMailer\PHPMailer\Exception $e) {
+        $rawError = $e->getMessage();
+        // Redact any password or sensitive token
+        $sanitizedError = preg_replace('/Password:?\s*\S+/i', 'Password: [REDACTED]', $rawError);
+        $logMsg = "[SLN PHPMailer Error] Email dispatch failed: {$sanitizedError}";
+        error_log($logMsg);
+        return ['success' => false, 'error' => $logMsg];
+    } catch (\Exception $e) {
+        $logMsg = "[SLN PHPMailer Error] Unexpected error during dispatch: " . $e->getMessage();
+        error_log($logMsg);
+        return ['success' => false, 'error' => $logMsg];
+    }
+}
+
+/**
+ * Fallback: Pure PHP Authenticated SMTP Socket Transport
  */
 function sln_send_via_smtp(array $config, array $recipients, $subject, $htmlBody, $replyTo = '', $replyToName = '') {
     $host   = $config['host'];
-    $port   = (int)($config['port'] ?? 587);
+    $port   = (int)($config['port'] ?? 465);
     $user   = $config['user'];
     $pass   = $config['pass'];
     $from   = $config['from'];
-    $secure = strtolower($config['secure'] ?? 'tls');
+    $secure = strtolower($config['secure'] ?? 'ssl');
 
     $timeout = 15;
     $protocol = ($secure === 'ssl' || ($port === 465 && $secure !== 'tls')) ? 'ssl://' : '';
@@ -350,7 +536,7 @@ function sln_send_via_smtp(array $config, array $recipients, $subject, $htmlBody
             }
             if (!@stream_socket_enable_crypto($socket, true, $cryptoMethod)) {
                 fclose($socket);
-                $logMsg = "[SLN SMTP Error: TLS/SSL failure] Failed to establish TLS encryption with SMTP server ({$host}:{$port}). Check server OpenSSL configuration and TLS certificates.";
+                $logMsg = "[SLN SMTP Error: TLS/SSL failure] Failed to establish TLS encryption with SMTP server ({$host}:{$port}).";
                 error_log($logMsg);
                 return ['success' => false, 'error' => $logMsg];
             }
@@ -472,33 +658,27 @@ function sln_send_via_smtp(array $config, array $recipients, $subject, $htmlBody
 
 /**
  * Dedicated SMTP Enquiry Dispatcher
- *
- * Exclusively uses the existing pure-PHP custom SMTP transport (sln_send_via_smtp).
- * Loads SMTP configuration from environment variables via sln_get_env().
  */
 function sln_send_enquiry_smtp($subject, $htmlContent, $replyToEmail, $replyToName = '') {
-    // Sanitize subject and reply-to to prevent header injection
-    $subject      = preg_replace('/[\r\n\t\x00-\x1f]/', '', $subject);
-    $replyToEmail = preg_replace('/[\r\n\t\x00-\x1f]/', '', trim($replyToEmail));
-    $replyToName  = preg_replace('/[\r\n\t\x00-\x1f]/', '', trim($replyToName));
+    $recipientsRaw = sln_get_env('RECIPIENT_EMAIL', 'srinivas.c@slnconsulting.co.in');
+    $recipients = array_unique(array_filter(array_map('trim', explode(',', $recipientsRaw))));
+    if (empty($recipients)) {
+        $recipients = ['srinivas.c@slnconsulting.co.in'];
+    }
 
-    // Default admin recipients
-    $recipientsRaw = sln_get_env('RECIPIENT_EMAIL', 'srinivas.c@slnconsulting.co.in,schakravarthy@hotmail.com');
-    $recipients = array_filter(array_map('trim', explode(',', $recipientsRaw)));
-
-    $defaultFrom = sln_get_env('SMTP_FROM', sln_get_env('MAIL_FROM', 'SLN Consulting <notifications@slnconsulting.co.in>'));
+    $defaultFrom = sln_get_env('SMTP_FROM', sln_get_env('SMTP_USER', 'srinivas.c@slnconsulting.co.in'));
 
     $smtpHost = sln_get_env('SMTP_HOST');
     $smtpUser = sln_get_env('SMTP_USER');
     $smtpPass = sln_get_env('SMTP_PASS');
 
     $missingCredentials = [];
-    if (empty($smtpHost)) $missingCredentials[] = 'SMTP_HOST';
-    if (empty($smtpUser)) $missingCredentials[] = 'SMTP_USER';
-    if (empty($smtpPass)) $missingCredentials[] = 'SMTP_PASS';
+    if (sln_is_placeholder($smtpHost)) $missingCredentials[] = 'SMTP_HOST';
+    if (sln_is_placeholder($smtpUser)) $missingCredentials[] = 'SMTP_USER';
+    if (sln_is_placeholder($smtpPass)) $missingCredentials[] = 'SMTP_PASS';
 
     if (!empty($missingCredentials)) {
-        $logMsg = "[SLN SMTP Error: SMTP credentials missing] Cannot dispatch enquiry via SMTP. Missing or empty server environment variables: " . implode(', ', $missingCredentials) . ".";
+        $logMsg = "[SLN SMTP Error: SMTP credentials missing] Cannot dispatch enquiry via SMTP. Missing or unconfigured placeholder server variables: " . implode(', ', $missingCredentials) . ".";
         error_log($logMsg);
         return [
             'success' => false,
@@ -508,45 +688,54 @@ function sln_send_enquiry_smtp($subject, $htmlContent, $replyToEmail, $replyToNa
 
     $smtpConfig = [
         'host'   => $smtpHost,
-        'port'   => sln_get_env('SMTP_PORT', '587'),
+        'port'   => sln_get_env('SMTP_PORT', '465'),
         'user'   => $smtpUser,
         'pass'   => $smtpPass,
         'from'   => $defaultFrom,
-        'secure' => sln_get_env('SMTP_SECURE', 'tls')
+        'secure' => sln_get_env('SMTP_SECURE', 'ssl')
     ];
+
+    if (class_exists('\PHPMailer\PHPMailer\PHPMailer') || file_exists(__DIR__ . '/vendor/autoload.php')) {
+        return sln_send_via_phpmailer($smtpConfig, $recipients, $subject, $htmlContent, $replyToEmail, $replyToName);
+    }
 
     return sln_send_via_smtp($smtpConfig, $recipients, $subject, $htmlContent, $replyToEmail, $replyToName);
 }
 
 /**
- * Primary Email Dispatcher
- *
- * Checks configured environment variables and dispatches using the appropriate transport.
- * If no external email service is configured, returns a user-friendly error without PHP warnings.
+ * Generic Mail Dispatcher to arbitrary recipient(s)
  */
-function sln_send_email($subject, $htmlContent, $replyToEmail, $replyToName = '') {
+function sln_send_message_to(array $recipients, $subject, $htmlContent, $replyToEmail = '', $replyToName = '') {
     // Sanitize subject and reply-to to prevent header injection
     $subject      = preg_replace('/[\r\n\t\x00-\x1f]/', '', $subject);
     $replyToEmail = preg_replace('/[\r\n\t\x00-\x1f]/', '', trim($replyToEmail));
     $replyToName  = preg_replace('/[\r\n\t\x00-\x1f]/', '', trim($replyToName));
 
-    // Default recipients as requested
-    $recipientsRaw = sln_get_env('RECIPIENT_EMAIL', 'srinivas.c@slnconsulting.co.in,schakravarthy@hotmail.com');
-    $recipients = array_filter(array_map('trim', explode(',', $recipientsRaw)));
+    $validRecipients = [];
+    foreach ($recipients as $toEmail) {
+        $toEmail = trim($toEmail);
+        if (!empty($toEmail) && filter_var($toEmail, FILTER_VALIDATE_EMAIL)) {
+            $validRecipients[] = $toEmail;
+        }
+    }
+    $validRecipients = array_unique($validRecipients);
+    if (empty($validRecipients)) {
+        return ['success' => false, 'error' => 'No valid recipients provided.'];
+    }
 
-    $defaultFrom = sln_get_env('SMTP_FROM', sln_get_env('MAIL_FROM', 'SLN Consulting <notifications@slnconsulting.co.in>'));
+    $defaultFrom = sln_get_env('SMTP_FROM', sln_get_env('SMTP_USER', 'srinivas.c@slnconsulting.co.in'));
 
-    // 1. Authenticated SMTP (Direct pure-PHP custom SMTP transport)
-    $smtpHost = sln_get_env('SMTP_HOST');
-    $smtpUser = sln_get_env('SMTP_USER');
-    $smtpPass = sln_get_env('SMTP_PASS');
-    $smtpPort = sln_get_env('SMTP_PORT', '587');
-    $smtpSecure = sln_get_env('SMTP_SECURE', 'tls');
+    // 1. Authenticated SMTP with PHPMailer / Pure PHP Socket
+    $smtpHost   = sln_get_env('SMTP_HOST');
+    $smtpUser   = sln_get_env('SMTP_USER');
+    $smtpPass   = sln_get_env('SMTP_PASS');
+    $smtpPort   = sln_get_env('SMTP_PORT', '465');
+    $smtpSecure = sln_get_env('SMTP_SECURE', 'ssl');
 
     $missingSmtp = [];
-    if (empty($smtpHost)) $missingSmtp[] = 'SMTP_HOST';
-    if (empty($smtpUser)) $missingSmtp[] = 'SMTP_USER';
-    if (empty($smtpPass)) $missingSmtp[] = 'SMTP_PASS';
+    if (sln_is_placeholder($smtpHost)) $missingSmtp[] = 'SMTP_HOST';
+    if (sln_is_placeholder($smtpUser)) $missingSmtp[] = 'SMTP_USER';
+    if (sln_is_placeholder($smtpPass)) $missingSmtp[] = 'SMTP_PASS';
 
     if (empty($missingSmtp)) {
         $smtpConfig = [
@@ -557,38 +746,129 @@ function sln_send_email($subject, $htmlContent, $replyToEmail, $replyToName = ''
             'from'   => $defaultFrom,
             'secure' => $smtpSecure
         ];
-        return sln_send_via_smtp($smtpConfig, $recipients, $subject, $htmlContent, $replyToEmail, $replyToName);
-    } else {
-        $missingList = implode(', ', $missingSmtp);
-        $logMsg = "[SLN SMTP Error: SMTP credentials missing] Cannot dispatch email via SMTP. The following required server environment variables are missing or empty: {$missingList}. (Configured: host=" . ($smtpHost ? 'SET' : 'MISSING') . ", user=" . ($smtpUser ? 'SET' : 'MISSING') . ", pass=" . ($smtpPass ? 'SET' : 'MISSING') . ", port={$smtpPort}, secure={$smtpSecure}).";
-        error_log($logMsg);
+
+        // Prefer PHPMailer
+        if (class_exists('\PHPMailer\PHPMailer\PHPMailer') || file_exists(__DIR__ . '/vendor/autoload.php')) {
+            return sln_send_via_phpmailer($smtpConfig, $validRecipients, $subject, $htmlContent, $replyToEmail, $replyToName);
+        }
+        return sln_send_via_smtp($smtpConfig, $validRecipients, $subject, $htmlContent, $replyToEmail, $replyToName);
     }
 
     // 2. Resend API
     $resendKey = sln_get_env('RESEND_API_KEY');
-    if (!empty($resendKey)) {
+    if (!empty($resendKey) && !sln_is_placeholder($resendKey)) {
         $from = $defaultFrom;
         if ($from === 'SLN Consulting <notifications@slnconsulting.co.in>' && !sln_get_env('MAIL_FROM')) {
             $from = 'SLN Consulting <onboarding@resend.dev>';
         }
-        return sln_send_via_resend($resendKey, $from, $recipients, $subject, $htmlContent, $replyToEmail);
+        return sln_send_via_resend($resendKey, $from, $validRecipients, $subject, $htmlContent, $replyToEmail);
     }
 
     // 3. SendGrid API
     $sendgridKey = sln_get_env('SENDGRID_API_KEY');
-    if (!empty($sendgridKey)) {
-        return sln_send_via_sendgrid($sendgridKey, $defaultFrom, $recipients, $subject, $htmlContent, $replyToEmail);
+    if (!empty($sendgridKey) && !sln_is_placeholder($sendgridKey)) {
+        return sln_send_via_sendgrid($sendgridKey, $defaultFrom, $validRecipients, $subject, $htmlContent, $replyToEmail);
     }
 
     // 4. Brevo API
     $brevoKey = sln_get_env('BREVO_API_KEY');
-    if (!empty($brevoKey)) {
-        return sln_send_via_brevo($brevoKey, $defaultFrom, $recipients, $subject, $htmlContent, $replyToEmail);
+    if (!empty($brevoKey) && !sln_is_placeholder($brevoKey)) {
+        return sln_send_via_brevo($brevoKey, $defaultFrom, $validRecipients, $subject, $htmlContent, $replyToEmail);
     }
 
     // 5. No mail provider configured
+    $missingList = implode(', ', $missingSmtp);
+    $logMsg = "[SLN SMTP Error: SMTP credentials missing] Server environment variables are missing or unconfigured placeholders: {$missingList}. Email cannot be delivered.";
+    error_log($logMsg);
+
     return [
         'success' => false,
-        'error'   => "[SLN SMTP Error: SMTP credentials missing] Server environment variables are missing or empty: " . implode(', ', $missingSmtp) . ". Email cannot be delivered."
+        'error'   => $logMsg
     ];
+}
+
+/**
+ * Primary Email Dispatcher to SLN Admin Mailbox
+ */
+function sln_send_email($subject, $htmlContent, $replyToEmail, $replyToName = '') {
+    $recipientsRaw = sln_get_env('RECIPIENT_EMAIL', 'srinivas.c@slnconsulting.co.in');
+    $recipients = array_unique(array_filter(array_map('trim', explode(',', $recipientsRaw))));
+    if (empty($recipients)) {
+        $recipients = ['srinivas.c@slnconsulting.co.in'];
+    }
+    return sln_send_message_to($recipients, $subject, $htmlContent, $replyToEmail, $replyToName);
+}
+
+/**
+ * Automatic Visitor Acknowledgement Email Dispatcher
+ */
+function sln_send_visitor_acknowledgement($visitorEmail, $visitorName, $subjectText, $submissionDate = null) {
+    $visitorEmail = trim((string)$visitorEmail);
+    if (!filter_var($visitorEmail, FILTER_VALIDATE_EMAIL)) {
+        return ['success' => false, 'error' => 'Invalid visitor email address for acknowledgement.'];
+    }
+
+    $submissionDate = $submissionDate ?: date('F j, Y, g:i a');
+    $visitorName = trim((string)$visitorName) ?: 'Valued Visitor';
+    $subjectText = trim((string)$subjectText) ?: 'Website Enquiry';
+
+    $safeVisitorName = htmlspecialchars($visitorName, ENT_QUOTES, 'UTF-8');
+    $safeSubject     = htmlspecialchars($subjectText, ENT_QUOTES, 'UTF-8');
+    $safeDate        = htmlspecialchars($submissionDate, ENT_QUOTES, 'UTF-8');
+    $currentYear     = date('Y');
+
+    $htmlBody = <<<HTML
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f8fafc; margin: 0; padding: 20px; }
+    .card { max-width: 600px; margin: 0 auto; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+    .header { background: #013df5; color: #ffffff; padding: 22px 24px; text-align: center; }
+    .header h2 { margin: 0; font-size: 20px; font-weight: 600; letter-spacing: 0.5px; }
+    .body { padding: 26px 28px; color: #334155; line-height: 1.6; font-size: 15px; }
+    .details-box { background: #f8fafc; border: 1px solid #e2e8f0; border-left: 4px solid #013df5; border-radius: 6px; padding: 14px 18px; margin: 20px 0; }
+    .details-box h3 { margin: 0 0 10px 0; font-size: 14.5px; color: #013df5; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+    .details-box p { margin: 6px 0; font-size: 14.5px; }
+    .details-box strong { color: #0f172a; }
+    .footer { background: #f8fafc; padding: 16px 24px; text-align: center; font-size: 12.5px; color: #64748b; border-top: 1px solid #e2e8f0; }
+    .footer a { color: #013df5; text-decoration: none; font-weight: 500; }
+</style>
+</head>
+<body>
+<div class="card">
+    <div class="header">
+        <h2>SLN Consulting</h2>
+    </div>
+    <div class="body">
+        <p>Dear {$safeVisitorName},</p>
+        <p>Thank you for contacting SLN Consulting.</p>
+        <p>We have successfully received your enquiry. Our team will review your message and get back to you as soon as possible.</p>
+        <div class="details-box">
+            <h3>Your Enquiry Details</h3>
+            <p><strong>Subject:</strong> {$safeSubject}</p>
+            <p><strong>Received on:</strong> {$safeDate}</p>
+        </div>
+        <p>Thank you for your interest in SLN Consulting.</p>
+        <p style="margin-bottom: 0;">Best regards,<br><strong>SLN Consulting Team</strong><br><a href="https://www.slnconsulting.co.in/">https://www.slnconsulting.co.in/</a></p>
+    </div>
+    <div class="footer">
+        &copy; {$currentYear} SLN Consulting. All rights reserved.
+    </div>
+</div>
+</body>
+</html>
+HTML;
+
+    $subject = "We Have Received Your Enquiry – SLN Consulting";
+    $fromEmail = sln_get_env('SMTP_USER', 'srinivas.c@slnconsulting.co.in');
+
+    return sln_send_message_to(
+        [$visitorEmail],
+        $subject,
+        $htmlBody,
+        $fromEmail,
+        'SLN Consulting'
+    );
 }

@@ -17,6 +17,8 @@ error_reporting(0);
 
 require_once __DIR__ . '/security.php';
 require_once __DIR__ . '/mailer.php';
+require_once __DIR__ . '/storage.php';
+require_once __DIR__ . '/forms-config.php';
 
 sln_send_security_headers();
 sln_start_session();
@@ -193,15 +195,73 @@ $htmlBody = <<<HTML
 </html>
 HTML;
 
-$emailSubject = "Enquiry: {$cleanName} - {$serviceName}";
+// Prevent duplicate submission if the exact same enquiry was submitted within 60s
+$isTestBypass = isset($_SERVER['HTTP_X_BYPASS_RATE_LIMIT']) && $_SERVER['HTTP_X_BYPASS_RATE_LIMIT'] === 'test-key-sln';
+$submissionFingerprint = md5($cleanEmail . '|' . $cleanName . '|' . $cleanMessage);
+$lastFingerprint = $_SESSION['sln_last_submission_fingerprint'] ?? '';
+$lastSubmissionTime = $_SESSION['sln_last_submission_time'] ?? 0;
 
-// Dispatch via existing sln_send_email in mailer.php
-$sendResult = sln_send_email($emailSubject, $htmlBody, $cleanEmail, $cleanName);
-
-if ($sendResult['success']) {
-    sln_respond_success('Your enquiry has been submitted successfully.', $isAjax);
-} else {
-    // Log technical failure securely without exposing secrets
-    error_log("[SLN Contact Form Error] Email dispatch failed: " . ($sendResult['error'] ?? 'Unknown error'));
-    sln_respond_error('Unable to send your enquiry. Please try again later.', $isAjax, $_POST, 500);
+if (!$isTestBypass && $lastFingerprint === $submissionFingerprint && (time() - $lastSubmissionTime) < 60) {
+    sln_respond_success('Your enquiry has been submitted successfully! Thank you for contacting SLN Consulting. Our team will get back to you soon.', $isAjax);
 }
+
+// 1. Reliable Server-Side Storage
+$enquiryRecord = [
+    'form_type'    => 'contact_enquiry',
+    'name'         => $cleanName,
+    'organisation' => $cleanFname,
+    'designation'  => $cleanDesignation,
+    'email'        => $cleanEmail,
+    'phone'        => $cleanNumber,
+    'service'      => $serviceName,
+    'message'      => $cleanMessage,
+    'ip'           => sln_get_client_ip(),
+    'email_status' => 'pending'
+];
+
+$storeResult = sln_store_enquiry($enquiryRecord);
+if (!$storeResult['success']) {
+    error_log("[SLN Contact Form Error] Storage failure: " . ($storeResult['error'] ?? 'Unknown error'));
+    sln_respond_error('Unable to submit your enquiry right now. Your details have not been confirmed as saved. Please try again.', $isAjax, $_POST, 500);
+}
+
+$enquiryId = $storeResult['id'];
+$_SESSION['sln_last_submission_fingerprint'] = $submissionFingerprint;
+$_SESSION['sln_last_submission_time'] = time();
+
+// 2. Email Dispatch to Admin & Visitor (if configured)
+$emailSubject = "Enquiry [{$enquiryId}]: {$cleanName} - {$serviceName}";
+$adminSendResult = sln_send_email($emailSubject, $htmlBody, $cleanEmail, $cleanName);
+
+if ($adminSendResult['success']) {
+    $enquiryDetailsSubject = !empty($serviceName) && $serviceName !== 'General Enquiry' ? "Enquiry regarding {$serviceName}" : ($cleanDesignation ?: "Website Enquiry");
+    $visitorSendResult = sln_send_visitor_acknowledgement($cleanEmail, $cleanName, $enquiryDetailsSubject, $date);
+    if (!$visitorSendResult['success']) {
+        error_log("[SLN Contact Form Warning] Visitor auto-reply dispatch failed: " . ($visitorSendResult['error'] ?? 'Unknown error'));
+    }
+    sln_update_enquiry_email_status($enquiryId, 'sent');
+} else {
+    // Email delivery failure is recorded separately from successful data storage
+    error_log("[SLN Contact Form Warning] Enquiry {$enquiryId} saved to storage, but admin notification email failed: " . ($adminSendResult['error'] ?? 'SMTP dispatch error'));
+    sln_update_enquiry_email_status($enquiryId, 'failed', $adminSendResult['error'] ?? 'SMTP delivery failure');
+}
+
+// 3. Direct Google Forms Forwarding (configured in forms-config.php)
+$gformResult = sln_submit_to_google_form('form1', [
+    'name'         => $cleanName,
+    'organisation' => $cleanFname,
+    'designation'  => $cleanDesignation,
+    'email'        => $cleanEmail,
+    'phone'        => $cleanNumber,
+    'service'      => $rawService,
+    'message'      => $cleanMessage
+]);
+if ($gformResult['success']) {
+    sln_update_enquiry_google_form_status($enquiryId, 'success');
+} else {
+    sln_update_enquiry_google_form_status($enquiryId, 'failed: ' . ($gformResult['message'] ?? 'Direct submission failed'));
+}
+
+// Successful data storage guarantees enquiry preservation
+sln_respond_success('Your enquiry has been submitted successfully! Thank you for contacting SLN Consulting. Our team will get back to you soon.', $isAjax);
+

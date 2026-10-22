@@ -44,8 +44,11 @@ $forbiddenPatterns = [
     '/\.json$/i',
     '/\.log$/i',
     '/\.md$/i',
+    '/\.lock$/i',
     '/^security\.php$/i',
-    '/^mailer\.php$/i'
+    '/^mailer\.php$/i',
+    '/smtp/i',
+    '/^vendor/i'
 ];
 foreach ($forbiddenPatterns as $pattern) {
     if (preg_match($pattern, $cleanPath)) {
